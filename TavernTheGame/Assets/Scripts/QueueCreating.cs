@@ -6,6 +6,7 @@ public class QueueCreating : MonoBehaviour
 {
     [SerializeField] private CharactersVariants variants;
     [SerializeField] private GuestMover curGuest;
+    [SerializeField] private Vector3 spawnPoint;
 
     private static int guestCounter = 0;
     private float waitTime = 18f;
@@ -42,7 +43,7 @@ public class QueueCreating : MonoBehaviour
         
         Destroy(servicedGuest,0.5f);
 
-        curGuest.charStatus = GuestMover.Status.Spawned;
+        curGuest.charStatus = GuestMover.Status.Waiting;
         curGuest.timeIsUped = false;
 
         guestCounter--;
@@ -60,7 +61,7 @@ public class QueueCreating : MonoBehaviour
 
     public void CreateGuestObject() {
         rand = Random.Range(0, variants.CharactersSkins.Count);
-        GameObject newGuest = Instantiate(variants.CharactersSkins[rand], variants.CharactersSkins[rand].transform.position, guestSample.transform.rotation);
+        GameObject newGuest = Instantiate(variants.CharactersSkins[rand], spawnPoint, guestSample.transform.rotation);
         variants.Characters.Add(newGuest);
         guestCounter++;
     }
