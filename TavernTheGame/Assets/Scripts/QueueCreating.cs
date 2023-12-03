@@ -5,15 +5,13 @@ using UnityEngine;
 public class QueueCreating : MonoBehaviour
 {
     [SerializeField] private CharactersVariants variants;
-    [SerializeField] private GuestMover curGuest;
-    [SerializeField] private Vector3 spawnPoint;
+    [SerializeField] private GuestMover guestMover;
+    [SerializeField] private Transform spawnPoint;
 
     private static int guestCounter = 0;
     private float waitTime = 18f;
     private int rand;
-
-    public GameObject guestSample;
-    public GameObject spawner;
+    private GameObject curGuest;
 
     private void Start() {
         //Заводим куратину на создание нового гостя через определённый временной промежуток
@@ -22,29 +20,36 @@ public class QueueCreating : MonoBehaviour
 
     private void Update() {
         //Если клиент ушёл, то удаляем его со сцены
-        if (curGuest.charStatus == GuestMover.Status.Out){
+        if (guestMover.charStatus == GuestMover.Status.Out){
             DestroyServicedGuest();
+            SpawnNewGuest();
         }
     }
 
     private IEnumerator SpawnNewCharacter(){
         //Тут ссылаемся на конкретные координаты, в случае чего поменять
         while (guestCounter < 16) {
-            CreateGuestObject();
+            CreateGuest();
 
             yield return new WaitForSeconds(waitTime);   
         }
 
     }
 
+    private void SpawnNewGuest(){
+        if (variants.Characters.Count == 0) {
+            CreateGuest();
+        }
+        curGuest = Instantiate(variants.Characters[0], spawnPoint.position, Quaternion.identity);
+    }
+
     private void DestroyServicedGuest(){
-        GameObject servicedGuest = variants.Characters[0];
         variants.Characters.RemoveAt(0);
         
-        Destroy(servicedGuest,0.5f);
+        Destroy(curGuest);
 
-        curGuest.charStatus = GuestMover.Status.Waiting;
-        curGuest.timeIsUped = false;
+        guestMover.charStatus = GuestMover.Status.Waiting;
+        guestMover.timeIsUped = false;
 
         guestCounter--;
     }
@@ -59,10 +64,12 @@ public class QueueCreating : MonoBehaviour
         }
     }
 
-    public void CreateGuestObject() {
+    public void CreateGuest() {
         rand = Random.Range(0, variants.CharactersSkins.Count);
-        GameObject newGuest = Instantiate(variants.CharactersSkins[rand], spawnPoint, guestSample.transform.rotation);
+        GameObject newGuest = variants.CharactersSkins[rand];
         variants.Characters.Add(newGuest);
+        if (guestCounter < 1)
+            SpawnNewGuest();
         guestCounter++;
     }
 }

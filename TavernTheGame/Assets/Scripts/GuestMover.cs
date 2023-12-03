@@ -20,10 +20,6 @@ public class GuestMover : MonoBehaviour
     }
 
     private void Update() {
-        if (variants.Characters.Count == 0) {
-            queueCreator.CreateGuestObject();
-        }
-        
         if (charStatus == Status.Waiting) {
             //Немного меняем анимацию клиента в состоянии ожидания
             Wait();
