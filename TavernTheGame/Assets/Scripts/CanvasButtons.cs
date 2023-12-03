@@ -125,4 +125,12 @@ public class CanvasButtons : MonoBehaviour
         gameObject.GetComponent<AudioSource>().PlayOneShot(sound);
     }
 
+    public void ShowAnObject(GameObject gameObj) {
+        gameObj.SetActive(true);
+    }   
+
+    public void HideAnObject(GameObject gameObj) {
+        gameObj.SetActive(false);
+    }
+
 }
