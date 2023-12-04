@@ -20,7 +20,7 @@ public class QueueCreating : MonoBehaviour
 
     private void FixedUpdate() {
         //Если клиент ушёл, то удаляем его со сцены
-        if (guestMover.charStatus == GuestMover.Status.Out){
+        if (guestMover.GetStatus() != GuestMover.Status.Waiting && guestMover.GetStatus() != GuestMover.Status.EventWasGenerated){
             DestroyServicedGuest();
             SpawnNewGuest();
         }
@@ -42,7 +42,7 @@ public class QueueCreating : MonoBehaviour
             CreateGuest();
         }
         curGuest = Instantiate(variants.Characters[0], spawnPoint.position, Quaternion.identity);
-        guestMover.SetStatusToWaiting();
+        guestMover.SetStatus(GuestMover.Status.Waiting);
     }
 
     private void DestroyServicedGuest(){
@@ -50,7 +50,7 @@ public class QueueCreating : MonoBehaviour
         
         Destroy(curGuest);
 
-        guestMover.charStatus = GuestMover.Status.Waiting;
+        guestMover.SetStatus(GuestMover.Status.Waiting);
         guestMover.SetTimeIsUp(false);
 
         guestCounter--;

@@ -5,8 +5,9 @@ using UnityEngine;
 public class GuestMover : MonoBehaviour
 {
     [SerializeField] private CharactersVariants variants;
+    [SerializeField] private FoodOrdering foodOrdering;
     
-    public Status charStatus;
+    private Status charStatus;
     private bool timeIsUped = false;
     [SerializeField] private QueueCreating queueCreator;
     private float vSpeed = 35f;
@@ -16,7 +17,9 @@ public class GuestMover : MonoBehaviour
 
     public enum Status {
         Waiting,
-        Out
+        EventWasGenerated,
+        Serviced,
+        EventIsFinished
     }
 
     private void Update() {
@@ -47,17 +50,18 @@ public class GuestMover : MonoBehaviour
 
     //Если время вышло, то для продолжения движения клиента обновляем переменные
     public void SetTimeIsUp(bool value = true) {
-        timeIsUped = value;
-        if (charStatus == Status.Waiting) {   
-            charStatus = Status.Out;
-        }
+        foodOrdering.AnswerIfClientWasntServiced();
     }
 
     public bool GetTimeIsUp() {
         return timeIsUped;
     }
 
-    public void SetStatusToWaiting() {
-        charStatus = Status.Waiting;
+    public void SetStatus(Status value) {
+        charStatus = value;
+    }
+
+    public Status GetStatus() {
+        return charStatus;
     }
 }
