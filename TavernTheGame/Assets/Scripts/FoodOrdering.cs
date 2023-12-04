@@ -33,7 +33,7 @@ public class FoodOrdering : MonoBehaviour
     private void FixedUpdate() {
         //Если клиент дошёл до точки и он не сделал ещё заказ, то формируем заказ
         
-        if (curGuest.charStatus == GuestMover.Status.Waiting && curOrder == null && !eventWasGenerated) {
+        if (curGuest.GetStatus() == GuestMover.Status.Waiting && curOrder == null) {
             int randForEvent = Random.Range(0, 100);
             messageCloud.SetActive(true);
             if (randForEvent > 40) {
@@ -44,12 +44,12 @@ public class FoodOrdering : MonoBehaviour
                 //После преветствия с задержкой вызываем функцию, в которой выводится сообщение с заказом
                 Invoke("SayWhatYouWant", 3f);
             } else {
+                curGuest.SetStatus(GuestMover.Status.EventWasGenerated);
                 events.CreateAnEvent();
-                eventWasGenerated = true;
             }
         }
         
-        if (curIssue != null && !isReacted && isOrderTold && !eventWasGenerated) {
+        if (curIssue != null && !isReacted && isOrderTold) {
             //Формируем реакцию клиента
             Mood guestReaction = React();
             //Формируем сообщение с ответной реакцией
@@ -58,20 +58,7 @@ public class FoodOrdering : MonoBehaviour
             Pay(guestReaction);
             isReacted = true;
             //После получения заказа, вызываем функцию, которая заставляет клиента двигаться дальше
-            curGuest.SetTimeIsUp(true);
-        }
-        
-        if (curGuest.GetTimeIsUp() == true){
-            //Если заказ не был выдан, то формируем сообщение с реакцией на это
-            if (!isReacted && curOrder != null) {
-                AnswerIfClientWasntServiced();
-                isReacted = true;
-            }
-            //Обнуляем заказ клиента и выданный пользователем
-            curOrder = null;
-            curIssue = null;
-            eventWasGenerated = false;
-            Invoke("HideMessageCloud", 5f);
+            curGuest.SetStatus(GuestMover.Status.Serviced);
         }
     }
 
@@ -181,7 +168,7 @@ public class FoodOrdering : MonoBehaviour
         isOrderTold = true;
     }
 
-    private void AnswerIfClientWasntServiced() {
+    public void AnswerIfClientWasntServiced() {
         //Обновляем интерфейс сообщения
         int rand = Random.Range(0, variants.WasntServicedPhrases.Count);
         messageText.text = variants.WasntServicedPhrases[rand];
@@ -190,11 +177,12 @@ public class FoodOrdering : MonoBehaviour
         reactEmoji.sprite = variants.CrazyEmojis[rand];
 
         audioPhrase.Play();
-    }
 
-    private void HideMessageCloud(){
-        //messageCloud.SetActive(false);
+        //Обнуляем заказ клиента и выданный пользователем
+        curOrder = null;
+        curIssue = null;
         isReacted = false;
+        eventWasGenerated = false;
     }
 
     public bool GetEventWasGenerated() {
