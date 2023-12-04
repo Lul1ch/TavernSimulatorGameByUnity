@@ -18,7 +18,7 @@ public class QueueCreating : MonoBehaviour
         StartCoroutine(SpawnNewCharacter());
     }
 
-    private void Update() {
+    private void FixedUpdate() {
         //Если клиент ушёл, то удаляем его со сцены
         if (guestMover.charStatus == GuestMover.Status.Out){
             DestroyServicedGuest();
@@ -68,6 +68,7 @@ public class QueueCreating : MonoBehaviour
         rand = Random.Range(0, variants.CharactersSkins.Count);
         GameObject newGuest = variants.CharactersSkins[rand];
         variants.Characters.Add(newGuest);
+        Debug.Log("Counter of guests " + guestCounter);
         if (guestCounter < 1)
             SpawnNewGuest();
         guestCounter++;
