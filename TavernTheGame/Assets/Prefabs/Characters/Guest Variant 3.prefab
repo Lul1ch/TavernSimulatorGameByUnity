@@ -10,7 +10,7 @@ PrefabInstance:
     - target: {fileID: 1014175832116616220, guid: 09c52954a35e8904fa4e8cc2ab0ffabe, type: 3}
       propertyPath: m_audioClip
       value: 
-      objectReference: {fileID: 8300000, guid: d4bd80c8c6b9bbf4caba75b3b303cc10, type: 3}
+      objectReference: {fileID: 8300000, guid: 3233525e081529e4ba046f3742157cb0, type: 3}
     - target: {fileID: 1114603053268752441, guid: 09c52954a35e8904fa4e8cc2ab0ffabe, type: 3}
       propertyPath: m_Name
       value: Guest Variant 3

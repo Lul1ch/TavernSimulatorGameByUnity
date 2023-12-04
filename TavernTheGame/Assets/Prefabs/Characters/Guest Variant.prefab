@@ -72,6 +72,10 @@ PrefabInstance:
       value: Guest Variant
       objectReference: {fileID: 0}
     - target: {fileID: 7857241174540799753, guid: 3d7a895ef6f91bf4bba8d82e9dcf150c, type: 3}
+      propertyPath: m_audioClip
+      value: 
+      objectReference: {fileID: 8300000, guid: 3233525e081529e4ba046f3742157cb0, type: 3}
+    - target: {fileID: 7857241174540799753, guid: 3d7a895ef6f91bf4bba8d82e9dcf150c, type: 3}
       propertyPath: m_PlayOnAwake
       value: 0
       objectReference: {fileID: 0}

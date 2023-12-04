@@ -4572,8 +4572,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   variants: {fileID: 1391082691}
-  charStatus: 0
-  timeIsUped: 0
+  foodOrdering: {fileID: 1391082695}
   queueCreator: {fileID: 1391082694}
 --- !u!114 &1391082694
 MonoBehaviour:
