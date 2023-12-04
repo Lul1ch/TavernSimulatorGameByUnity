@@ -143,7 +143,7 @@ public class EventGenerator : MonoBehaviour
             }
         }
         HideMessageButtons();
-        curGuest.TimeIsUp();
+        curGuest.SetTimeIsUp(true);
         StopCoroutine(coroutine);
         curEvent = Event.None;
     }

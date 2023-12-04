@@ -26,7 +26,8 @@ public class QueueCreating : MonoBehaviour
         }
     }
 
-    private IEnumerator SpawnNewCharacter(){
+    private IEnumerator SpawnNewCharacter() {
+        SpawnNewGuest();
         //Тут ссылаемся на конкретные координаты, в случае чего поменять
         while (guestCounter < 16) {
             CreateGuest();
@@ -41,6 +42,7 @@ public class QueueCreating : MonoBehaviour
             CreateGuest();
         }
         curGuest = Instantiate(variants.Characters[0], spawnPoint.position, Quaternion.identity);
+        guestMover.SetStatusToWaiting();
     }
 
     private void DestroyServicedGuest(){
@@ -49,7 +51,7 @@ public class QueueCreating : MonoBehaviour
         Destroy(curGuest);
 
         guestMover.charStatus = GuestMover.Status.Waiting;
-        guestMover.timeIsUped = false;
+        guestMover.SetTimeIsUp(false);
 
         guestCounter--;
     }
@@ -68,9 +70,7 @@ public class QueueCreating : MonoBehaviour
         rand = Random.Range(0, variants.CharactersSkins.Count);
         GameObject newGuest = variants.CharactersSkins[rand];
         variants.Characters.Add(newGuest);
-        Debug.Log("Counter of guests " + guestCounter);
-        if (guestCounter < 1)
-            SpawnNewGuest();
+        //Debug.Log("Counter of guests " + guestCounter);
         guestCounter++;
     }
 }

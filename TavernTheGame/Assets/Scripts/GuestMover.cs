@@ -7,7 +7,7 @@ public class GuestMover : MonoBehaviour
     [SerializeField] private CharactersVariants variants;
     
     public Status charStatus;
-    public bool timeIsUped = false;
+    private bool timeIsUped = false;
     [SerializeField] private QueueCreating queueCreator;
     private float vSpeed = 35f;
     private float waitTime = 15f;
@@ -46,11 +46,18 @@ public class GuestMover : MonoBehaviour
     }
 
     //Если время вышло, то для продолжения движения клиента обновляем переменные
-    public void TimeIsUp() {
+    public void SetTimeIsUp(bool value = true) {
+        timeIsUped = value;
         if (charStatus == Status.Waiting) {   
-            timeIsUped = true;
             charStatus = Status.Out;
         }
     }
 
+    public bool GetTimeIsUp() {
+        return timeIsUped;
+    }
+
+    public void SetStatusToWaiting() {
+        charStatus = Status.Waiting;
+    }
 }

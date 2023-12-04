@@ -32,6 +32,7 @@ public class FoodOrdering : MonoBehaviour
 
     private void FixedUpdate() {
         //Если клиент дошёл до точки и он не сделал ещё заказ, то формируем заказ
+        
         if (curGuest.charStatus == GuestMover.Status.Waiting && curOrder == null && !eventWasGenerated) {
             int randForEvent = Random.Range(0, 100);
             messageCloud.SetActive(true);
@@ -47,7 +48,7 @@ public class FoodOrdering : MonoBehaviour
                 eventWasGenerated = true;
             }
         }
-
+        
         if (curIssue != null && !isReacted && isOrderTold && !eventWasGenerated) {
             //Формируем реакцию клиента
             Mood guestReaction = React();
@@ -57,10 +58,10 @@ public class FoodOrdering : MonoBehaviour
             Pay(guestReaction);
             isReacted = true;
             //После получения заказа, вызываем функцию, которая заставляет клиента двигаться дальше
-            curGuest.TimeIsUp();
+            curGuest.SetTimeIsUp(true);
         }
-
-        if (curGuest.timeIsUped == true){
+        
+        if (curGuest.GetTimeIsUp() == true){
             //Если заказ не был выдан, то формируем сообщение с реакцией на это
             if (!isReacted && curOrder != null) {
                 AnswerIfClientWasntServiced();
