@@ -4562,6 +4562,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   foodOrdering: {fileID: 1391082695}
+  guestMover: {fileID: 1391082693}
 --- !u!1 &1472405819
 GameObject:
   m_ObjectHideFlags: 0
