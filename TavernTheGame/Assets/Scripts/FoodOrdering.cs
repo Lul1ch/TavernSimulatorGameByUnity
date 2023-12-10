@@ -57,6 +57,7 @@ public class FoodOrdering : MonoBehaviour
             //Проводим плату за заказ
             Pay(guestReaction);
             isReacted = true;
+            ClearVariablesValues();
             //После получения заказа, вызываем функцию, которая заставляет клиента двигаться дальше
             curGuest.SetStatus(GuestMover.Status.Serviced);
         }
@@ -177,15 +178,19 @@ public class FoodOrdering : MonoBehaviour
         reactEmoji.sprite = variants.CrazyEmojis[rand];
 
         audioPhrase.Play();
-
+        ClearVariablesValues();
         //Обнуляем заказ клиента и выданный пользователем
-        curOrder = null;
-        curIssue = null;
-        isReacted = false;
-        eventWasGenerated = false;
+        
     }
 
     public bool GetEventWasGenerated() {
         return eventWasGenerated;
+    }
+
+    public void ClearVariablesValues() {
+        curOrder = null;
+        curIssue = null;
+        isReacted = false;
+        eventWasGenerated = false;
     }
 }

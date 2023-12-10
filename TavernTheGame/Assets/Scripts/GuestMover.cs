@@ -24,11 +24,13 @@ public class GuestMover : MonoBehaviour
 
     private void Update() {
         if (charStatus == Status.Waiting) {
+            
             //Немного меняем анимацию клиента в состоянии ожидания
             Wait();
             //Чтобы клиент продолжил движение запускаем отложенную функцию, которая позволит ему это сделать после заданного времени
             if (!isTimeIsUpInvoked) {
-                Invoke("TimeIsUp", waitTime);
+                Debug.Log("In updater");
+                Invoke("SetTimeIsUp", waitTime);
                 isTimeIsUpInvoked = true;
             }
         }
@@ -49,8 +51,14 @@ public class GuestMover : MonoBehaviour
     }
 
     //Если время вышло, то для продолжения движения клиента обновляем переменные
-    public void SetTimeIsUp(bool value = true) {
-        foodOrdering.AnswerIfClientWasntServiced();
+    public void SetTimeIsUp() {
+        if (charStatus == Status.Waiting) {
+            foodOrdering.AnswerIfClientWasntServiced();
+        }
+    }
+
+    public void CancelSTimeIsUpInvoke() {
+        CancelInvoke("SetTimeIsUp");
     }
 
     public bool GetTimeIsUp() {

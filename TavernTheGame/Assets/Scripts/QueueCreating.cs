@@ -15,18 +15,19 @@ public class QueueCreating : MonoBehaviour
 
     private void Start() {
         //Заводим куратину на создание нового гостя через определённый временной промежуток
-        StartCoroutine(SpawnNewCharacter());
+        StartCoroutine(SpawnNewGuestInQueue());
     }
 
     private void FixedUpdate() {
         //Если клиент ушёл, то удаляем его со сцены
-        if (guestMover.GetStatus() == GuestMover.Status.Serviced && guestMover.GetStatus() == GuestMover.Status.EventIsFinished){
+        if (guestMover.GetStatus() == GuestMover.Status.Serviced || guestMover.GetStatus() == GuestMover.Status.EventIsFinished){
+            System.Threading.Thread.Sleep(1000);
             DestroyServicedGuest();
             SpawnNewGuest();
         }
     }
 
-    private IEnumerator SpawnNewCharacter() {
+    private IEnumerator SpawnNewGuestInQueue() {
         SpawnNewGuest();
         //Тут ссылаемся на конкретные координаты, в случае чего поменять
         while (guestCounter < 16) {
@@ -49,10 +50,8 @@ public class QueueCreating : MonoBehaviour
         variants.Characters.RemoveAt(0);
         
         Destroy(curGuest);
-
+        guestMover.CancelSTimeIsUpInvoke();
         guestMover.SetStatus(GuestMover.Status.Waiting);
-        guestMover.SetTimeIsUp(false);
-
         guestCounter--;
     }
 
@@ -70,7 +69,6 @@ public class QueueCreating : MonoBehaviour
         rand = Random.Range(0, variants.CharactersSkins.Count);
         GameObject newGuest = variants.CharactersSkins[rand];
         variants.Characters.Add(newGuest);
-        //Debug.Log("Counter of guests " + guestCounter);
         guestCounter++;
     }
 }
