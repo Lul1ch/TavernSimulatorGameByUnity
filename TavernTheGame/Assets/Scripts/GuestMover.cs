@@ -11,7 +11,7 @@ public class GuestMover : MonoBehaviour
     private bool timeIsUped = false;
     [SerializeField] private QueueCreating queueCreator;
     private float vSpeed = 35f;
-    private float waitTime = 15f;
+    private float waitTime = 30f;
     private float guestYpos;
     private bool isTimeIsUpInvoked;
 

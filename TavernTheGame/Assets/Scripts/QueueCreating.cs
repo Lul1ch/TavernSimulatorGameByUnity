@@ -9,7 +9,7 @@ public class QueueCreating : MonoBehaviour
     [SerializeField] private Transform spawnPoint;
 
     private static int guestCounter = 0;
-    private float waitTime = 18f;
+    private float waitTime = 20f;
     private int rand;
     private GameObject curGuest;
 
@@ -20,7 +20,7 @@ public class QueueCreating : MonoBehaviour
 
     private void FixedUpdate() {
         //Если клиент ушёл, то удаляем его со сцены
-        if (guestMover.GetStatus() != GuestMover.Status.Waiting && guestMover.GetStatus() != GuestMover.Status.EventWasGenerated){
+        if (guestMover.GetStatus() == GuestMover.Status.Serviced && guestMover.GetStatus() == GuestMover.Status.EventIsFinished){
             DestroyServicedGuest();
             SpawnNewGuest();
         }
