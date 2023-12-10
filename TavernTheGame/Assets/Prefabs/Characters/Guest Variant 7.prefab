@@ -7,6 +7,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 450755673801055343, guid: d6d192d895dd59046ad683bc4210e588, type: 3}
+      propertyPath: m_audioClip
+      value: 
+      objectReference: {fileID: 8300000, guid: 3233525e081529e4ba046f3742157cb0, type: 3}
     - target: {fileID: 515004632802121802, guid: d6d192d895dd59046ad683bc4210e588, type: 3}
       propertyPath: m_Name
       value: Guest Variant 7

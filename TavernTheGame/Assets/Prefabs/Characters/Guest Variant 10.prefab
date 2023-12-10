@@ -55,6 +55,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Guest Variant 10
       objectReference: {fileID: 0}
+    - target: {fileID: 2681152614933682038, guid: a0c4658d749d7ed46b25819acdf00e61, type: 3}
+      propertyPath: m_audioClip
+      value: 
+      objectReference: {fileID: 8300000, guid: d4bd80c8c6b9bbf4caba75b3b303cc10, type: 3}
     - target: {fileID: 5369785131496489262, guid: a0c4658d749d7ed46b25819acdf00e61, type: 3}
       propertyPath: m_Sprite
       value: 
