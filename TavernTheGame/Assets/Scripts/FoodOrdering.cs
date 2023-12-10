@@ -93,23 +93,9 @@ public class FoodOrdering : MonoBehaviour
     }
 
     private Mood React() {
-        Character curCharacter = variants.Characters[0].GetComponent<Character>();
         Mood reaction = Mood.Sad;
-        randomize = Random.Range(0,100);
         //Формируем реакцию клиента в зависимости от того совпадает ли выданный заказ с заказом клиента
-        if (curIssue == curOrder) {
-            if (randomize > curCharacter.GetSatisfactionBorder()) {
-                reaction = Mood.Happy;
-            } else {
-                reaction = Mood.Sad;
-            }
-        } else {
-            if (randomize > curCharacter.GetSatisfactionBorder() + 20) {
-                reaction = Mood.Happy;
-            } else {
-                reaction = Mood.Sad;
-            } 
-        }
+        reaction = (curIssue == curOrder) ? Mood.Happy : Mood.Sad;
         return reaction;
     }
 
