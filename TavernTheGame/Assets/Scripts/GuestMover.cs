@@ -19,7 +19,8 @@ public class GuestMover : MonoBehaviour
         Waiting,
         EventWasGenerated,
         Serviced,
-        EventIsFinished
+        EventIsFinished,
+        Left
     }
 
     private void Update() {

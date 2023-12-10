@@ -6,7 +6,7 @@ using UnityEngine.UI;
 public class FoodOrdering : MonoBehaviour
 {
     [SerializeField] private CharactersVariants variants;
-    [SerializeField] private GuestMover curGuest;
+    [SerializeField] private GuestMover guestMover;
     [SerializeField] private Tavern tavern;
 
     private AudioSource audioPhrase;
@@ -33,7 +33,7 @@ public class FoodOrdering : MonoBehaviour
     private void FixedUpdate() {
         //Если клиент дошёл до точки и он не сделал ещё заказ, то формируем заказ
         
-        if (curGuest.GetStatus() == GuestMover.Status.Waiting && curOrder == null) {
+        if (guestMover.GetStatus() == GuestMover.Status.Waiting && curOrder == null) {
             int randForEvent = Random.Range(0, 100);
             messageCloud.SetActive(true);
             if (randForEvent > 40) {
@@ -44,12 +44,12 @@ public class FoodOrdering : MonoBehaviour
                 //После преветствия с задержкой вызываем функцию, в которой выводится сообщение с заказом
                 Invoke("SayWhatYouWant", 3f);
             } else {
-                curGuest.SetStatus(GuestMover.Status.EventWasGenerated);
+                guestMover.SetStatus(GuestMover.Status.EventWasGenerated);
                 events.CreateAnEvent();
             }
         }
         
-        if (curIssue != null && !isReacted && isOrderTold) {
+        if (curIssue != null && !isReacted && isOrderTold && guestMover.GetStatus() == GuestMover.Status.Waiting) {
             //Формируем реакцию клиента
             Mood guestReaction = React();
             //Формируем сообщение с ответной реакцией
@@ -57,9 +57,8 @@ public class FoodOrdering : MonoBehaviour
             //Проводим плату за заказ
             Pay(guestReaction);
             isReacted = true;
-            ClearVariablesValues();
             //После получения заказа, вызываем функцию, которая заставляет клиента двигаться дальше
-            curGuest.SetStatus(GuestMover.Status.Serviced);
+            guestMover.SetStatus(GuestMover.Status.Serviced);
         }
     }
 
@@ -73,8 +72,8 @@ public class FoodOrdering : MonoBehaviour
             return guestOrder;
         }
 
-        GameObject curGuest = variants.Characters[0];
-        Character charInfo = curGuest.GetComponent<Character>();
+        GameObject guestMover = variants.Characters[0];
+        Character charInfo = guestMover.GetComponent<Character>();
         //В зависимости от предпочтений клиента формируем его заказ
         if (charInfo.charPrefs == Character.PreferencesLevel.Primal) {
             rand = Random.Range(0, variants.ComponentWarehouse.Count);
@@ -178,9 +177,7 @@ public class FoodOrdering : MonoBehaviour
         reactEmoji.sprite = variants.CrazyEmojis[rand];
 
         audioPhrase.Play();
-        ClearVariablesValues();
-        //Обнуляем заказ клиента и выданный пользователем
-        
+        guestMover.SetStatus(GuestMover.Status.Left);
     }
 
     public bool GetEventWasGenerated() {

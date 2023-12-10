@@ -44,6 +44,7 @@ public class QueueCreating : MonoBehaviour
         }
         curGuest = Instantiate(variants.Characters[0], spawnPoint.position, Quaternion.identity);
         guestMover.SetStatus(GuestMover.Status.Waiting);
+        EventBus.onGuestSpawned?.Invoke();
     }
 
     private void DestroyServicedGuest(){
