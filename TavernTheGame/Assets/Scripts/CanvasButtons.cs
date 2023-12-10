@@ -107,9 +107,9 @@ public class CanvasButtons : MonoBehaviour
         SceneManager.LoadScene("MainMenu");
     }
 
-    public void ChangeMusicActivity(AudioSource music) {
+    public void ChangeMusicActivity() {
         isMusicOn = !isMusicOn;
-        music.enabled = isMusicOn;
+        AudioListener.volume = (isMusicOn) ? 1f : 0f;
         if (isMusicOn) {
             musicButton.GetComponent<Image>().sprite = musicOn;
         } else {

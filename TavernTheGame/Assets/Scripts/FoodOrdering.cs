@@ -7,6 +7,7 @@ public class FoodOrdering : MonoBehaviour
 {
     [SerializeField] private CharactersVariants variants;
     [SerializeField] private GuestMover guestMover;
+    [SerializeField] private QueueCreating queueCreator;
     [SerializeField] private Tavern tavern;
 
     private AudioSource audioPhrase;
@@ -23,7 +24,7 @@ public class FoodOrdering : MonoBehaviour
     [Header("EventManager")]
     [SerializeField] private EventGenerator events;
 
-    private int rand = 0, randomize = 0;
+    private int rand = 0;
     private bool isReacted = false;
 
     public enum Mood {
@@ -72,7 +73,7 @@ public class FoodOrdering : MonoBehaviour
             return guestOrder;
         }
 
-        GameObject guestMover = variants.Characters[0];
+        GameObject guestMover = queueCreator.GetCurGuest();
         Character charInfo = guestMover.GetComponent<Character>();
         //В зависимости от предпочтений клиента формируем его заказ
         if (charInfo.charPrefs == Character.PreferencesLevel.Primal) {
@@ -130,7 +131,7 @@ public class FoodOrdering : MonoBehaviour
 
     private void SayHello() {
         //Выводим приветственную фразу и обновляем интерфейс сообщения
-        GameObject curCustomer = variants.Characters[0];
+        GameObject curCustomer = queueCreator.GetCurGuest();
         int rand = Random.Range(0, variants.HelloPhrases.Count);
         messageText.text = variants.HelloPhrases[rand];
         
@@ -139,6 +140,7 @@ public class FoodOrdering : MonoBehaviour
 
         //Рандомим аудио дорожку реплики клиента
         audioPhrase = curCustomer.GetComponent<AudioSource>();
+        Debug.Log("Audio source state " + audioPhrase.enabled);
         rand = Random.Range(0, variants.SpeechSounds.Count);
         audioPhrase.clip = variants.SpeechSounds[rand];
         audioPhrase.Play();

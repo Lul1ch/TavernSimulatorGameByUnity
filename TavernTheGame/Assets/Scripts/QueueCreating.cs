@@ -72,4 +72,8 @@ public class QueueCreating : MonoBehaviour
         variants.Characters.Add(newGuest);
         guestCounter++;
     }
+
+    public GameObject GetCurGuest() {
+        return curGuest;
+    }
 }
