@@ -140,7 +140,6 @@ public class FoodOrdering : MonoBehaviour
 
         //Рандомим аудио дорожку реплики клиента
         audioPhrase = curCustomer.GetComponent<AudioSource>();
-        Debug.Log("Audio source state " + audioPhrase.enabled);
         rand = Random.Range(0, variants.SpeechSounds.Count);
         audioPhrase.clip = variants.SpeechSounds[rand];
         audioPhrase.Play();

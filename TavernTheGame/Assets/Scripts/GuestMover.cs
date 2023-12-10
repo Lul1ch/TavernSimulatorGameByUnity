@@ -25,12 +25,10 @@ public class GuestMover : MonoBehaviour
 
     private void Update() {
         if (charStatus == Status.Waiting) {
-            
             //Немного меняем анимацию клиента в состоянии ожидания
             Wait();
             //Чтобы клиент продолжил движение запускаем отложенную функцию, которая позволит ему это сделать после заданного времени
             if (!isTimeIsUpInvoked) {
-                Debug.Log("In updater");
                 Invoke("SetTimeIsUp", waitTime);
                 isTimeIsUpInvoked = true;
             }
@@ -39,8 +37,8 @@ public class GuestMover : MonoBehaviour
 
     private void Wait() {
         //Берём нужные параметры гостя
-        Rigidbody2D guestRb = variants.Characters[0].GetComponent<Rigidbody2D>();
-        Transform guestPos = variants.Characters[0].GetComponent<Transform>();
+        Rigidbody2D guestRb = queueCreator.GetCurGuest().GetComponent<Rigidbody2D>();
+        Transform guestPos = queueCreator.GetCurGuest().GetComponent<Transform>();
 
         //Убираем движение и задаём вертикаьные покачивания, как имитацию анимации ожидания
         guestRb.velocity = transform.TransformDirection(new Vector2(0, guestRb.velocity.y));
@@ -72,5 +70,9 @@ public class GuestMover : MonoBehaviour
 
     public Status GetStatus() {
         return charStatus;
+    }
+
+    public void SetIsTimeIsUpInvoked(bool value) {
+        isTimeIsUpInvoked = value;
     }
 }
