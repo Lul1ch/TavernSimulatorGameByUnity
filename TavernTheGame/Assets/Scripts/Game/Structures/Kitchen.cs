@@ -5,12 +5,9 @@ using UnityEngine.UI;
 
 public class Kitchen : MonoBehaviour
 {
-    [SerializeField]
-    private List<GameObject> Dishes;
-    [SerializeField]
-    private GameObject kitchenContentElementSample;
-    [SerializeField]
-    private Transform parent;
+    [SerializeField] private List<GameObject> Dishes;
+    [SerializeField] private GameObject kitchenContentElementSample;
+    [SerializeField] private Transform parent;
 
     private void Start() {
         InitKitchenShowcase();

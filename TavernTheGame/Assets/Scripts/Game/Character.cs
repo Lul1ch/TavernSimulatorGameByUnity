@@ -33,7 +33,7 @@ public class Character : MonoBehaviour
 
         //Определяем предпочтения в еде клиента
         var prefsLength = PreferencesLevel.GetNames(typeof(PreferencesLevel)).Length;
-        rand = Random.Range(0,prefsLength);
+        rand = Random.Range(0, prefsLength);
         charPrefs = (PreferencesLevel)rand;
 
         //На основе типа клиента задаём границу удовлетворения для клиента, для дальнейшего определения реакции его при выдаче заказа
