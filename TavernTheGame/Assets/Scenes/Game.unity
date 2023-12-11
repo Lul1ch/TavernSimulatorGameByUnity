@@ -2798,8 +2798,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.23625, y: 0.13640742}
   m_AnchorMax: {x: 0.76000005, y: 0.86200005}
-  m_AnchoredPosition: {x: 1499.9985, y: 2.7349854}
-  m_SizeDelta: {x: 0, y: -0.4500122}
+  m_AnchoredPosition: {x: 0, y: 1100}
+  m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &1007604346
 GameObject:
@@ -3579,11 +3579,11 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 673090503}
         m_TargetAssemblyTypeName: CanvasButtons, Assembly-CSharp
-        m_MethodName: showOrHideStorageWindow
-        m_Mode: 1
+        m_MethodName: showOrHideWindow
+        m_Mode: 2
         m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_ObjectArgument: {fileID: 477349912}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.GameObject, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: 
@@ -4783,11 +4783,11 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 673090503}
         m_TargetAssemblyTypeName: CanvasButtons, Assembly-CSharp
-        m_MethodName: showOrHideShopWindow
-        m_Mode: 1
+        m_MethodName: showOrHideWindow
+        m_Mode: 2
         m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_ObjectArgument: {fileID: 720614119}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.GameObject, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: 
