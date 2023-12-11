@@ -30,21 +30,12 @@ public class CanvasButtons : MonoBehaviour
     [SerializeField] private AudioClip buySound;
     [SerializeField] private AudioClip giveSound;
 
-    private bool isShopWindowActive = false;
-    private bool isStorageWindowActive = false;
     private bool isKitchenWindowActive = false;
     private bool isMusicOn = true;
-    private bool isMessageCloudActive = false;
 
     //Для трёх разных окон заводим функции для показа или скрытия их при нажатии на нужные кнопки
-    public void showOrHideShopWindow() {
-        isShopWindowActive = !isShopWindowActive;
-        shopWindow.SetActive(isShopWindowActive);
-    }
-
-    public void showOrHideStorageWindow() {
-        isStorageWindowActive = !isStorageWindowActive;
-        storageWindow.SetActive(isStorageWindowActive);
+    public void showOrHideWindow(GameObject window) {
+        window.SetActive(!window.activeSelf);
     }
 
     public void showOrHideKitchenWindow() {
@@ -53,18 +44,13 @@ public class CanvasButtons : MonoBehaviour
         if (isKitchenWindowActive) {
             moveWindow(kitchenRT, 0);
         } else {
-            moveWindow(kitchenRT, 1500);
+            moveWindow(kitchenRT, 1100);
         }
     }
 
-    public void showOrHideMessageCloud() {
-        isMessageCloudActive = !isMessageCloudActive;
-        messageCloud.SetActive(isMessageCloudActive);
-    }
-
-    private void moveWindow(RectTransform windowRT, float xCoord) {
-        windowRT.offsetMin = new Vector2(xCoord, 0);
-        windowRT.offsetMax = new Vector2(xCoord, 0);
+    private void moveWindow(RectTransform windowRT, float yCoord) {
+        windowRT.offsetMin = new Vector2(0, yCoord);
+        windowRT.offsetMax = new Vector2(0, yCoord);
     }
 
     public void BuyProduct(ProductInfo productInfo) {
@@ -110,11 +96,7 @@ public class CanvasButtons : MonoBehaviour
     public void ChangeMusicActivity() {
         isMusicOn = !isMusicOn;
         AudioListener.volume = (isMusicOn) ? 1f : 0f;
-        if (isMusicOn) {
-            musicButton.GetComponent<Image>().sprite = musicOn;
-        } else {
-            musicButton.GetComponent<Image>().sprite = musicOff;
-        }
+        musicButton.GetComponent<Image>().sprite = (isMusicOn) ? musicOn : musicOff;
     }
 
     public void PlayOnClickSound(AudioSource objectAudioSource) {
