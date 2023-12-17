@@ -20,7 +20,7 @@ public class QueueCreating : MonoBehaviour
 
     private void FixedUpdate() {
         //Если клиент ушёл, то удаляем его со сцены
-        if (guestMover.GetStatus() == GuestMover.Status.Serviced || guestMover.GetStatus() == GuestMover.Status.EventIsFinished){
+        if (guestMover.GetStatus() != GuestMover.Status.Waiting && guestMover.GetStatus() != GuestMover.Status.EventWasGenerated){
             System.Threading.Thread.Sleep(1000);
             DestroyServicedGuest();
             SpawnNewGuest();
