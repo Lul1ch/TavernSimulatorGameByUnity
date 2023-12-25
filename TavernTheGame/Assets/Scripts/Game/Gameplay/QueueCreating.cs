@@ -6,7 +6,7 @@ public class QueueCreating : MonoBehaviour
 {
     [SerializeField] private CharactersVariants variants;
     [SerializeField] private GuestMover guestMover;
-    [SerializeField] private Transform spawnPoint;
+    [SerializeField] private Transform cameraTransform;
 
     private static int guestCounter = 0;
     private float waitTime = 20f;
@@ -42,7 +42,8 @@ public class QueueCreating : MonoBehaviour
         if (variants.Characters.Count == 0) {
             CreateGuest();
         }
-        curGuest = Instantiate(variants.Characters[0], spawnPoint.position, Quaternion.identity);
+        Vector3 spawnPoint = new Vector3(cameraTransform.position.x, cameraTransform.position.y, 0);
+        curGuest = Instantiate(variants.Characters[0], spawnPoint, Quaternion.identity);
         guestMover.SetStatus(GuestMover.Status.Waiting);
         EventBus.onGuestSpawned?.Invoke();
     }

@@ -27,7 +27,7 @@ public class GuestMover : MonoBehaviour
         Debug.Log(charStatus);
         if (charStatus == Status.Waiting) {
             //Немного меняем анимацию клиента в состоянии ожидания
-            Wait();
+            //Wait();
             //Чтобы клиент продолжил движение запускаем отложенную функцию, которая позволит ему это сделать после заданного времени
             if (!isTimeIsUpInvoked) {
                 Invoke("SetTimeIsUp", waitTime);

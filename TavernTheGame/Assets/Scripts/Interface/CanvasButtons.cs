@@ -4,14 +4,9 @@ using UnityEngine.SceneManagement;
 
 public class CanvasButtons : MonoBehaviour
 {
-    public GameObject shopWindow;
-    public GameObject storageWindow;
     public GameObject kitchenWindow;
 
     public GameObject shopWindowContent;
-
-    [Header("Objects")]
-    [SerializeField] private GameObject messageCloud;
 
     [Header("Scripts")]
     [SerializeField] private Tavern tavern;
@@ -44,17 +39,18 @@ public class CanvasButtons : MonoBehaviour
         if (isKitchenWindowActive) {
             moveWindow(kitchenRT, 0);
         } else {
-            moveWindow(kitchenRT, 1100);
+            moveWindow(kitchenRT, 1500f);
         }
     }
 
     private void moveWindow(RectTransform windowRT, float yCoord) {
-        windowRT.offsetMin = new Vector2(0, yCoord);
-        windowRT.offsetMax = new Vector2(0, yCoord);
+        windowRT.offsetMin = new Vector2(0f, yCoord);
+        windowRT.offsetMax = new Vector2(0f, yCoord);
     }
 
     public void BuyProduct(ProductInfo productInfo) {
         if (tavern.GetTavernMoney() >= productInfo.productPrice) {
+            Debug.Log(tavern);
             //Проводиться оплата за покупку выбранного товара
             tavern.DecreaseTavernMoney(productInfo.productPrice);
             //Добавление продукта на склад
