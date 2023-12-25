@@ -154,7 +154,7 @@ MonoBehaviour:
   canvasButtons: {fileID: 1391082697}
   cookSound: {fileID: 8300000, guid: b388ac346c2300c429a352cf34399246, type: 3}
   kitchen: {fileID: 1247837084}
-  tavern: {fileID: 1243914069}
+  tavern: {fileID: 0}
   timerSample: {fileID: 783788536}
   cookButton: {fileID: 20041110}
   dishInfo: {fileID: 20041114}
@@ -623,7 +623,7 @@ MonoBehaviour:
   denyButton: {fileID: 1472405821}
   variants: {fileID: 1391082691}
   curGuest: {fileID: 1391082693}
-  tavern: {fileID: 1243914069}
+  tavern: {fileID: 0}
 --- !u!4 &283003098
 Transform:
   m_ObjectHideFlags: 0
@@ -3231,6 +3231,52 @@ RectTransform:
   m_AnchoredPosition: {x: 293.06146, y: -7.7824225}
   m_SizeDelta: {x: 273.85196, y: 111.34816}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!1 &893678947
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 893678949}
+  - component: {fileID: 893678948}
+  m_Layer: 0
+  m_Name: EndOfTheGameObserver
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &893678948
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 893678947}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2dcb5e568057e7a4da32bccd378c57e7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  tavern: {fileID: 472954085}
+  queue: {fileID: 1391082694}
+--- !u!4 &893678949
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 893678947}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 421.98364, y: 236.3311, z: -5.002077}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 14
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &951002027
 GameObject:
   m_ObjectHideFlags: 0
@@ -3914,7 +3960,6 @@ GameObject:
   m_Component:
   - component: {fileID: 1015205601}
   - component: {fileID: 1015205600}
-  - component: {fileID: 1015205602}
   m_Layer: 0
   m_Name: Music box
   m_TagString: Untagged
@@ -4033,20 +4078,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 12
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1015205602
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1015205599}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2dcb5e568057e7a4da32bccd378c57e7, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  tavern: {fileID: 1243914069}
-  queue: {fileID: 1391082694}
 --- !u!1 &1019864564
 GameObject:
   m_ObjectHideFlags: 0
@@ -5080,7 +5111,6 @@ GameObject:
   - component: {fileID: 1243914067}
   - component: {fileID: 1243914066}
   - component: {fileID: 1243914065}
-  - component: {fileID: 1243914069}
   m_Layer: 5
   m_Name: MainInterface
   m_TagString: Tavern
@@ -5176,24 +5206,6 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0, y: 0}
---- !u!114 &1243914069
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1243914064}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d6e0397526d5a234abdc29582ca4bfe7, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  moneyAmount: {fileID: 467659990}
-  guestsNumber: {fileID: 879331108}
-  bonusNumber: {fileID: 1918580345}
-  variants: {fileID: 1391082691}
-  contentSample: {fileID: 1178137635}
-  parent: {fileID: 1028216134}
 --- !u!1 &1247837081
 GameObject:
   m_ObjectHideFlags: 0
@@ -5959,7 +5971,7 @@ MonoBehaviour:
   variants: {fileID: 1391082691}
   guestMover: {fileID: 1391082693}
   queueCreator: {fileID: 1391082694}
-  tavern: {fileID: 1243914069}
+  tavern: {fileID: 472954085}
   curOrder: {fileID: 0}
   curIssue: {fileID: 0}
   isOrderTold: 0
