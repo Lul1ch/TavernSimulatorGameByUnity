@@ -66,8 +66,16 @@ public class Tavern : MonoBehaviour
         return null;
     }
 
-    public void ReduceFoodNumber(string foodName) {
-        foodStorage[foodName]--;
+    public bool IsEnoughFoodInStorage(string foodName, int foodAmount) {
+        if (foodStorage.ContainsKey(foodName)){
+            Debug.Log(foodName + " " + foodStorage[foodName] + " " + foodAmount);
+            return (foodStorage[foodName] >= foodAmount) ? true : false;
+        }
+        return false;
+    }
+
+    public void ReduceFoodNumber(string foodName, int foodNumber = 1) {
+        foodStorage[foodName] -= foodNumber;
     }
 
     public bool isNumberGreaterThanZero(string foodName) {
