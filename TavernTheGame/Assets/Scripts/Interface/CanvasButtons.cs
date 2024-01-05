@@ -22,7 +22,6 @@ public class CanvasButtons : MonoBehaviour
     [SerializeField] private Button musicButton;
 
     [Header("Sounds")]
-    [SerializeField] private AudioClip buySound;
     [SerializeField] private AudioClip giveSound;
 
     private bool isKitchenWindowActive = false;
@@ -48,21 +47,6 @@ public class CanvasButtons : MonoBehaviour
         windowRT.offsetMax = new Vector2(0f, yCoord);
     }
 
-    public void BuyProduct(ProductInfo productInfo) {
-        if (tavern.GetTavernMoney() >= productInfo.productPrice) {
-            Debug.Log(tavern);
-            //Проводиться оплата за покупку выбранного товара
-            tavern.DecreaseTavernMoney(productInfo.productPrice);
-            //Добавление продукта на склад
-            tavern.UpdateDict(productInfo.productName, shop.FoodStore[productInfo.productIndex]);
-            //Визуальное обновление окна склада в игре
-            tavern.UpdateStorageInfo(productInfo.productName, productInfo.productSprite);
-
-            //Закостылил, чтоб работало, если что поменять
-            PlayTheClip(buySound);
-        }
-    }
-
     public void GiveCustomerAnOrder(ProductInfo productInfo) {
         string foodName = productInfo.productName;
         //Если от клиента есть заказ, он озвучен, также заказ не был ещё выдан и выбранный продукт присутствует на складе(его количество больше 0), то мы выдаём заказ
@@ -74,7 +58,6 @@ public class CanvasButtons : MonoBehaviour
             //Визуальное обновление окна склада в игре
             tavern.UpdateStorageInfo(foodName);
             
-            //Закостылил, чтоб работало, если что поменять
             PlayTheClip(giveSound);
         } 
     }
