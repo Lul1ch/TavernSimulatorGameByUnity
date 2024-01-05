@@ -240,11 +240,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b99e1dd8b503dc44983549f868e67cdb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  shopWindow: {fileID: 0}
-  storageWindow: {fileID: 0}
   kitchenWindow: {fileID: 0}
   shopWindowContent: {fileID: 0}
-  messageCloud: {fileID: 0}
   tavern: {fileID: 0}
   shop: {fileID: 0}
   foodOrder: {fileID: 0}
@@ -252,6 +249,8 @@ MonoBehaviour:
   musicOn: {fileID: 0}
   musicOff: {fileID: 0}
   musicButton: {fileID: 0}
+  buySound: {fileID: 0}
+  giveSound: {fileID: 0}
 --- !u!114 &628170803
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -350,7 +349,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   lossBG: {fileID: 21300000, guid: c287bd4ceb8667f4aa6d2c0a7aaf8ddd, type: 3}
   victoryBG: {fileID: 21300000, guid: 3a41b4564ad45cb43ab9bc7bf70729df, type: 3}
-  finishSprite: {fileID: 3286163911610860551, guid: 65ec3a6d1d79b834a8b707fa9e0b1f28, type: 3}
+  finishSprite: {fileID: 21300000, guid: ca17a0bbf8982ca49bb004041d11c61b, type: 3}
   sceneBG: {fileID: 1818410716}
   messageText: {fileID: 1593799489}
   buttonImage: {fileID: 1226922573}
@@ -547,7 +546,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 3286163911610860551, guid: e8906cf442ad29247b831e3d77112ebf, type: 3}
+  m_Sprite: {fileID: 21300000, guid: dd665db00b7ec31478f1426f05e8beca, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1

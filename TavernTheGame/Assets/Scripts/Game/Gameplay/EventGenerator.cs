@@ -48,7 +48,7 @@ public class EventGenerator : MonoBehaviour
                 messageText.text = "<size=32>Пссс... не хочешь прикупить секретную приправу от королевского повара? Только она ... не совсем обычная</size>";
                 messageEmoji.sprite = variants.CrazyEmojis[Random.Range(0, variants.CrazyEmojis.Count)];
             } else if (newEvent == Event.Whisper) {
-                messageText.text = "ПодЗаЛупКа...";
+                messageText.text = "*Шёпотом*Ты с нами???";
                 messageEmoji.sprite = variants.CrazyEmojis[Random.Range(0, variants.CrazyEmojis.Count)];
             } else if (newEvent == Event.Kazahstan) {
                 messageText.text = "Это Казахстан? Казахстан, да?";

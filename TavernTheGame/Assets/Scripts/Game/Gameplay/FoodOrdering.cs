@@ -9,6 +9,7 @@ public class FoodOrdering : MonoBehaviour
     [SerializeField] private GuestMover guestMover;
     [SerializeField] private QueueCreating queueCreator;
     [SerializeField] private Tavern tavern;
+    [SerializeField] private Kitchen kitchen;
 
     private AudioSource audioPhrase;
 
@@ -65,18 +66,14 @@ public class FoodOrdering : MonoBehaviour
 
     private GameObject MakeOrder() {
         GameObject guestOrder = null;
-        rand = Random.Range(0, 100);
-        //С определённым шансом клиент заказывает алкоголь
-        if (rand < 20) {
-            rand = Random.Range(0, variants.AlcoholWarehouse.Count);
-            guestOrder = variants.AlcoholWarehouse[rand];
-            return guestOrder;
-        }
 
         GameObject guestMover = queueCreator.GetCurGuest();
         Character charInfo = guestMover.GetComponent<Character>();
+
+        rand = Random.Range(0, kitchen.GetKitchenDishesCount());
+        guestOrder = kitchen.GetDishByIndex(rand);
         //В зависимости от предпочтений клиента формируем его заказ
-        if (charInfo.charPrefs == Character.PreferencesLevel.Primal) {
+        /*if (charInfo.charPrefs == Character.PreferencesLevel.Primal) {
             rand = Random.Range(0, variants.ComponentWarehouse.Count);
             guestOrder = variants.ComponentWarehouse[rand];
         } else if (charInfo.charPrefs == Character.PreferencesLevel.Normal) {
@@ -88,7 +85,7 @@ public class FoodOrdering : MonoBehaviour
         } else if (charInfo.charPrefs == Character.PreferencesLevel.Extended) {
             rand = Random.Range(0, variants.DishWarehouse.Count);
             guestOrder = variants.DishWarehouse[rand];
-        }
+        }*/
 
         return guestOrder;
     }

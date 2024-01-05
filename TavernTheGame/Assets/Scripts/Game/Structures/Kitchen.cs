@@ -27,7 +27,6 @@ public class Kitchen : MonoBehaviour
             elemTransform.Find("Icon").GetComponent<Image>().sprite = curDishSprite;
             elemTransform.Find("Time").GetComponent<Text>().text = curDishCookingTime.ToString();
             elemTransform.Find("Name").GetComponent<Text>().text = elem.name;
-            elemTransform.Find("ComponentIcon").GetComponent<Image>().sprite = elemDishCond.GetComponentSprite();
 
             //Дополнительно сохраняем некоторые значения, для корректной работы функции готовки
             DishInfo curDishInfo = elemTransform.Find("Cook").GetComponent<DishInfo>();
@@ -35,7 +34,16 @@ public class Kitchen : MonoBehaviour
             curDishInfo.productName = elem.name;
             curDishInfo.productIndex = index;
             curDishInfo.productSprite = curDishSprite;
+
             curDishInfo.componentProductName = elemDishCond.GetComponentName();
+                        
+            List<GameObject> components = elemDishCond.GetDishComponents();
+            foreach(var component in components) {
+                if (!curDishInfo.componentsNames.ContainsKey(component.name)) {
+                    curDishInfo.componentsNames.Add(component.name, 0);
+                }
+                curDishInfo.componentsNames[component.name]++;
+            }
 
             elemTransform.SetParent(parent, false);
             index++;
@@ -44,5 +52,17 @@ public class Kitchen : MonoBehaviour
 
     public GameObject GetDish(int index) {
         return Dishes[index]; 
+    }
+
+    public int GetKitchenDishesCount() {
+        return Dishes.Count;
+    }
+
+    public GameObject GetDishByIndex(int index) {
+        return Dishes[index];
+    }
+
+    public List<GameObject> GetDishesList() {
+        return Dishes;
     }
 }

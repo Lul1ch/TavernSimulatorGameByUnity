@@ -12,9 +12,11 @@ public class QueueCreating : MonoBehaviour
     private float waitTime = 20f;
     private int rand;
     private GameObject curGuest;
+    private Vector3 spawnPoint;
 
     private void Start() {
         //Заводим куратину на создание нового гостя через определённый временной промежуток
+        spawnPoint = new Vector3(cameraTransform.position.x, cameraTransform.position.y, 0);
         StartCoroutine(SpawnNewGuestInQueue());
     }
 
@@ -42,7 +44,6 @@ public class QueueCreating : MonoBehaviour
         if (variants.Characters.Count == 0) {
             CreateGuest();
         }
-        Vector3 spawnPoint = new Vector3(cameraTransform.position.x, cameraTransform.position.y, 0);
         curGuest = Instantiate(variants.Characters[0], spawnPoint, Quaternion.identity);
         guestMover.SetStatus(GuestMover.Status.Waiting);
         EventBus.onGuestSpawned?.Invoke();
@@ -76,5 +77,9 @@ public class QueueCreating : MonoBehaviour
 
     public GameObject GetCurGuest() {
         return curGuest;
+    }
+
+    public void SetSpawnPoint(Vector3 newSpawnPoint) {
+        spawnPoint = newSpawnPoint;
     }
 }
