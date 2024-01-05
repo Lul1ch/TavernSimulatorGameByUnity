@@ -20,7 +20,15 @@ public class CookButton : MonoBehaviour
     [SerializeField] private Transform contentElemPos;
 
     private void Start() {
+        InitializeVariables();
         cookButton.onClick.AddListener(() => CookSelectedDish(dishInfo, contentElemPos));
+    }
+
+    private void InitializeVariables() {
+        kitchen = FindObjectOfType<Kitchen>().GetComponent<Kitchen>();
+        tavern = FindObjectOfType<Tavern>().GetComponent<Tavern>();
+        canvasButtons = FindObjectOfType<CanvasButtons>().GetComponent<CanvasButtons>();
+        contentElemPos = transform.parent;
     }
 
     public void CookSelectedDish(DishInfo dishInfo, Transform contentElemPos) {
@@ -37,7 +45,6 @@ public class CookButton : MonoBehaviour
             canvasButtons.PlayTheClip(cookSound);
             GameObject newTimerObject = Instantiate(timerSample, contentElemPos.position, contentElemPos.rotation);
             Timer curTimer = newTimerObject.GetComponent<Timer>();
-            curTimer.enabled = true;
             //Задаём родительский объект, для корректного отображения таймера
             newTimerObject.transform.SetParent(contentElemPos);
             //Устанавливаем время готовки
