@@ -45,7 +45,6 @@ public class CookButton : MonoBehaviour
 
             GameObject newTimerObject = Instantiate(timerSample, contentElemTransform.position, contentElemTransform.rotation);
             Timer curTimer = newTimerObject.GetComponent<Timer>();
-            curTimer.enabled = true;
             //Задаём родительский объект, для корректного отображения таймера
             newTimerObject.transform.SetParent(contentElemTransform);
             //Устанавливаем время готовки

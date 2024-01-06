@@ -35,6 +35,21 @@ public class CanvasButtons : MonoBehaviour
         windowRT.offsetMax = new Vector2(0f, yCoord);
     }
 
+    public void GiveCustomerAnOrder(ProductInfo productInfo) {
+        string foodName = productInfo.productName;
+        //Если от клиента есть заказ, он озвучен, также заказ не был ещё выдан и выбранный продукт присутствует на складе(его количество больше 0), то мы выдаём заказ
+        if (foodOrder.curOrder != null && tavern.isNumberGreaterThanZero(foodName) && foodOrder.curIssue == null && foodOrder.isOrderTold || events.isItAFreeFoodEvent()) {
+            //Уставливаем выданный заказ
+            foodOrder.curIssue = tavern.GetFoodObject(foodName);
+            //Убавляем количество выданного продукта на складе
+            tavern.ReduceFoodNumber(foodName);
+            //Визуальное обновление окна склада в игре
+            tavern.UpdateStorageInfo(foodName);
+            
+            PlayTheClip(giveSound);
+        } 
+    }
+
     //Загружаем сцену игры, когда нажимаем на кнопку "играть"
     public void StartTheGame() {
         SceneManager.LoadScene("Game");

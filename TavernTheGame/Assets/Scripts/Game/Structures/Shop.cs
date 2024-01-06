@@ -28,7 +28,7 @@ public class Shop : MonoBehaviour
             int curPrice = FoodStore[i].GetComponent<Food>().price;
             curElement.transform.Find("Price").GetComponent<Text>().text = curPrice.ToString();
             curElement.transform.Find("Icon").GetComponent<Image>().sprite = curProductSprite;
-            curElement.transform.Find("Name").GetComponent<Text>().text = FoodStore[i].name;
+            curElement.transform.Find("Name").GetComponent<TMP_Text>().text = FoodStore[i].name;
 
             //Сохраняем необходимую информацию для работы функции покупки и доставки купленных товаров на склад
             ProductInfo curProduct = curElement.transform.Find("Buy").GetComponent<ProductInfo>();

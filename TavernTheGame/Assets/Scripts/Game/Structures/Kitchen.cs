@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using TMPro;
 
 public class Kitchen : MonoBehaviour
 {
@@ -25,8 +26,8 @@ public class Kitchen : MonoBehaviour
             DishCond elemDishCond = elem.GetComponent<DishCond>();
 
             elemTransform.Find("Icon").GetComponent<Image>().sprite = curDishSprite;
-            elemTransform.Find("Time").GetComponent<Text>().text = curDishCookingTime.ToString();
-            elemTransform.Find("Name").GetComponent<Text>().text = elem.name;
+            elemTransform.Find("Time").GetComponent<TMP_Text>().text = curDishCookingTime.ToString();
+            elemTransform.Find("Name").GetComponent<TMP_Text>().text = elem.name;
 
             //Дополнительно сохраняем некоторые значения, для корректной работы функции готовки
             DishInfo curDishInfo = elemTransform.Find("Cook").GetComponent<DishInfo>();
