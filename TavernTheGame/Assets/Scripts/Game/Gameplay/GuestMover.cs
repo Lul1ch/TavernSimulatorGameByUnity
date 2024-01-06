@@ -6,10 +6,11 @@ public class GuestMover : MonoBehaviour
 {
     [SerializeField] private CharactersVariants variants;
     [SerializeField] private FoodOrdering foodOrdering;
+    [SerializeField] private QueueCreating queueCreator;
+    [SerializeField] private Tavern tavern;
     
     private Status charStatus;
     private bool timeIsUped = false;
-    [SerializeField] private QueueCreating queueCreator;
     private float vSpeed = 35f;
     private float waitTime = 30f;
     private float guestYpos;
@@ -24,7 +25,6 @@ public class GuestMover : MonoBehaviour
     }
 
     private void Update() {
-        Debug.Log(charStatus);
         if (charStatus == Status.Waiting) {
             if (!isTimeIsUpInvoked) {
                 Invoke("SetTimeIsUp", waitTime);
@@ -51,6 +51,7 @@ public class GuestMover : MonoBehaviour
     public void SetTimeIsUp() {
         if (charStatus == Status.Waiting) {
             foodOrdering.AnswerIfClientWasntServiced();
+            tavern.ChangeTavernBonus(-1);
         }
     }
 

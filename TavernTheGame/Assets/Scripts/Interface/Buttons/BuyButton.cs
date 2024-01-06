@@ -18,7 +18,6 @@ public class BuyButton : MonoBehaviour
 
     private void BuySelectedProduct() {
         if (tavern.GetTavernMoney() >= productInfo.productPrice) {
-            Debug.Log(tavern);
             //Проводиться оплата за покупку выбранного товара
             tavern.DecreaseTavernMoney(productInfo.productPrice);
             //Добавление продукта на склад

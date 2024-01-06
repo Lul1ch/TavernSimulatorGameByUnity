@@ -38,8 +38,9 @@ public class CookButton : MonoBehaviour
                 isAllComponentsAvailable = false;
             }
         }
+        Debug.Log(isAllComponentsAvailable + "-bool counter-" + curCookingDishCounter);
         //Если компонент был куплен и его количество больше 0, то мы можем приготовить блюдо
-        if (isAllComponentsAvailable && tavern.isNumberGreaterThanZero(dishInfo.componentProductName) && curCookingDishCounter > 0) {
+        if (isAllComponentsAvailable && curCookingDishCounter > 0) {
             //Создаём таймер готовки блюда
             CanvasButtons.PlayOnClickSound(gameObject.GetComponent<AudioSource>());
 
@@ -66,9 +67,8 @@ public class CookButton : MonoBehaviour
         tavern.UpdateStorageInfo(productInfo.productName, productInfo.productSprite);
         foreach(var component in components) {
             tavern.ReduceFoodNumber(component.Key, component.Value);
+            tavern.UpdateStorageInfo(component.Key);
         }
-       
-        tavern.UpdateStorageInfo(dishInfo.componentProductName);
         
         curCookingDishCounter++;
 

@@ -35,8 +35,6 @@ public class Kitchen : MonoBehaviour
             curDishInfo.productName = elem.name;
             curDishInfo.productIndex = index;
             curDishInfo.productSprite = curDishSprite;
-
-            curDishInfo.componentProductName = elemDishCond.GetComponentName();
                         
             List<GameObject> components = elemDishCond.GetDishComponents();
             foreach(var component in components) {

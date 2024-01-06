@@ -15,6 +15,8 @@ public class CanvasButtons : MonoBehaviour
     private bool isKitchenWindowActive = false;
     private bool isMusicOn = true;
 
+    private float kitchenWindowYpos1 = 0f, kitchenWindowYpos2 = 1500f;
+
     //Для трёх разных окон заводим функции для показа или скрытия их при нажатии на нужные кнопки
     public void showOrHideWindow(GameObject window) {
         window.SetActive(!window.activeSelf);
@@ -24,10 +26,15 @@ public class CanvasButtons : MonoBehaviour
         RectTransform kitchenRT = kitchenWindow.GetComponent<RectTransform>();
         isKitchenWindowActive = !isKitchenWindowActive;
         if (isKitchenWindowActive) {
-            moveWindow(kitchenRT, 0);
+            moveWindow(kitchenRT, kitchenWindowYpos1);
         } else {
-            moveWindow(kitchenRT, 1500f);
+            moveWindow(kitchenRT, kitchenWindowYpos2);
         }
+    }
+
+    public void HideKitchenWindowOnExit() {
+        isKitchenWindowActive = true;
+        showOrHideKitchenWindow();
     }
 
     private void moveWindow(RectTransform windowRT, float yCoord) {
