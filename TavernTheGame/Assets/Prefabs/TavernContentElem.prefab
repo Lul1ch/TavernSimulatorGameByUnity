@@ -199,10 +199,10 @@ RectTransform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 1, y: 0}
-  m_AnchoredPosition: {x: -5.090088, y: 761.41003}
-  m_SizeDelta: {x: -957.02, y: 134.72998}
+  m_AnchorMin: {x: 0, y: 0.5}
+  m_AnchorMax: {x: 1, y: 0.5}
+  m_AnchoredPosition: {x: 0.000061035156, y: 6}
+  m_SizeDelta: {x: 0.000061035, y: 134.73}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &4333474853174764185
 CanvasRenderer:
@@ -291,6 +291,7 @@ GameObject:
   - component: {fileID: 4333474853211917992}
   - component: {fileID: 4333474853211917993}
   - component: {fileID: 4333474853211917998}
+  - component: {fileID: 6446648620529541180}
   m_Layer: 5
   m_Name: Give
   m_TagString: Untagged
@@ -307,16 +308,16 @@ RectTransform:
   m_GameObject: {fileID: 4333474853211917996}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 1.5, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 4333474853174764188}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.808, y: 0.17441127}
-  m_AnchorMax: {x: 0.97200006, y: 0.8558225}
-  m_AnchoredPosition: {x: -1.5000916, y: -2.0367012}
-  m_SizeDelta: {x: 3, y: 2.0189972}
+  m_AnchorMin: {x: 0.7384286, y: 0.17441127}
+  m_AnchorMax: {x: 0.98514295, y: 0.8558225}
+  m_AnchoredPosition: {x: -2.5, y: -2.0367012}
+  m_SizeDelta: {x: -66, y: 2.0189972}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &4333474853211917992
 CanvasRenderer:
@@ -346,8 +347,8 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 10905, guid: 0000000000000000f000000000000000, type: 0}
-  m_Type: 1
+  m_Sprite: {fileID: 21300000, guid: abe906881bcc98b4b84601d0a791020d, type: 3}
+  m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
   m_FillMethod: 4
@@ -412,6 +413,23 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+--- !u!114 &6446648620529541180
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4333474853211917996}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 53da4e8c22be88f4487a29baaeb755bb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  productPrice: 0
+  productIndex: 0
+  productSprite: {fileID: 0}
+  productName: 
+  productCookingTime: 0
 --- !u!1 &4333474853384879174
 GameObject:
   m_ObjectHideFlags: 0
