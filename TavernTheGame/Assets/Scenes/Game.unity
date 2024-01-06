@@ -1769,6 +1769,18 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+      - m_Target: {fileID: 1391082697}
+        m_TargetAssemblyTypeName: CanvasButtons, Assembly-CSharp
+        m_MethodName: HideKitchenWindowOnExit
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &583722682
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5295,7 +5307,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1365197154}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1391082697}
+        m_TargetAssemblyTypeName: CanvasButtons, Assembly-CSharp
+        m_MethodName: HideKitchenWindowOnExit
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1365197154
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5673,6 +5697,7 @@ MonoBehaviour:
   variants: {fileID: 1391082691}
   foodOrdering: {fileID: 1391082695}
   queueCreator: {fileID: 1391082694}
+  tavern: {fileID: 472954085}
 --- !u!114 &1391082694
 MonoBehaviour:
   m_ObjectHideFlags: 0
