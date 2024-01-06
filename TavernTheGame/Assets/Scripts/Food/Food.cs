@@ -3,7 +3,6 @@ using UnityEngine;
 public class Food : MonoBehaviour
 {
     public Quality foodQuality;
-    public int satiety;
     public int price;
     public int cookingTime;
     private int rand;
@@ -13,8 +12,7 @@ public class Food : MonoBehaviour
     }
 
     public void InitProductInfo() {
-        SetPrice();
-        SetSatiety();
+        RandPrice();
         SetCookingTime();
     }
 
@@ -22,7 +20,7 @@ public class Food : MonoBehaviour
         cookingTime = (int)foodQuality * 3;
     }
 
-    private void SetPrice() {
+    private void RandPrice() {
         rand = Random.Range(0,1);
         
         if (foodQuality != Quality.Awful) {
@@ -32,14 +30,16 @@ public class Food : MonoBehaviour
         }
     }
 
-    private void SetSatiety() {
-        rand = Random.Range(0,20);
-        
-        if (this.foodQuality != Quality.Awful) {
-            satiety = (int)foodQuality * 20 - rand;
-        } else {
-            satiety = 0;
-        }
+    public void ChangePrice(int number) {
+        price = number;
+    }
+
+    public int GetPrice() {
+        return price;
+    }
+
+    public int GetFoodQualityInt() {
+        return (int)foodQuality;
     }
 }
 

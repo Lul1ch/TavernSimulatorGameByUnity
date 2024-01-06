@@ -7,6 +7,19 @@ public class DishCond : MonoBehaviour
     [SerializeField] private GameObject componentProduct;
     [SerializeField] private List<GameObject> dishComponents;
 
+    private void Start() {
+        ChangeDishPrice();
+    }
+
+    private void ChangeDishPrice() {
+        Food foodScript = gameObject.GetComponent<Food>();
+        int newPrice = foodScript.GetFoodQualityInt();
+        foreach(var component in dishComponents) {
+            newPrice += component.GetComponent<Food>().GetPrice();
+        }
+        foodScript.ChangePrice(newPrice);
+    }
+
     public GameObject GetComponentObject() {
         return componentProduct;
     }

@@ -100,9 +100,10 @@ public class FoodOrdering : MonoBehaviour
     private void Pay(Mood reaction) {
         Food clientOrder = curOrder.GetComponent<Food>();
         Food tavernDish = curIssue.GetComponent<Food>();
+        int tips = (int)reaction*3;
         //Если качество заказа выше самого худшего, то вычисляем оплату по специальной формуле
         if (curIssue.GetComponent<Food>().foodQuality != Food.Quality.Awful) {
-            float payment = Mathf.Round(clientOrder.price + (int)reaction*3 + ((int)tavernDish.foodQuality - (int)clientOrder.foodQuality) + curIssue.GetComponent<Food>().satiety/10) + tavern.GetTavernBonus(); 
+            float payment = Mathf.Round(clientOrder.price + tips) + tavern.GetTavernBonus(); 
             tavern.IncreaseTavernMoney((int)payment);
         }
         tavern.ChangeTavernBonus((int)reaction);

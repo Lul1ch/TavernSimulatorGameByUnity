@@ -68,7 +68,6 @@ public class Tavern : MonoBehaviour
 
     public bool IsEnoughFoodInStorage(string foodName, int foodAmount) {
         if (foodStorage.ContainsKey(foodName)){
-            Debug.Log(foodName + " " + foodStorage[foodName] + " " + foodAmount);
             return (foodStorage[foodName] >= foodAmount) ? true : false;
         }
         return false;
