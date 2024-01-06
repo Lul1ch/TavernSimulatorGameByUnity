@@ -79,7 +79,6 @@ public class EventGenerator : MonoBehaviour
     }
 
     public void UserGaveFreeFood() {
-        
         if (curEvent == Event.FreeFood) {
             userChoice = Answer.FreeDish;
         }

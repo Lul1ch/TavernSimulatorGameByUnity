@@ -9,21 +9,28 @@ public class CookButton : MonoBehaviour
     //Счётсиком будем регулировать,чтоб в один момент готовилось не более трёх блюд
     static int curCookingDishCounter = 3;
 
-    [SerializeField] private CanvasButtons canvasButtons;
-    [SerializeField] private AudioClip cookSound;
-    [Header("Kitchen")]
+    [Header("Scripts")]
     [SerializeField] private Kitchen kitchen;
     [SerializeField] private Tavern tavern;
+    [SerializeField] private DishInfo dishInfo;
+
+    [Header("Scene's objects")]
     [SerializeField] private GameObject timerSample;
     [SerializeField] private Button cookButton;
-    [SerializeField] private DishInfo dishInfo;
-    [SerializeField] private Transform contentElemPos;
+    [SerializeField] private Transform contentElemTransform;
 
     private void Start() {
-        cookButton.onClick.AddListener(() => CookSelectedDish(dishInfo, contentElemPos));
+        InitializeVariables();
+        cookButton.onClick.AddListener(() => CookSelectedDish(dishInfo, contentElemTransform));
     }
 
-    public void CookSelectedDish(DishInfo dishInfo, Transform contentElemPos) {
+    private void InitializeVariables() {
+        kitchen = FindObjectOfType<Kitchen>().GetComponent<Kitchen>();
+        tavern = FindObjectOfType<Tavern>().GetComponent<Tavern>();
+        contentElemTransform = transform.parent;
+    }
+
+    public void CookSelectedDish(DishInfo dishInfo, Transform contentElemTransform) {
         bool isAllComponentsAvailable = true;
         Dictionary<string, int> components = dishInfo.GetDishComponents();
         foreach(var component in components) {
@@ -34,12 +41,13 @@ public class CookButton : MonoBehaviour
         //Если компонент был куплен и его количество больше 0, то мы можем приготовить блюдо
         if (isAllComponentsAvailable && tavern.isNumberGreaterThanZero(dishInfo.componentProductName) && curCookingDishCounter > 0) {
             //Создаём таймер готовки блюда
-            canvasButtons.PlayTheClip(cookSound);
-            GameObject newTimerObject = Instantiate(timerSample, contentElemPos.position, contentElemPos.rotation);
+            CanvasButtons.PlayOnClickSound(gameObject.GetComponent<AudioSource>());
+
+            GameObject newTimerObject = Instantiate(timerSample, contentElemTransform.position, contentElemTransform.rotation);
             Timer curTimer = newTimerObject.GetComponent<Timer>();
             curTimer.enabled = true;
             //Задаём родительский объект, для корректного отображения таймера
-            newTimerObject.transform.SetParent(contentElemPos);
+            newTimerObject.transform.SetParent(contentElemTransform);
             //Устанавливаем время готовки
             curTimer.SetMultiplier(dishInfo.productCookingTime);
             curCookingDishCounter--;
