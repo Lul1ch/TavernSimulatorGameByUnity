@@ -299,6 +299,7 @@ MonoBehaviour:
   - {fileID: 3885127059034939259, guid: e377587778792a54c9439e5e87e33356, type: 3}
   - {fileID: 4046842246041904731, guid: a41451f0188ac1d4eb43d01768b34811, type: 3}
   - {fileID: 8081800172538716453, guid: b07234b2ee638364ab54be928c607b05, type: 3}
+  - {fileID: 5938429019396323414, guid: 31f071e2e7999d84388420da79aa4486, type: 3}
   parent: {fileID: 673268037}
   shopContentElement: {fileID: 661778315839437868, guid: 9dce99db67b400d4fa9bcaec7e389c97, type: 3}
 --- !u!1 &194226949
@@ -2759,6 +2760,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   tavern: {fileID: 472954085}
+  shop: {fileID: 177348022}
   queue: {fileID: 1391082694}
 --- !u!4 &893678949
 Transform:

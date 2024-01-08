@@ -13,6 +13,8 @@ public class Shop : MonoBehaviour
 
     public GameObject shopContentElement;
 
+    private int minPrice = -1;
+
     private void Start() {
         tavern = GameObject.FindGameObjectWithTag("Tavern").GetComponent<Tavern>();
         //Создаём визуальное отображение каждого товара из массива продуктов в скроллере
@@ -38,6 +40,17 @@ public class Shop : MonoBehaviour
             curProduct.productSprite = curProductSprite;
             curElement.transform.SetParent(parent, false);
             
+            CheckForMinPrice(curPrice);
         }
+    }
+
+    private void CheckForMinPrice(int price) {
+        if (price < minPrice || minPrice == -1) {
+            minPrice = price;
+        }
+    }
+
+    public int GetMinPrice() {
+        return minPrice;
     }
 }

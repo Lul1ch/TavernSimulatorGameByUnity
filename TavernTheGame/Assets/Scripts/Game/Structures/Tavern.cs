@@ -15,8 +15,12 @@ public class Tavern : MonoBehaviour
     [SerializeField] private GameObject contentSample;
     [SerializeField] private Transform parent;
 
-    private float tavernMoney = 100f;
+    private float tavernMoney = 10f;
     private int moneyBonus;
+
+    private void Start() {
+        Debug.Log(parent.GetComponentsInChildren<Transform>().Length);
+    }
 
     private void FixedUpdate() {
         //Обновляем интерфейс со счётчиками клиентов и денег таверны
@@ -75,6 +79,14 @@ public class Tavern : MonoBehaviour
 
     public void ReduceFoodNumber(string foodName, int foodNumber = 1) {
         foodStorage[foodName] -= foodNumber;
+        if (foodStorage[foodName] <= 0) {
+            DestroyTavernContentElement(foodName);
+        }
+    }
+
+    private void DestroyTavernContentElement(string foodName) {
+        Transform curFood = parent.Find(foodName);
+        Destroy(curFood.gameObject);
     }
 
     public bool isNumberGreaterThanZero(string foodName) {
@@ -82,7 +94,7 @@ public class Tavern : MonoBehaviour
     }
 
     public bool isFoodStorageEmpty() {
-        return (foodStorage.Count == 0);
+        return (parent.GetComponentsInChildren<Transform>().Length == 1);
     }
 
     public void IncreaseTavernMoney(int number) {
