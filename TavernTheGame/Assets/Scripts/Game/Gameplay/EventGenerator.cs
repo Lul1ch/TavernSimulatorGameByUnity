@@ -40,19 +40,15 @@ public class EventGenerator : MonoBehaviour
         userChoice = Answer.Empty;
         if (newEvent == Event.FreeFood) {
             messageText.text = "<size=32>Слушай, друг, у меня в кармане ни гроша, дай что-нибудь подкрепиться, уже и не помню, когда ел(а) в последний раз...</size>";
-            messageEmoji.sprite = variants.SadEmojis[Random.Range(0, variants.SadEmojis.Count)];
             denyButton.gameObject.SetActive(true);
         } else {
             ActivateMessageButtons();
             if (newEvent == Event.SpecialOffer) {
                 messageText.text = "<size=32>Пссс... не хочешь прикупить секретную приправу от королевского повара? Только она ... не совсем обычная</size>";
-                messageEmoji.sprite = variants.CrazyEmojis[Random.Range(0, variants.CrazyEmojis.Count)];
             } else if (newEvent == Event.Whisper) {
                 messageText.text = "*Шёпотом*Ты с нами???";
-                messageEmoji.sprite = variants.CrazyEmojis[Random.Range(0, variants.CrazyEmojis.Count)];
             } else if (newEvent == Event.Kazahstan) {
                 messageText.text = "Это Казахстан? Казахстан, да?";
-                messageEmoji.sprite = variants.CrazyEmojis[Random.Range(0, variants.CrazyEmojis.Count)];
             }
         }
         coroutine = TriggerEventConsequences(newEvent);
@@ -101,7 +97,6 @@ public class EventGenerator : MonoBehaviour
                     }
                     tavern.DecreaseTavernMoney((int)(tavern.GetTavernMoney() / 2));
                     messageText.text = "<size=32>*Через некоторое время в дверях вашей таверны появляются стражники. После недолгой проверки они находят эти приправы и выписывают штраф в половину вашего бюджета, за незаконное хранение эльфийской соли. Кажется, в следующий раз стоит быть осторожнее.*</size>";
-                    messageEmoji.sprite = variants.SadEmojis[Random.Range(0, variants.SadEmojis.Count)];
                 }
             } else if (userChoice == Answer.No) {
                 messageText.text = "Сам не знаешь, какие возможности упускаешь...";
@@ -118,25 +113,20 @@ public class EventGenerator : MonoBehaviour
                 whisperMultiplier -=5;
                 tavern.IncreaseTavernMoney(100);
                 messageText.text = "<size=32>*После того,как вы одобрительно киваете головой на эту странную фразу, клиент протягивает увесистый мешок с сотней золотых монет. Совершенно не понятно была это какая-то секта или секретная организация, но вы рады вашей удаче*</size>";
-                messageEmoji.sprite = variants.GoodEmojis[Random.Range(0, variants.SadEmojis.Count)];
             }
         } else if (newEvent == Event.Kazahstan) {
             if (userChoice == Answer.Yes) {
                 messageText.text = "Понял, спасибо!";
-                messageEmoji.sprite = variants.GoodEmojis[Random.Range(0, variants.SadEmojis.Count)];
             } else if (userChoice == Answer.No) {
                 messageText.text = "Ахх...жаль.";
-                messageEmoji.sprite = variants.SadEmojis[Random.Range(0, variants.SadEmojis.Count)];
             }
         } else if (newEvent == Event.FreeFood) {
             if (userChoice == Answer.No) {
                 messageText.text = "Сердца у тебя нет!";
-                messageEmoji.sprite = variants.SadEmojis[Random.Range(0, variants.SadEmojis.Count)];
                 int randDecreseBonus = Random.Range(-3, -1);
                 tavern.ChangeTavernBonus(randDecreseBonus);
             } else if (userChoice == Answer.FreeDish) {
                 messageText.text = "Спасибо тебе, добрый человек, никогда тебя не забуду!";
-                messageEmoji.sprite = variants.GoodEmojis[Random.Range(0, variants.SadEmojis.Count)];
                 int randIncreaseBonus = Random.Range(1, 2);
                 tavern.ChangeTavernBonus(randIncreaseBonus);
             }

@@ -15,7 +15,7 @@ public class Tavern : MonoBehaviour
     [SerializeField] private GameObject contentSample;
     [SerializeField] private Transform parent;
 
-    private float tavernMoney = 10f;
+    private float tavernMoney = 100f;
     private int moneyBonus;
 
     private void Start() {

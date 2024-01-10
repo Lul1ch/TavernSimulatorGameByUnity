@@ -72,20 +72,6 @@ public class FoodOrdering : MonoBehaviour
 
         rand = Random.Range(0, kitchen.GetKitchenDishesCount());
         guestOrder = kitchen.GetDishByIndex(rand);
-        //В зависимости от предпочтений клиента формируем его заказ
-        /*if (charInfo.charPrefs == Character.PreferencesLevel.Primal) {
-            rand = Random.Range(0, variants.ComponentWarehouse.Count);
-            guestOrder = variants.ComponentWarehouse[rand];
-        } else if (charInfo.charPrefs == Character.PreferencesLevel.Normal) {
-            rand = Random.Range(0, variants.SnackWarehouse.Count);
-            guestOrder = variants.SnackWarehouse[rand];
-        } else if (charInfo.charPrefs == Character.PreferencesLevel.Advanced) {
-            rand = Random.Range(0, variants.SimpleDishWarehouse.Count);
-            guestOrder = variants.SimpleDishWarehouse[rand];
-        } else if (charInfo.charPrefs == Character.PreferencesLevel.Extended) {
-            rand = Random.Range(0, variants.DishWarehouse.Count);
-            guestOrder = variants.DishWarehouse[rand];
-        }*/
 
         return guestOrder;
     }
@@ -115,13 +101,9 @@ public class FoodOrdering : MonoBehaviour
         if (reaction == Mood.Happy) {
             rand = Random.Range(0, variants.GoodReactPharases.Count);
             messageText.text = variants.GoodReactPharases[rand];
-            rand = Random.Range(0, variants.GoodEmojis.Count);
-            reactEmoji.sprite = variants.GoodEmojis[rand];
         } else if (reaction == Mood.Sad) {
             rand = Random.Range(0, variants.BadReactPharases.Count);
             messageText.text = variants.BadReactPharases[rand];
-            rand = Random.Range(0, variants.BadEmojis.Count);
-            reactEmoji.sprite = variants.BadEmojis[rand];
         }
         //Проигрывание аудио дорожки реплики клиента
         audioPhrase.Play();
@@ -133,9 +115,6 @@ public class FoodOrdering : MonoBehaviour
         int rand = Random.Range(0, variants.HelloPhrases.Count);
         messageText.text = variants.HelloPhrases[rand];
         
-        rand = Random.Range(0, variants.CrazyEmojis.Count);
-        reactEmoji.sprite = variants.CrazyEmojis[rand];
-
         //Рандомим аудио дорожку реплики клиента
         audioPhrase = curCustomer.GetComponent<AudioSource>();
         rand = Random.Range(0, variants.SpeechSounds.Count);
@@ -147,8 +126,6 @@ public class FoodOrdering : MonoBehaviour
         //Обновляем интерфейс сообщения
         int rand = Random.Range(0, variants.OrderPhrases.Count);
         messageText.text = variants.OrderPhrases[rand].Replace("^", curOrder.name);
-        rand = Random.Range(0, variants.CrazyEmojis.Count);
-        reactEmoji.sprite = variants.CrazyEmojis[rand];
         
         isOrderTold = true;
     }
@@ -157,9 +134,6 @@ public class FoodOrdering : MonoBehaviour
         //Обновляем интерфейс сообщения
         int rand = Random.Range(0, variants.WasntServicedPhrases.Count);
         messageText.text = variants.WasntServicedPhrases[rand];
-
-        rand = Random.Range(0, variants.CrazyEmojis.Count);
-        reactEmoji.sprite = variants.CrazyEmojis[rand];
 
         audioPhrase.Play();
         guestMover.SetStatus(GuestMover.Status.Left);
