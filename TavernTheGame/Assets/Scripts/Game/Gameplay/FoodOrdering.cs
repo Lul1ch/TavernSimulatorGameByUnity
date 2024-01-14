@@ -13,6 +13,7 @@ public class FoodOrdering : MonoBehaviour
 
     private AudioSource audioPhrase;
     private bool eventWasGenerated;
+    private int eventIntiationBorder = 60, maxEventInitiationBorder = 90, eventIntiationBorderReductionStep = 10;
 
     private GameObject _curOrder = null;
     private GameObject _curIssue = null;
@@ -33,10 +34,14 @@ public class FoodOrdering : MonoBehaviour
 
     [Header("GuestMessage")]
     [SerializeField] private GameObject messageCloud;
-    [SerializeField] private Text messageText;
-    [SerializeField] private SpriteRenderer reactEmoji;
+    [SerializeField] private Text _messageText;
+
     [Header("EventManager")]
     [SerializeField] private EventGenerator events;
+
+    private string messageText {
+        set { _messageText.text = UpdateAllGenderRelatedWords(value); }
+    }
 
     private int rand = 0;
     private bool isReacted = false;
@@ -47,11 +52,13 @@ public class FoodOrdering : MonoBehaviour
 
     private void FixedUpdate() {
         //Если клиент дошёл до точки и он не сделал ещё заказ, то формируем заказ
-        
         if (guestMover.GetStatus() == GuestMover.Status.Waiting && _curOrder == null) {
             int randForEvent = Random.Range(0, 100);
             messageCloud.SetActive(true);
-            if (randForEvent > 40) {
+            if (randForEvent < eventIntiationBorder) {
+                if (eventIntiationBorder > Mathf.Round(maxEventInitiationBorder / 2)) {
+                    eventIntiationBorder -= eventIntiationBorderReductionStep;
+                }
                 _curOrder = MakeOrder();
                 //Формируем сообщение приветствия и заказа
                 SayHello();
@@ -61,6 +68,7 @@ public class FoodOrdering : MonoBehaviour
             } else {
                 guestMover.SetStatus(GuestMover.Status.EventWasGenerated);
                 events.CreateAnEvent();
+                eventIntiationBorder = maxEventInitiationBorder;
             }
         }
         
@@ -113,10 +121,10 @@ public class FoodOrdering : MonoBehaviour
         //В зависимости от реакции клиента обновляем сообщение с реакцией клиента
         if (reaction == Mood.Happy) {
             rand = Random.Range(0, variants.GoodReactPharases.Count);
-            messageText.text = variants.GoodReactPharases[rand];
+            messageText = variants.GoodReactPharases[rand];
         } else if (reaction == Mood.Sad) {
             rand = Random.Range(0, variants.BadReactPharases.Count);
-            messageText.text = variants.BadReactPharases[rand];
+            messageText = variants.BadReactPharases[rand];
         }
         //Проигрывание аудио дорожки реплики клиента
         audioPhrase.Play();
@@ -126,7 +134,7 @@ public class FoodOrdering : MonoBehaviour
         //Выводим приветственную фразу и обновляем интерфейс сообщения
         GameObject curCustomer = queueCreator.GetCurGuest();
         int rand = Random.Range(0, variants.HelloPhrases.Count);
-        messageText.text = variants.HelloPhrases[rand];
+        messageText = variants.HelloPhrases[rand];
         
         //Рандомим аудио дорожку реплики клиента
         audioPhrase = curCustomer.GetComponent<AudioSource>();
@@ -138,7 +146,7 @@ public class FoodOrdering : MonoBehaviour
     private void SayWhatYouWant() {
         //Обновляем интерфейс сообщения
         int rand = Random.Range(0, variants.OrderPhrases.Count);
-        messageText.text = variants.OrderPhrases[rand].Replace("^", _curOrder.name);
+        messageText = variants.OrderPhrases[rand].Replace("^", _curOrder.name);
         
         _isOrderTold = true;
     }
@@ -146,7 +154,7 @@ public class FoodOrdering : MonoBehaviour
     public void AnswerIfClientWasntServiced() {
         //Обновляем интерфейс сообщения
         int rand = Random.Range(0, variants.WasntServicedPhrases.Count);
-        messageText.text = variants.WasntServicedPhrases[rand];
+        messageText = variants.WasntServicedPhrases[rand];
 
         audioPhrase.Play();
         guestMover.SetStatus(GuestMover.Status.Left);
@@ -161,5 +169,10 @@ public class FoodOrdering : MonoBehaviour
         _curIssue = null;
         isReacted = false;
         eventWasGenerated = false;
+    }
+
+    private string UpdateAllGenderRelatedWords(string str) {
+        Character.Sex curGuestGender = queueCreator.GetCurGuest().GetComponent<Character>().characterGender;
+        return str = (curGuestGender == Character.Sex.Male) ? str.Replace("(а)", "") : str.Replace("(а)", "а");
     }
 }

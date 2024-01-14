@@ -2,14 +2,21 @@ using UnityEngine;
 
 public class Character : MonoBehaviour
 {
+    public enum PreferencesLevel {
+        Primal,Normal,Advanced,Extended
+    }
+    public enum Sex {
+        Male, Female
+    }
+    [SerializeField] private Sex _characterGender;
     private PreferencesLevel _charPrefs;
     public PreferencesLevel charPrefs {
         get { return _charPrefs; }
         set { _charPrefs = value; }
     }
 
-    public enum PreferencesLevel {
-        Primal,Normal,Advanced,Extended
+    public Sex characterGender {
+        get { return _characterGender; }
     }
 
     private void Start() {

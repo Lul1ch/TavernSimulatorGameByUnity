@@ -55,6 +55,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 6709801041910080211, guid: fcf74b1176018f343b704378af623a50, type: 3}
+      propertyPath: _characterGender
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 8965840118350306957, guid: fcf74b1176018f343b704378af623a50, type: 3}
       propertyPath: m_Name
       value: Guest Variant 8
