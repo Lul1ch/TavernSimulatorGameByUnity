@@ -6,7 +6,7 @@ using TMPro;
 
 public class Kitchen : MonoBehaviour
 {
-    [SerializeField] private List<GameObject> Dishes;
+    [SerializeField] private List<GameObject> dishes;
     [SerializeField] private GameObject kitchenContentElementSample;
     [SerializeField] private Transform parent;
 
@@ -17,7 +17,7 @@ public class Kitchen : MonoBehaviour
     private void InitKitchenShowcase() {
         int index = 0;
         //Для каждого элемента, который лежит в массиве блюд создаём визуальное отображение в скролере с помощью ранее созданного объекта шаблона
-        foreach(var elem in Dishes) {
+        foreach(var elem in dishes) {
             GameObject curElement = Instantiate(kitchenContentElementSample, kitchenContentElementSample.transform.position, kitchenContentElementSample.transform.rotation);
 
             Transform elemTransform = curElement.transform;
@@ -50,18 +50,18 @@ public class Kitchen : MonoBehaviour
     }
 
     public GameObject GetDish(int index) {
-        return Dishes[index]; 
+        return dishes[index]; 
     }
 
     public int GetKitchenDishesCount() {
-        return Dishes.Count;
+        return dishes.Count;
     }
 
     public GameObject GetDishByIndex(int index) {
-        return Dishes[index];
+        return dishes[index];
     }
 
     public List<GameObject> GetDishesList() {
-        return Dishes;
+        return dishes;
     }
 }

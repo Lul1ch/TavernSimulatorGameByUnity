@@ -3,10 +3,26 @@ using UnityEngine;
 public class Food : MonoBehaviour
 {
     [Header("Food Variables")]
-    public Quality foodQuality;
-    public int price;
-    public int cookingTime;
     private int rand;
+    [SerializeField] private  Quality _foodQuality;
+    [SerializeField] private  int _price;
+    [SerializeField] private  int _cookingTime;
+
+    public Quality foodQuality {
+        get { return _foodQuality; }
+        set { _foodQuality = value; }
+    }
+
+    public int price {
+        get { return _price; }
+        set { _price = value; }
+    }
+
+    public int cookingTime {
+        get { return _cookingTime; }
+        set { _cookingTime = value; }
+    }
+
 
     public enum Quality {
         Awful = 0, Premitive, Normal, Tasty, Delighful, MasterPiece
@@ -18,29 +34,29 @@ public class Food : MonoBehaviour
     }
 
     private void SetCookingTime() {
-        cookingTime = (int)foodQuality * 3;
+        _cookingTime = (int)_foodQuality * 3;
     }
 
     private void RandPrice() {
         rand = Random.Range(0,1);
         
-        if (foodQuality != Quality.Awful) {
-            price = (int)foodQuality * 2 - rand;
+        if (_foodQuality != Quality.Awful) {
+            _price = (int)_foodQuality * 2 - rand;
         } else {
-            price = 0;
+            _price = 0;
         }
     }
 
     public void ChangePrice(int number) {
-        price = number;
+        _price = number;
     }
 
     public int GetPrice() {
-        return price;
+        return _price;
     }
 
     public int GetFoodQualityInt() {
-        return (int)foodQuality;
+        return (int)_foodQuality;
     }
 }
 

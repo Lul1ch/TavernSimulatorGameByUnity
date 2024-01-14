@@ -13,7 +13,7 @@ public class EndOfGameObserver : MonoBehaviour
 
     private void FixedUpdate() {
         //Если игрок достигает условий окончания игры, то завершаем её с соответствующим результатом
-        if (tavern.GetTavernMoney() < shop.GetMinPrice() && tavern.isFoodStorageEmpty()) {
+        if (tavern.GetTavernMoney() < shop.GetMinPrice() && tavern.IsFoodStorageEmpty()) {
             PlayerPrefs.SetString("Result", "Loss");
             queue.SetGuestCounter(0);
             Invoke("LoadEndGameScene", 5f);

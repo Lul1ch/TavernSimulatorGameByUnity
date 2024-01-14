@@ -23,7 +23,7 @@ public class Tavern : MonoBehaviour
         UpdateCounterInterface();
     }
 
-    public void UpdateDict(string name, GameObject foodObject) {
+    public void UpdateDictionary(string name, GameObject foodObject) {
         //Если еда уже есть на складе, то просто увеличиваем её счётчик
         if (foodStorage.ContainsKey(name) == true) {
             foodStorage[name]++;
@@ -85,11 +85,11 @@ public class Tavern : MonoBehaviour
         Destroy(curFood.gameObject, 1f);
     }
 
-    public bool isNumberGreaterThanZero(string foodName) {
+    public bool IsNumberGreaterThanZero(string foodName) {
         return (foodStorage[foodName] > 0);
     }
 
-    public bool isFoodStorageEmpty() {
+    public bool IsFoodStorageEmpty() {
         return (parent.GetComponentsInChildren<Transform>().Length == 1);
     }
 

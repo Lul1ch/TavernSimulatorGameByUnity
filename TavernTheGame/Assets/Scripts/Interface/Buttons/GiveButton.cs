@@ -24,7 +24,7 @@ public class GiveButton : MonoBehaviour
     private void GiveCustomerSelectedOrder() {
         string foodName = productInfo.productName;
         //Если от клиента есть заказ, он озвучен, также заказ не был ещё выдан и выбранный продукт присутствует на складе(его количество больше 0), то мы выдаём заказ
-        if (foodOrdering.curOrder != null && tavern.isNumberGreaterThanZero(foodName) && foodOrdering.curIssue == null && foodOrdering.isOrderTold || events.isItAFreeFoodEvent()) {
+        if (foodOrdering.curOrder != null && tavern.IsNumberGreaterThanZero(foodName) && foodOrdering.curIssue == null && foodOrdering.isOrderTold || events.IsItAFreeFoodEvent()) {
             //Уставливаем выданный заказ
             foodOrdering.curIssue = tavern.GetFoodObject(foodName);
             //Убавляем количество выданного продукта на складе

@@ -137,7 +137,7 @@ public class EventGenerator : MonoBehaviour
         curEvent = Event.None;
     }
 
-    public bool isItAFreeFoodEvent() {
+    public bool IsItAFreeFoodEvent() {
         return (curEvent == Event.FreeFood);
     }
 

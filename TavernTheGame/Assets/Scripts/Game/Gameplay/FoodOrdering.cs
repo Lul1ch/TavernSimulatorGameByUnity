@@ -12,11 +12,24 @@ public class FoodOrdering : MonoBehaviour
     [SerializeField] private Kitchen kitchen;
 
     private AudioSource audioPhrase;
-
-    public GameObject curOrder = null;
-    public GameObject curIssue = null;
-    public bool isOrderTold;
     private bool eventWasGenerated;
+
+    private GameObject _curOrder = null;
+    private GameObject _curIssue = null;
+    private bool _isOrderTold;
+
+    public GameObject curOrder {
+        get { return _curOrder; }
+        set { _curOrder = value; }
+    }
+    public GameObject curIssue {
+        get { return _curIssue; }
+        set { _curIssue = value; }
+    }
+    public bool isOrderTold {
+        get { return _isOrderTold; }
+        set { _isOrderTold = value; }
+    }
 
     [Header("GuestMessage")]
     [SerializeField] private GameObject messageCloud;
@@ -35,14 +48,14 @@ public class FoodOrdering : MonoBehaviour
     private void FixedUpdate() {
         //Если клиент дошёл до точки и он не сделал ещё заказ, то формируем заказ
         
-        if (guestMover.GetStatus() == GuestMover.Status.Waiting && curOrder == null) {
+        if (guestMover.GetStatus() == GuestMover.Status.Waiting && _curOrder == null) {
             int randForEvent = Random.Range(0, 100);
             messageCloud.SetActive(true);
             if (randForEvent > 40) {
-                curOrder = MakeOrder();
+                _curOrder = MakeOrder();
                 //Формируем сообщение приветствия и заказа
                 SayHello();
-                isOrderTold = false;
+                _isOrderTold = false;
                 //После преветствия с задержкой вызываем функцию, в которой выводится сообщение с заказом
                 Invoke("SayWhatYouWant", 3f);
             } else {
@@ -51,7 +64,7 @@ public class FoodOrdering : MonoBehaviour
             }
         }
         
-        if (curIssue != null && !isReacted && isOrderTold && guestMover.GetStatus() == GuestMover.Status.Waiting) {
+        if (_curIssue != null && !isReacted && _isOrderTold && guestMover.GetStatus() == GuestMover.Status.Waiting) {
             //Формируем реакцию клиента
             Mood guestReaction = React();
             //Формируем сообщение с ответной реакцией
@@ -79,16 +92,16 @@ public class FoodOrdering : MonoBehaviour
     private Mood React() {
         Mood reaction = Mood.Sad;
         //Формируем реакцию клиента в зависимости от того совпадает ли выданный заказ с заказом клиента
-        reaction = (curIssue == curOrder) ? Mood.Happy : Mood.Sad;
+        reaction = (_curIssue == _curOrder) ? Mood.Happy : Mood.Sad;
         return reaction;
     }
 
     private void Pay(Mood reaction) {
-        Food clientOrder = curOrder.GetComponent<Food>();
-        Food tavernDish = curIssue.GetComponent<Food>();
+        Food clientOrder = _curOrder.GetComponent<Food>();
+        Food tavernDish = _curIssue.GetComponent<Food>();
         int tips = (int)reaction*3;
         //Если качество заказа выше самого худшего, то вычисляем оплату по специальной формуле
-        if (curIssue.GetComponent<Food>().foodQuality != Food.Quality.Awful) {
+        if (_curIssue.GetComponent<Food>().foodQuality != Food.Quality.Awful) {
             float payment = Mathf.Round(clientOrder.price + tips) + tavern.GetTavernBonus(); 
             tavern.IncreaseTavernMoney((int)payment);
         }
@@ -125,9 +138,9 @@ public class FoodOrdering : MonoBehaviour
     private void SayWhatYouWant() {
         //Обновляем интерфейс сообщения
         int rand = Random.Range(0, variants.OrderPhrases.Count);
-        messageText.text = variants.OrderPhrases[rand].Replace("^", curOrder.name);
+        messageText.text = variants.OrderPhrases[rand].Replace("^", _curOrder.name);
         
-        isOrderTold = true;
+        _isOrderTold = true;
     }
 
     public void AnswerIfClientWasntServiced() {
@@ -144,8 +157,8 @@ public class FoodOrdering : MonoBehaviour
     }
 
     public void ClearVariablesValues() {
-        curOrder = null;
-        curIssue = null;
+        _curOrder = null;
+        _curIssue = null;
         isReacted = false;
         eventWasGenerated = false;
     }

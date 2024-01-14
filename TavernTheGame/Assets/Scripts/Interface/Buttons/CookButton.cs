@@ -49,6 +49,7 @@ public class CookButton : MonoBehaviour
             //Задаём родительский объект, для корректного отображения таймера
             newTimerObject.transform.SetParent(contentElemTransform);
             //Устанавливаем время готовки
+            curTimer.GetTimerTextObject();
             curTimer.SetMultiplier(dishInfo.productCookingTime);
             curCookingDishCounter--;
 
@@ -62,7 +63,7 @@ public class CookButton : MonoBehaviour
             yield return new WaitForSeconds(1f);
         }
         //Добавляем готовое блюдо
-        tavern.UpdateDict(productInfo.productName, kitchen.GetDish(productInfo.productIndex));
+        tavern.UpdateDictionary(productInfo.productName, kitchen.GetDish(productInfo.productIndex));
         //Обновляем визуальное отображение в окне склада; Убавляем счётчик для компонента блюда; Обновляем визуальное отображение в окне склада
         tavern.UpdateStorageInfo(productInfo.productName, productInfo.productSprite);
         foreach(var component in components) {

@@ -18,26 +18,26 @@ public class CanvasButtons : MonoBehaviour
     private float kitchenWindowYpos1 = 0f, kitchenWindowYpos2 = 1500f;
 
     //Для трёх разных окон заводим функции для показа или скрытия их при нажатии на нужные кнопки
-    public void showOrHideWindow(GameObject window) {
+    public void ShowOrHideWindow(GameObject window) {
         window.SetActive(!window.activeSelf);
     }
 
-    public void showOrHideKitchenWindow() {
+    public void ShowOrHideKitchenWindow() {
         RectTransform kitchenRT = kitchenWindow.GetComponent<RectTransform>();
         isKitchenWindowActive = !isKitchenWindowActive;
         if (isKitchenWindowActive) {
-            moveWindow(kitchenRT, kitchenWindowYpos1);
+            MoveWindow(kitchenRT, kitchenWindowYpos1);
         } else {
-            moveWindow(kitchenRT, kitchenWindowYpos2);
+            MoveWindow(kitchenRT, kitchenWindowYpos2);
         }
     }
 
     public void HideKitchenWindowOnExit() {
         isKitchenWindowActive = true;
-        showOrHideKitchenWindow();
+        ShowOrHideKitchenWindow();
     }
 
-    private void moveWindow(RectTransform windowRT, float yCoord) {
+    private void MoveWindow(RectTransform windowRT, float yCoord) {
         windowRT.offsetMin = new Vector2(0f, yCoord);
         windowRT.offsetMax = new Vector2(0f, yCoord);
     }

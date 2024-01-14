@@ -277,29 +277,28 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5d60cf1500f8ff24ab1c7e095205a7e5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  FoodStore:
-  - {fileID: 9094816943121590810, guid: 64e811ab826697447a87dc08513092f8, type: 3}
-  - {fileID: 3374082259322362984, guid: e9c567f7e4723ff4cb14d91fb50dfd1a, type: 3}
-  - {fileID: 4671588902404071097, guid: d1dc0e727376fa34c822ac16cb67d568, type: 3}
-  - {fileID: 1214601942928797431, guid: fb58731649df05e4880106f5e2d87e89, type: 3}
-  - {fileID: 2375947227772490418, guid: 5bbdea7cc8c3571488f9d368d052e0d4, type: 3}
-  - {fileID: 3898908929033214011, guid: 869d8439bd332a54a837d21a056df990, type: 3}
-  - {fileID: 8409283420339330351, guid: 70301c119ad94d94e81aa6b416fea6ae, type: 3}
-  - {fileID: 4580522146714174745, guid: ae5d94e05f11057458632551c70b6e13, type: 3}
-  - {fileID: 7264275863283836993, guid: 931f16ea1f4c23d40b775bb15f167c5f, type: 3}
-  - {fileID: 6553859512350844597, guid: 731ac1e66e22f264abb0c5e984366462, type: 3}
-  - {fileID: 7615627680220251824, guid: 4db5f28f62d5069429af8ba131875500, type: 3}
-  - {fileID: 1952744056348810849, guid: 5819eea6c318adc4bb384a1fd10c5952, type: 3}
-  - {fileID: 5281876948756605303, guid: ad4199ca1db3f584e892bc27c3bfee58, type: 3}
-  - {fileID: 1173075912506660569, guid: ae6690ed42c0140439bcef23534472a6, type: 3}
-  - {fileID: 1413685782401908966, guid: 905ba31977e4fb84eba40dd7be46dd38, type: 3}
-  - {fileID: 3559177592098467422, guid: a4df6ac434bc51e4b81cd6ac6350a7d9, type: 3}
-  - {fileID: 5821462067852556008, guid: 3b0a33cf48f2aee4ab509bddb6e73126, type: 3}
-  - {fileID: 7663888217010165910, guid: 0bc21e15dccd19e4b9af2386fb324154, type: 3}
-  - {fileID: 3885127059034939259, guid: e377587778792a54c9439e5e87e33356, type: 3}
-  - {fileID: 4046842246041904731, guid: a41451f0188ac1d4eb43d01768b34811, type: 3}
-  - {fileID: 8081800172538716453, guid: b07234b2ee638364ab54be928c607b05, type: 3}
-  - {fileID: 5938429019396323414, guid: 31f071e2e7999d84388420da79aa4486, type: 3}
+  _foodStore:
+  - {fileID: 9094816943121590810, guid: 8923e20d17aca1a4ea4f86dce8ae47c0, type: 3}
+  - {fileID: 5938429019396323414, guid: 120fd71c77bae0e4997a7599a281dcec, type: 3}
+  - {fileID: 3374082259322362984, guid: d9cb65a8097934c40ba3373d7ff6f372, type: 3}
+  - {fileID: 4671588902404071097, guid: fef54f887279da24ab50eac792071ded, type: 3}
+  - {fileID: 1214601942928797431, guid: b1ebc9782289ef940865a19816112a31, type: 3}
+  - {fileID: 2375947227772490418, guid: 4890811dbef32bb419ed965cf0b89df9, type: 3}
+  - {fileID: 8818284815457119255, guid: 2e8bf2693e7ade146b1652f3bec82bb6, type: 3}
+  - {fileID: 3898908929033214011, guid: 0021a2ef220571a43ae7c2b8d29ee508, type: 3}
+  - {fileID: 4580522146714174745, guid: a21b6e505453d5248b2a15bbebe3646a, type: 3}
+  - {fileID: 7264275863283836993, guid: 2ffe0ac4f9e0b51419f6423a36ae15bf, type: 3}
+  - {fileID: 6553859512350844597, guid: a4176e79e92e3a842b28ae32714f3042, type: 3}
+  - {fileID: 7615627680220251824, guid: 88756003228a6204da54e39a3c4d4e0f, type: 3}
+  - {fileID: 1952744056348810849, guid: 220b357b75e8c8442a8635112aa6eb09, type: 3}
+  - {fileID: 5281876948756605303, guid: 56b668ea40eb4ed4ea20c15405411efa, type: 3}
+  - {fileID: 3395281967099591015, guid: 5ea2fdf92ff95834784d1d5e8eb56998, type: 3}
+  - {fileID: 1173075912506660569, guid: 422d2a85556bb044cbab74602a172938, type: 3}
+  - {fileID: 3885127059034939259, guid: 1b1f47507e9284d46a5e328c23d4f892, type: 3}
+  - {fileID: 1413685782401908966, guid: f59f0958eafcf834b923e8f8f6a62f6f, type: 3}
+  - {fileID: 3559177592098467422, guid: 655938ceebeb24f41b5cd8f758a840bb, type: 3}
+  - {fileID: 5821462067852556008, guid: 81a4ead09706c7341baf93e30d5cec62, type: 3}
+  - {fileID: 7663888217010165910, guid: 13cf02593d1af824980f65a84e4d4cfa, type: 3}
   parent: {fileID: 673268037}
   shopContentElement: {fileID: 661778315839437868, guid: 9dce99db67b400d4fa9bcaec7e389c97, type: 3}
 --- !u!1 &194226949
@@ -860,7 +859,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.155, y: 0.8943333}
   m_AnchorMax: {x: 0.201, y: 0.9687945}
-  m_AnchoredPosition: {x: -127.19969, y: 0.5}
+  m_AnchoredPosition: {x: -127.19971, y: 0.5}
   m_SizeDelta: {x: 253.81006, y: -3.3600006}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &472954083
@@ -3650,7 +3649,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c2c63d821af5a2149b051faa3cf123d9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Dishes:
+  dishes:
   - {fileID: 4689151228524657258, guid: 41ca81cc6d59c964bbbdcdacd1e78fba, type: 3}
   - {fileID: 3530387243363237722, guid: 6ca9d1625dcd7d9468dabce953dfe7ae, type: 3}
   - {fileID: 532176508905772173, guid: a5ba1df49de9de445a1c91bd5fa0bf7c, type: 3}
@@ -4106,7 +4105,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 1391082697}
         m_TargetAssemblyTypeName: CanvasButtons, Assembly-CSharp
-        m_MethodName: showOrHideWindow
+        m_MethodName: ShowOrHideWindow
         m_Mode: 2
         m_Arguments:
           m_ObjectArgument: {fileID: 477349912}
@@ -5075,7 +5074,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 1391082697}
         m_TargetAssemblyTypeName: CanvasButtons, Assembly-CSharp
-        m_MethodName: showOrHideKitchenWindow
+        m_MethodName: ShowOrHideKitchenWindow
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -5553,9 +5552,6 @@ MonoBehaviour:
   queueCreator: {fileID: 1391082694}
   tavern: {fileID: 472954085}
   kitchen: {fileID: 1019864566}
-  curOrder: {fileID: 0}
-  curIssue: {fileID: 0}
-  isOrderTold: 0
   messageCloud: {fileID: 1984926994}
   messageText: {fileID: 1533558498}
   reactEmoji: {fileID: 0}
@@ -6029,7 +6025,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 1391082697}
         m_TargetAssemblyTypeName: CanvasButtons, Assembly-CSharp
-        m_MethodName: showOrHideWindow
+        m_MethodName: ShowOrHideWindow
         m_Mode: 2
         m_Arguments:
           m_ObjectArgument: {fileID: 750584739}
@@ -7268,7 +7264,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 1391082697}
         m_TargetAssemblyTypeName: CanvasButtons, Assembly-CSharp
-        m_MethodName: showOrHideWindow
+        m_MethodName: ShowOrHideWindow
         m_Mode: 2
         m_Arguments:
           m_ObjectArgument: {fileID: 1511417811}

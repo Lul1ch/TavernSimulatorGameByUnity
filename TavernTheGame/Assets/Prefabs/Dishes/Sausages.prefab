@@ -98,10 +98,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5dabee7684f99404391a278863f199fc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  foodQuality: 4
-  satiety: 75
-  price: 8
-  cookingTime: 12
+  _foodQuality: 4
+  _price: 0
+  _cookingTime: 0
 --- !u!114 &-1598668455946562165
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -114,7 +113,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5531e7ccab825ee4fb23d2e7eea688c9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  componentProduct: {fileID: 4710879965864620015, guid: 5b27c860e55feaf46b986e9342c56335, type: 3}
   dishComponents:
   - {fileID: 5821462067852556008, guid: 3b0a33cf48f2aee4ab509bddb6e73126, type: 3}
   - {fileID: 3374082259322362984, guid: e9c567f7e4723ff4cb14d91fb50dfd1a, type: 3}

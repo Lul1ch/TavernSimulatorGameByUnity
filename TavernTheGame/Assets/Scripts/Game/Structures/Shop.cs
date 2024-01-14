@@ -6,37 +6,41 @@ using TMPro;
 
 public class Shop : MonoBehaviour
 {
-    public List<GameObject> FoodStore;
+    [SerializeField] private List<GameObject> _foodStore;
+
+    public List<GameObject> foodStore {
+        get { return _foodStore; }
+    }
 
     private Tavern tavern;
-    public Transform parent;
+    [SerializeField] private  Transform parent;
 
-    public GameObject shopContentElement;
+    [SerializeField] private  GameObject shopContentElement;
 
     private int minPrice = -1;
 
     private void Start() {
         tavern = GameObject.FindGameObjectWithTag("Tavern").GetComponent<Tavern>();
         //Создаём визуальное отображение каждого товара из массива продуктов в скроллере
-        initShopShowcase();
+        InitShopShowcase();
     }
 
-    private void initShopShowcase() {
-        for (int i = 0; i < FoodStore.Count;i++) {
+    private void InitShopShowcase() {
+        for (int i = 0; i < _foodStore.Count;i++) {
             GameObject curElement = GameObject.Instantiate(shopContentElement, shopContentElement.transform.position, shopContentElement.transform.rotation);
             
-            FoodStore[i].GetComponent<Food>().InitProductInfo();
-            Sprite curProductSprite = FoodStore[i].GetComponent<SpriteRenderer>().sprite;
-            int curPrice = FoodStore[i].GetComponent<Food>().price;
+            _foodStore[i].GetComponent<Food>().InitProductInfo();
+            Sprite curProductSprite = _foodStore[i].GetComponent<SpriteRenderer>().sprite;
+            int curPrice = _foodStore[i].GetComponent<Food>().price;
             curElement.transform.Find("Price").GetComponent<Text>().text = curPrice.ToString();
             curElement.transform.Find("Icon").GetComponent<Image>().sprite = curProductSprite;
-            curElement.transform.Find("Name").GetComponent<TMP_Text>().text = FoodStore[i].name;
+            curElement.transform.Find("Name").GetComponent<TMP_Text>().text = _foodStore[i].name;
 
             //Сохраняем необходимую информацию для работы функции покупки и доставки купленных товаров на склад
             ProductInfo curProduct = curElement.transform.Find("Buy").GetComponent<ProductInfo>();
             curProduct.productPrice = curPrice;
             curProduct.productIndex = i;
-            curProduct.productName = FoodStore[i].name;
+            curProduct.productName = _foodStore[i].name;
             curProduct.productSprite = curProductSprite;
             curElement.transform.SetParent(parent, false);
             

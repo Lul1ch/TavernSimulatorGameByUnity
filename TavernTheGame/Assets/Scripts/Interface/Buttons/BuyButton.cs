@@ -21,7 +21,7 @@ public class BuyButton : MonoBehaviour
             //Проводиться оплата за покупку выбранного товара
             tavern.DecreaseTavernMoney(productInfo.productPrice);
             //Добавление продукта на склад
-            tavern.UpdateDict(productInfo.productName, shop.FoodStore[productInfo.productIndex]);
+            tavern.UpdateDictionary(productInfo.productName, shop.foodStore[productInfo.productIndex]);
             //Визуальное обновление окна склада в игре
             tavern.UpdateStorageInfo(productInfo.productName, productInfo.productSprite);
 
