@@ -18,10 +18,6 @@ public class Tavern : MonoBehaviour
     private float tavernMoney = 100f;
     private int moneyBonus;
 
-    private void Start() {
-        Debug.Log(parent.GetComponentsInChildren<Transform>().Length);
-    }
-
     private void FixedUpdate() {
         //Обновляем интерфейс со счётчиками клиентов и денег таверны
         UpdateCounterInterface();
@@ -86,7 +82,7 @@ public class Tavern : MonoBehaviour
 
     private void DestroyTavernContentElement(string foodName) {
         Transform curFood = parent.Find(foodName);
-        Destroy(curFood.gameObject);
+        Destroy(curFood.gameObject, 1f);
     }
 
     public bool isNumberGreaterThanZero(string foodName) {

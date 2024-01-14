@@ -33,6 +33,7 @@ public class GiveButton : MonoBehaviour
             tavern.UpdateStorageInfo(foodName);
             
             events.UserGaveFreeFood();
+            //gameObject.GetComponent<AudioSource>().enabled = true;
             CanvasButtons.PlayOnClickSound(gameObject.GetComponent<AudioSource>());
         } 
     }

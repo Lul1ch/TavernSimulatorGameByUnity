@@ -2,6 +2,7 @@ using UnityEngine;
 
 public class Food : MonoBehaviour
 {
+    [Header("Food Variables")]
     public Quality foodQuality;
     public int price;
     public int cookingTime;
