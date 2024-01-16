@@ -11,7 +11,6 @@ public class GuestMover : MonoBehaviour
     
     private Status charStatus;
     private bool timeIsUped = false;
-    private float vSpeed = 35f;
     private float waitTime = 30f;
     private float guestYpos;
     private bool isTimeIsUpInvoked;
@@ -30,20 +29,6 @@ public class GuestMover : MonoBehaviour
                 Invoke("SetTimeIsUp", waitTime);
                 isTimeIsUpInvoked = true;
             }
-        }
-    }
-
-    private void Wait() {
-        //Берём нужные параметры гостя
-        Rigidbody2D guestRb = queueCreator.GetCurGuest().GetComponent<Rigidbody2D>();
-        Transform guestPos = queueCreator.GetCurGuest().GetComponent<Transform>();
-
-        //Убираем движение и задаём вертикаьные покачивания, как имитацию анимации ожидания
-        guestRb.velocity = transform.TransformDirection(new Vector2(0, guestRb.velocity.y));
-        if (guestPos.position.y <= guestYpos - 0.5f){
-            guestRb.velocity = transform.TransformDirection(new Vector2(guestRb.velocity.x, vSpeed*0.8f * Time.fixedDeltaTime));
-        } else if (guestPos.position.y >= guestYpos){
-            guestRb.velocity = transform.TransformDirection(new Vector2(guestRb.velocity.x, -0.8f*vSpeed * Time.fixedDeltaTime));
         }
     }
 
