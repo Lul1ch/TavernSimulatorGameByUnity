@@ -291,7 +291,6 @@ GameObject:
   - component: {fileID: 4333474853211917992}
   - component: {fileID: 4333474853211917993}
   - component: {fileID: 4333474853211917998}
-  - component: {fileID: 6446648620529541180}
   - component: {fileID: 2437499188306774478}
   - component: {fileID: 312170534107968524}
   m_Layer: 5
@@ -403,23 +402,6 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls: []
---- !u!114 &6446648620529541180
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4333474853211917996}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 53da4e8c22be88f4487a29baaeb755bb, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  productPrice: 0
-  productIndex: 0
-  productSprite: {fileID: 0}
-  productName: 
-  productCookingTime: 0
 --- !u!82 &2437499188306774478
 AudioSource:
   m_ObjectHideFlags: 0
@@ -528,10 +510,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e821c4911fe90bc4bb482b291e2fce82, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  foodOrdering: {fileID: 0}
-  tavern: {fileID: 0}
-  food: {fileID: 0}
-  events: {fileID: 0}
   giveButton: {fileID: 4333474853211917998}
 --- !u!1 &8604813372722092489
 GameObject:

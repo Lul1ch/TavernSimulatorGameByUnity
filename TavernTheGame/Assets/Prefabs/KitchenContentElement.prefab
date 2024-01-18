@@ -52,7 +52,6 @@ GameObject:
   - component: {fileID: 2777668332939246706}
   - component: {fileID: 2777668332939246707}
   - component: {fileID: 2777668332939246704}
-  - component: {fileID: 2777668332939246705}
   - component: {fileID: 2777668332939246702}
   - component: {fileID: 333069660904569727}
   m_Layer: 5
@@ -164,22 +163,6 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls: []
---- !u!114 &2777668332939246705
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2777668332939246700}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5d27fdc1df9d0d440a8af3b8d341b8b2, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  productCookingTime: 0
-  productName: 
-  productIndex: 0
-  productSprite: {fileID: 0}
 --- !u!114 &2777668332939246702
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -194,10 +177,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   kitchen: {fileID: 0}
   tavern: {fileID: 0}
-  dishInfo: {fileID: 2777668332939246705}
+  dishScript: {fileID: 0}
   timerSample: {fileID: 4944528364685076161, guid: 32ca99b1d381d524993f22e8a6dcaf1a, type: 3}
   cookButton: {fileID: 2777668332939246704}
   contentElemTransform: {fileID: 0}
+  dishObj: {fileID: 0}
 --- !u!82 &333069660904569727
 AudioSource:
   m_ObjectHideFlags: 0

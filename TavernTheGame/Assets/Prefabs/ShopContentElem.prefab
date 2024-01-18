@@ -104,7 +104,6 @@ GameObject:
   - component: {fileID: 7385802402797419389}
   - component: {fileID: 2710926986034670931}
   - component: {fileID: 1574058904883073902}
-  - component: {fileID: 2735588276841764243}
   - component: {fileID: 1985104641594288027}
   - component: {fileID: 9054289966341274049}
   m_Layer: 5
@@ -216,23 +215,6 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls: []
---- !u!114 &2735588276841764243
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4774376905248506479}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 53da4e8c22be88f4487a29baaeb755bb, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  productPrice: 0
-  productIndex: 0
-  productSprite: {fileID: 0}
-  productName: 
-  productCookingTime: 0
 --- !u!114 &1985104641594288027
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -245,9 +227,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 52540bed8cdadc642892095ec542826f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  product: {fileID: 0}
-  tavern: {fileID: 0}
-  shop: {fileID: 0}
   buyButton: {fileID: 1574058904883073902}
 --- !u!82 &9054289966341274049
 AudioSource:
