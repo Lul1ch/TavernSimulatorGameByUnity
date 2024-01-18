@@ -23,6 +23,10 @@ public class Dish : Food
         set { _dishIndex = value; }
     }
 
+    public List<GameObject> dishComponents {
+        get { return _dishComponents; }
+    }
+
     public Dictionary<GameObject, int> componentsObjects {
         get { return _componentsObjects; }
     }

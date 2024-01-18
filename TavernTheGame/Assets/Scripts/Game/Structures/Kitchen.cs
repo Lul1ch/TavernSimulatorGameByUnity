@@ -19,34 +19,36 @@ public class Kitchen : MonoBehaviour
         //Для каждого элемента, который лежит в массиве блюд создаём визуальное отображение в скролере с помощью ранее созданного объекта шаблона
         foreach(var elem in dishes) {
             GameObject curElement = Instantiate(kitchenContentElementSample, kitchenContentElementSample.transform.position, kitchenContentElementSample.transform.rotation);
+            GameObject curDish = InstantiateDishIcon(curElement, elem);
 
             Transform elemTransform = curElement.transform;
-            Sprite curDishSprite = elem.GetComponent<SpriteRenderer>().sprite;
-            int curDishCookingTime = elem.GetComponent<Dish>().dishCookingTime;
-            DishCond elemDishCond = elem.GetComponent<DishCond>();
+            Sprite curDishSprite = elem.GetComponent<Image>().sprite;
+            Dish elemDishScript = elem.GetComponent<Dish>();
+            int curDishCookingTime = elemDishScript.dishCookingTime;
 
-            elemTransform.Find("Icon").GetComponent<Image>().sprite = curDishSprite;
             elemTransform.Find("Time").GetComponent<TMP_Text>().text = curDishCookingTime.ToString();
             elemTransform.Find("Name").GetComponent<TMP_Text>().text = elem.name;
+            elemTransform.Find("Cook").GetComponent<CookButton>().InitDishVariable(curDish);
 
-            //Дополнительно сохраняем некоторые значения, для корректной работы функции готовки
-            DishInfo curDishInfo = elemTransform.Find("Cook").GetComponent<DishInfo>();
-            curDishInfo.productCookingTime = curDishCookingTime;
-            curDishInfo.productName = elem.name;
-            curDishInfo.productIndex = index;
-            curDishInfo.productSprite = curDishSprite;
-                        
-            List<GameObject> components = elemDishCond.GetDishComponents();
-            foreach(var component in components) {
-                if (!curDishInfo.componentsNames.ContainsKey(component.name)) {
-                    curDishInfo.componentsNames.Add(component.name, 0);
-                }
-                curDishInfo.componentsNames[component.name]++;
-            }
+            elemDishScript.foodName = elem.name;
+            elemDishScript.dishIndex = index;
+            elemDishScript.dishSprite = curDishSprite;
 
             elemTransform.SetParent(parent, false);
             index++;
         }
+    }
+
+    private GameObject InstantiateDishIcon(GameObject curContentElement, GameObject objToInstantiate) {
+            Transform curIconTransform = curContentElement.transform.Find("PositionForIcon");
+            GameObject iconObject = GameObject.Instantiate(objToInstantiate, curIconTransform.position, Quaternion.identity);
+
+            iconObject.transform.SetParent(curContentElement.transform, false);
+            Destroy(curIconTransform.gameObject);
+
+            iconObject.name = "Icon";
+            
+            return iconObject;
     }
 
     public GameObject GetDish(int index) {
