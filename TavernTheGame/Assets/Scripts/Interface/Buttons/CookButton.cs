@@ -12,16 +12,17 @@ public class CookButton : MonoBehaviour
     [Header("Scripts")]
     [SerializeField] private Kitchen kitchen;
     [SerializeField] private Tavern tavern;
-    [SerializeField] private DishInfo dishInfo;
+    [SerializeField] private Dish dishScript;
 
     [Header("Scene's objects")]
     [SerializeField] private GameObject timerSample;
     [SerializeField] private Button cookButton;
     [SerializeField] private Transform contentElemTransform;
+    [SerializeField] private GameObject dishObj;
 
     private void Start() {
         InitializeVariables();
-        cookButton.onClick.AddListener(() => CookSelectedDish(dishInfo, contentElemTransform));
+        cookButton.onClick.AddListener(() => CookSelectedDish(contentElemTransform));
     }
 
     private void InitializeVariables() {
@@ -30,15 +31,15 @@ public class CookButton : MonoBehaviour
         contentElemTransform = transform.parent;
     }
 
-    public void CookSelectedDish(DishInfo dishInfo, Transform contentElemTransform) {
+    public void CookSelectedDish(Transform contentElemTransform) {
         bool isAllComponentsAvailable = true;
-        Dictionary<string, int> components = dishInfo.GetDishComponents();
+        Dictionary<GameObject, int> components = dishScript.componentsObjects;
         foreach(var component in components) {
-            if(!tavern.IsEnoughFoodInStorage(component.Key, component.Value)) {
+            if(!tavern.IsEnoughFoodInStorage(component.Key.name, component.Value)) {
                 isAllComponentsAvailable = false;
             }
         }
-        Debug.Log(isAllComponentsAvailable + "-bool counter-" + curCookingDishCounter);
+        
         //Если компонент был куплен и его количество больше 0, то мы можем приготовить блюдо
         if (isAllComponentsAvailable && curCookingDishCounter > 0) {
             //Создаём таймер готовки блюда
@@ -50,29 +51,34 @@ public class CookButton : MonoBehaviour
             newTimerObject.transform.SetParent(contentElemTransform);
             //Устанавливаем время готовки
             curTimer.GetTimerTextObject();
-            curTimer.SetMultiplier(dishInfo.productCookingTime);
+            curTimer.SetMultiplier(dishScript.dishCookingTime);
             curCookingDishCounter--;
 
-            coroutine = addFinishedDish(dishInfo, curTimer, components);
+            coroutine = addFinishedDish(curTimer, components);
             StartCoroutine(coroutine);
         }
     }
 
-    private IEnumerator addFinishedDish(DishInfo productInfo, Timer curTimer, Dictionary<string, int> components) {
+    private IEnumerator addFinishedDish(Timer curTimer, Dictionary<GameObject, int> components) {
         while(curTimer.GetFillAmount() > 0) {
             yield return new WaitForSeconds(1f);
         }
-        //Добавляем готовое блюдо
-        tavern.UpdateDictionary(productInfo.productName, kitchen.GetDish(productInfo.productIndex));
-        //Обновляем визуальное отображение в окне склада; Убавляем счётчик для компонента блюда; Обновляем визуальное отображение в окне склада
-        tavern.UpdateStorageInfo(productInfo.productName, productInfo.productSprite);
+
+        tavern.UpdateDictionary(dishScript.foodName, dishObj);
+        tavern.UpdateStorageInfo(dishScript.foodName, dishObj);
+        
         foreach(var component in components) {
-            tavern.ReduceFoodNumber(component.Key, component.Value);
-            tavern.UpdateStorageInfo(component.Key);
+            tavern.ReduceFoodNumber(component.Key.name, component.Value);
+            tavern.UpdateStorageInfo(component.Key.name);
         }
         
         curCookingDishCounter++;
 
         StopCoroutine(coroutine);
+    }
+
+    public void InitDishVariable(GameObject obj) {
+        dishObj = obj;
+        dishScript = obj.GetComponent<Dish>();
     }
 }

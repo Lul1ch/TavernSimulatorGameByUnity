@@ -21,17 +21,17 @@ public class CookBook : MonoBehaviour
             GameObject curElement = Instantiate(contentElementSample, contentElementSample.transform.position, Quaternion.identity);
 
             Transform elemTransform = curElement.transform;
-            Sprite curDishSprite = elem.GetComponent<SpriteRenderer>().sprite;
-            DishCond elemDishCond = elem.GetComponent<DishCond>();
+            Sprite curDishSprite = elem.GetComponent<Image>().sprite;
+            Dish elemDishScript = elem.GetComponent<Dish>();
 
             elemTransform.Find("DishIcon").GetComponent<Image>().sprite = curDishSprite;
-            List<GameObject> components = elemDishCond.GetDishComponents();
+            List<GameObject> components = elemDishScript.dishComponents;
             Transform componentsParent = elemTransform.Find("ComponentsParent");
             Transform componentIcon = elemTransform.Find("ComponentIcon");
             foreach(var component in components) {
                 GameObject curIcon = Instantiate(componentIcon.gameObject, componentIcon.position, Quaternion.identity);
 
-                curIcon.GetComponent<Image>().sprite = component.GetComponent<SpriteRenderer>().sprite;
+                curIcon.GetComponent<Image>().sprite = component.GetComponent<Image>().sprite;
                 curIcon.transform.SetParent(componentsParent, false);
             }
             Destroy(componentIcon.gameObject);

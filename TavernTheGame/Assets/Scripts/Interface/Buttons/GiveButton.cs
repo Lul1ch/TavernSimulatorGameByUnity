@@ -3,16 +3,13 @@ using UnityEngine.UI;
 
 public class GiveButton : MonoBehaviour
 {
-    [Header("Scripts")]
-    [SerializeField] private FoodOrdering foodOrdering;
-
-    [SerializeField] private Tavern tavern;
-
-    [SerializeField] private ProductInfo productInfo;
-    [SerializeField] private EventGenerator events;
-
     [Header("Scene's objects")]
     [SerializeField] private Button giveButton;
+
+    private FoodOrdering foodOrdering;
+    private Tavern tavern;
+    private Food food;
+    private EventGenerator events;
 
     private void Start() {
         tavern = FindObjectOfType<Tavern>().GetComponent<Tavern>();
@@ -22,7 +19,7 @@ public class GiveButton : MonoBehaviour
     }
 
     private void GiveCustomerSelectedOrder() {
-        string foodName = productInfo.productName;
+        string foodName = food.foodName;
         //Если от клиента есть заказ, он озвучен, также заказ не был ещё выдан и выбранный продукт присутствует на складе(его количество больше 0), то мы выдаём заказ
         if (foodOrdering.curOrder != null && tavern.IsNumberGreaterThanZero(foodName) && foodOrdering.curIssue == null && foodOrdering.isOrderTold || events.IsItAFreeFoodEvent()) {
             //Уставливаем выданный заказ
@@ -36,5 +33,9 @@ public class GiveButton : MonoBehaviour
             //gameObject.GetComponent<AudioSource>().enabled = true;
             CanvasButtons.PlayOnClickSound(gameObject.GetComponent<AudioSource>());
         } 
+    }
+
+    public void InitFoodVariable(Food foodScript) {
+        food = foodScript;
     }
 }

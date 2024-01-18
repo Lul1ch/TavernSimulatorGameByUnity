@@ -23,6 +23,10 @@ public class Dish : Food
         set { _dishIndex = value; }
     }
 
+    public List<GameObject> dishComponents {
+        get { return _dishComponents; }
+    }
+
     public Dictionary<GameObject, int> componentsObjects {
         get { return _componentsObjects; }
     }
@@ -30,6 +34,7 @@ public class Dish : Food
     private void Start() {
         FillComponentsDictionary();
         ChangeDishPrice();
+        Debug.Log(foodName + " " + price);
     }
 
     private void FillComponentsDictionary() {
@@ -43,10 +48,11 @@ public class Dish : Food
 
     private void ChangeDishPrice() {
         Food foodScript = gameObject.GetComponent<Food>();
-        int newPrice = foodScript.GetFoodQualityInt();
+        int newPrice = (int)foodScript.foodQuality;
         foreach(var component in _dishComponents) {
-            newPrice += component.GetComponent<Food>().GetPrice();
+            newPrice += component.GetComponent<Food>().price;
         }
-        foodScript.ChangePrice(newPrice);
+        foodScript.price = newPrice;
+        foodScript.price = 10; //Костыль
     }
 }
