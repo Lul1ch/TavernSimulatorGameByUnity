@@ -7,7 +7,6 @@ using TMPro;
 public class Shop : MonoBehaviour
 {
     [SerializeField] private List<GameObject> _foodStore;
-
     public List<GameObject> foodStore {
         get { return _foodStore; }
     }
@@ -34,16 +33,17 @@ public class Shop : MonoBehaviour
             Product curProduct = curProductObject.GetComponent<Product>();
             curProduct.InitProductInfo();
             curProduct.productIndex = i;
-            curProduct.foodName = _foodStore[i].name;
+            curProductObject.GetComponent<Product>().foodName = _foodStore[i].name;
             
             int curPrice = curProduct.price;
             curElement.transform.Find("Price").GetComponent<Text>().text = curPrice.ToString();
             curElement.transform.Find("Name").GetComponent<TMP_Text>().text = _foodStore[i].name;
-
+            curElement.transform.Find("Buy").GetComponent<BuyButton>().InitProductVariable(curProductObject);
             //curProduct.productSprite = curProductSprite;
             curElement.transform.SetParent(parent, false);
             
             CheckForMinPrice(curPrice);
+
         }
     }
 

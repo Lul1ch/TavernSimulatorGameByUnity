@@ -4,13 +4,13 @@ public class Food : MonoBehaviour
 {
     [Header("Food Variables")]
     private int rand;
-    private string _name;
+    [SerializeField] private string _foodName;
     [SerializeField] private  Quality _foodQuality;
     [SerializeField] private  int _price;
 
     public string foodName {
-        get { return _name; }
-        set { _name = value; }
+        get { return _foodName; }
+        set { _foodName = value; }
     }
 
     public Quality foodQuality {

@@ -65,7 +65,7 @@ public class CookButton : MonoBehaviour
         //Добавляем готовое блюдо
         tavern.UpdateDictionary(productInfo.productName, kitchen.GetDish(productInfo.productIndex));
         //Обновляем визуальное отображение в окне склада; Убавляем счётчик для компонента блюда; Обновляем визуальное отображение в окне склада
-        tavern.UpdateStorageInfo(productInfo.productName, productInfo.productSprite);
+        //tavern.UpdateStorageInfo(productInfo.productName, productInfo.productSprite);
         foreach(var component in components) {
             tavern.ReduceFoodNumber(component.Key, component.Value);
             tavern.UpdateStorageInfo(component.Key);

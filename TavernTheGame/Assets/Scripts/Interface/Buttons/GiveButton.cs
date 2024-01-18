@@ -3,15 +3,13 @@ using UnityEngine.UI;
 
 public class GiveButton : MonoBehaviour
 {
-    [Header("Scripts")]
-    [SerializeField] private FoodOrdering foodOrdering;
-
-    [SerializeField] private Tavern tavern;
-    [SerializeField] private Food food;
-    [SerializeField] private EventGenerator events;
-
     [Header("Scene's objects")]
     [SerializeField] private Button giveButton;
+
+    private FoodOrdering foodOrdering;
+    private Tavern tavern;
+    private Food food;
+    private EventGenerator events;
 
     private void Start() {
         tavern = FindObjectOfType<Tavern>().GetComponent<Tavern>();
@@ -35,5 +33,9 @@ public class GiveButton : MonoBehaviour
             //gameObject.GetComponent<AudioSource>().enabled = true;
             CanvasButtons.PlayOnClickSound(gameObject.GetComponent<AudioSource>());
         } 
+    }
+
+    public void InitFoodVariable(Food foodScript) {
+        food = foodScript;
     }
 }

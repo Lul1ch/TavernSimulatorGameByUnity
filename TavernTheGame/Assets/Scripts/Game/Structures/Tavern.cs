@@ -34,22 +34,35 @@ public class Tavern : MonoBehaviour
         }
     }
 
-    public void UpdateStorageInfo(string foodName, Sprite icon = null) {
+    public void UpdateStorageInfo(string foodName, GameObject foodObject = null) {
         //Пытаемся найти созданный элемент интерфейса
         Transform curFood = parent.Find(foodName);
         //Если не находим, то создаём новый и добавляем в скроллер
         if (curFood == null) {
             GameObject newContentElem = Instantiate(contentSample, contentSample.transform.position, contentSample.transform.rotation);
-            newContentElem.transform.Find("Icon").GetComponent<Image>().sprite = icon;
+            GameObject curFoodObject = InstantiateFoodIcon(newContentElem, foodObject);
             newContentElem.transform.Find("Number").GetComponent<Text>().text = "1";
-            //newContentElem.transform.Find("Icon").GetComponent<Product>().productName = foodName;
             newContentElem.transform.Find("Name").GetComponent<Text>().text = foodName;
-            
+            newContentElem.transform.Find("Give").GetComponent<GiveButton>().InitFoodVariable(curFoodObject.GetComponent<Food>());
+
+            newContentElem.name = foodName;
             newContentElem.transform.SetParent(parent, false);
         } else {
         //Если нашли, то просто обновляем счётчик
             curFood.Find("Number").GetComponent<Text>().text = foodStorage[foodName].ToString();
         }
+    }
+
+    private GameObject InstantiateFoodIcon(GameObject curContentElement, GameObject objToInstantiate) {
+            Transform curIconTransform = curContentElement.transform.Find("PositionForIcon");
+            GameObject iconObject = GameObject.Instantiate(objToInstantiate, curIconTransform.position, Quaternion.identity);
+
+            iconObject.transform.SetParent(curContentElement.transform, false);
+            Destroy(curIconTransform.gameObject);
+
+            iconObject.name = "Icon";
+            
+            return iconObject;
     }
 
     private void UpdateCounterInterface() {
