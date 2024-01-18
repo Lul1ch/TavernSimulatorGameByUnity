@@ -22,7 +22,7 @@ public class Kitchen : MonoBehaviour
 
             Transform elemTransform = curElement.transform;
             Sprite curDishSprite = elem.GetComponent<SpriteRenderer>().sprite;
-            int curDishCookingTime = elem.GetComponent<Food>().cookingTime;
+            int curDishCookingTime = elem.GetComponent<Dish>().dishCookingTime;
             DishCond elemDishCond = elem.GetComponent<DishCond>();
 
             elemTransform.Find("Icon").GetComponent<Image>().sprite = curDishSprite;

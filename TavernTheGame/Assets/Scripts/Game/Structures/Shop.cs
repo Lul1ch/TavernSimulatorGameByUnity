@@ -27,25 +27,36 @@ public class Shop : MonoBehaviour
 
     private void InitShopShowcase() {
         for (int i = 0; i < _foodStore.Count;i++) {
-            GameObject curElement = GameObject.Instantiate(shopContentElement, shopContentElement.transform.position, shopContentElement.transform.rotation);
+            GameObject curElement = GameObject.Instantiate(shopContentElement, shopContentElement.transform.localPosition, shopContentElement.transform.rotation);
+
+            GameObject curProductObject = InstantiateProductIcon(curElement, _foodStore[i]);
+
+            Product curProduct = curProductObject.GetComponent<Product>();
+            curProduct.InitProductInfo();
+            curProduct.productIndex = i;
+            curProduct.foodName = _foodStore[i].name;
             
-            _foodStore[i].GetComponent<Food>().InitProductInfo();
-            Sprite curProductSprite = _foodStore[i].GetComponent<SpriteRenderer>().sprite;
-            int curPrice = _foodStore[i].GetComponent<Food>().price;
+            int curPrice = curProduct.price;
             curElement.transform.Find("Price").GetComponent<Text>().text = curPrice.ToString();
-            curElement.transform.Find("Icon").GetComponent<Image>().sprite = curProductSprite;
             curElement.transform.Find("Name").GetComponent<TMP_Text>().text = _foodStore[i].name;
 
-            //Сохраняем необходимую информацию для работы функции покупки и доставки купленных товаров на склад
-            ProductInfo curProduct = curElement.transform.Find("Buy").GetComponent<ProductInfo>();
-            curProduct.productPrice = curPrice;
-            curProduct.productIndex = i;
-            curProduct.productName = _foodStore[i].name;
-            curProduct.productSprite = curProductSprite;
+            //curProduct.productSprite = curProductSprite;
             curElement.transform.SetParent(parent, false);
             
             CheckForMinPrice(curPrice);
         }
+    }
+
+    private GameObject InstantiateProductIcon(GameObject curContentElement, GameObject objToInstantiate) {
+            Transform curIconTransform = curContentElement.transform.Find("PositionForIcon");
+            GameObject iconObject = GameObject.Instantiate(objToInstantiate, curIconTransform.position, Quaternion.identity);
+
+            iconObject.transform.SetParent(curContentElement.transform, false);
+            Destroy(curIconTransform.gameObject);
+
+            iconObject.name = "Icon";
+            
+            return iconObject;
     }
 
     private void CheckForMinPrice(int price) {

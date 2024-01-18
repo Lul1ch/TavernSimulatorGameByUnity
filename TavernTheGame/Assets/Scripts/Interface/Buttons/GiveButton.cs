@@ -7,8 +7,7 @@ public class GiveButton : MonoBehaviour
     [SerializeField] private FoodOrdering foodOrdering;
 
     [SerializeField] private Tavern tavern;
-
-    [SerializeField] private ProductInfo productInfo;
+    [SerializeField] private Food food;
     [SerializeField] private EventGenerator events;
 
     [Header("Scene's objects")]
@@ -22,7 +21,7 @@ public class GiveButton : MonoBehaviour
     }
 
     private void GiveCustomerSelectedOrder() {
-        string foodName = productInfo.productName;
+        string foodName = food.foodName;
         //Если от клиента есть заказ, он озвучен, также заказ не был ещё выдан и выбранный продукт присутствует на складе(его количество больше 0), то мы выдаём заказ
         if (foodOrdering.curOrder != null && tavern.IsNumberGreaterThanZero(foodName) && foodOrdering.curIssue == null && foodOrdering.isOrderTold || events.IsItAFreeFoodEvent()) {
             //Уставливаем выданный заказ

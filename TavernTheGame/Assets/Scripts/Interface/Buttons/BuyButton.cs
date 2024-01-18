@@ -4,7 +4,7 @@ using UnityEngine.UI;
 public class BuyButton : MonoBehaviour
 {
     [Header("Scripts")]
-    [SerializeField] private ProductInfo productInfo;
+    [SerializeField] private Product product;
     [SerializeField] private Tavern tavern;
     [SerializeField] private Shop shop;
 
@@ -17,13 +17,13 @@ public class BuyButton : MonoBehaviour
     }
 
     private void BuySelectedProduct() {
-        if (tavern.GetTavernMoney() >= productInfo.productPrice) {
+        if (tavern.GetTavernMoney() >= product.price) {
             //Проводиться оплата за покупку выбранного товара
-            tavern.DecreaseTavernMoney(productInfo.productPrice);
+            tavern.DecreaseTavernMoney(product.price);
             //Добавление продукта на склад
-            tavern.UpdateDictionary(productInfo.productName, shop.foodStore[productInfo.productIndex]);
+            tavern.UpdateDictionary(product.foodName, shop.foodStore[product.productIndex]);
             //Визуальное обновление окна склада в игре
-            tavern.UpdateStorageInfo(productInfo.productName, productInfo.productSprite);
+            tavern.UpdateStorageInfo(product.foodName, product.productSprite);
 
             gameObject.GetComponent<AudioSource>().Play();
         }

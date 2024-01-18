@@ -40,10 +40,9 @@ public class Tavern : MonoBehaviour
         //Если не находим, то создаём новый и добавляем в скроллер
         if (curFood == null) {
             GameObject newContentElem = Instantiate(contentSample, contentSample.transform.position, contentSample.transform.rotation);
-            newContentElem.name = foodName;
             newContentElem.transform.Find("Icon").GetComponent<Image>().sprite = icon;
             newContentElem.transform.Find("Number").GetComponent<Text>().text = "1";
-            newContentElem.transform.Find("Give").GetComponent<ProductInfo>().productName = foodName;
+            //newContentElem.transform.Find("Icon").GetComponent<Product>().productName = foodName;
             newContentElem.transform.Find("Name").GetComponent<Text>().text = foodName;
             
             newContentElem.transform.SetParent(parent, false);

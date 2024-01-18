@@ -12,11 +12,11 @@ public class DishCond : MonoBehaviour
 
     private void ChangeDishPrice() {
         Food foodScript = gameObject.GetComponent<Food>();
-        int newPrice = foodScript.GetFoodQualityInt();
+        int newPrice = (int)foodScript.foodQuality;
         foreach(var component in dishComponents) {
-            newPrice += component.GetComponent<Food>().GetPrice();
+            newPrice += component.GetComponent<Food>().price;
         }
-        foodScript.ChangePrice(newPrice);
+        foodScript.price = newPrice;
     }
 
     public List<GameObject> GetDishComponents() {

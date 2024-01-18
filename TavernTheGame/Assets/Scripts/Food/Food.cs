@@ -4,9 +4,14 @@ public class Food : MonoBehaviour
 {
     [Header("Food Variables")]
     private int rand;
+    private string _name;
     [SerializeField] private  Quality _foodQuality;
     [SerializeField] private  int _price;
-    [SerializeField] private  int _cookingTime;
+
+    public string foodName {
+        get { return _name; }
+        set { _name = value; }
+    }
 
     public Quality foodQuality {
         get { return _foodQuality; }
@@ -18,23 +23,12 @@ public class Food : MonoBehaviour
         set { _price = value; }
     }
 
-    public int cookingTime {
-        get { return _cookingTime; }
-        set { _cookingTime = value; }
-    }
-
-
     public enum Quality {
         Awful = 0, Premitive, Normal, Tasty, Delighful, MasterPiece
     }
 
     public void InitProductInfo() {
         RandPrice();
-        SetCookingTime();
-    }
-
-    private void SetCookingTime() {
-        _cookingTime = (int)_foodQuality * 3;
     }
 
     private void RandPrice() {
@@ -45,18 +39,6 @@ public class Food : MonoBehaviour
         } else {
             _price = 0;
         }
-    }
-
-    public void ChangePrice(int number) {
-        _price = number;
-    }
-
-    public int GetPrice() {
-        return _price;
-    }
-
-    public int GetFoodQualityInt() {
-        return (int)_foodQuality;
     }
 }
 
