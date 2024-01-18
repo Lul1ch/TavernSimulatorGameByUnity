@@ -172,7 +172,6 @@ GameObject:
   - component: {fileID: 4333474853174764185}
   - component: {fileID: 4333474853174764190}
   - component: {fileID: 4333474853174764191}
-  - component: {fileID: -4896707697287115724}
   m_Layer: 5
   m_Name: TavernContentElem
   m_TagString: Untagged
@@ -262,23 +261,6 @@ MonoBehaviour:
   m_FlexibleWidth: -1
   m_FlexibleHeight: -1
   m_LayoutPriority: 1
---- !u!114 &-4896707697287115724
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4333474853174764189}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 53da4e8c22be88f4487a29baaeb755bb, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  productPrice: 0
-  productIndex: 0
-  productSprite: {fileID: 0}
-  productName: 
-  productCookingTime: 0
 --- !u!1 &4333474853211917996
 GameObject:
   m_ObjectHideFlags: 0

@@ -100,7 +100,7 @@ public class FoodOrdering : MonoBehaviour
     private Mood React() {
         Mood reaction = Mood.Sad;
         //Формируем реакцию клиента в зависимости от того совпадает ли выданный заказ с заказом клиента
-        reaction = (_curIssue == _curOrder) ? Mood.Happy : Mood.Sad;
+        reaction = (_curIssue.GetComponent<Food>().foodName == _curOrder.GetComponent<Food>().foodName) ? Mood.Happy : Mood.Sad;
         return reaction;
     }
 

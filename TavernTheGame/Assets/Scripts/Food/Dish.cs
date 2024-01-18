@@ -34,6 +34,7 @@ public class Dish : Food
     private void Start() {
         FillComponentsDictionary();
         ChangeDishPrice();
+        Debug.Log(foodName + " " + price);
     }
 
     private void FillComponentsDictionary() {
@@ -52,5 +53,6 @@ public class Dish : Food
             newPrice += component.GetComponent<Food>().price;
         }
         foodScript.price = newPrice;
+        foodScript.price = 10; //Костыль
     }
 }
