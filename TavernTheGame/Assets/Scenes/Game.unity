@@ -704,11 +704,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   messageText: {fileID: 1533558498}
-  messageEmoji: {fileID: 0}
   confirmButton: {fileID: 1865290594}
   denyButton: {fileID: 1472405821}
   variants: {fileID: 1391082691}
-  curGuest: {fileID: 1391082693}
+  queueCreator: {fileID: 1391082694}
   tavern: {fileID: 472954085}
 --- !u!4 &283003098
 Transform:
@@ -5605,7 +5604,6 @@ GameObject:
   m_Component:
   - component: {fileID: 1391082692}
   - component: {fileID: 1391082691}
-  - component: {fileID: 1391082693}
   - component: {fileID: 1391082694}
   - component: {fileID: 1391082695}
   - component: {fileID: 1391082696}
@@ -5725,22 +5723,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1391082693
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1391082690}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 66732011fe367e144b8b4754168b9e2b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  variants: {fileID: 1391082691}
-  foodOrdering: {fileID: 1391082695}
-  queueCreator: {fileID: 1391082694}
-  tavern: {fileID: 472954085}
 --- !u!114 &1391082694
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5754,8 +5736,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   variants: {fileID: 1391082691}
-  guestMover: {fileID: 1391082693}
   cameraTransform: {fileID: 519420032}
+  foodOrdering: {fileID: 1391082695}
+  tavern: {fileID: 472954085}
 --- !u!114 &1391082695
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5769,7 +5752,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   variants: {fileID: 1391082691}
-  guestMover: {fileID: 1391082693}
   queueCreator: {fileID: 1391082694}
   tavern: {fileID: 472954085}
   kitchen: {fileID: 1019864566}
@@ -5789,7 +5771,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   foodOrdering: {fileID: 1391082695}
-  guestMover: {fileID: 1391082693}
+  queueCreating: {fileID: 1391082694}
 --- !u!114 &1391082697
 MonoBehaviour:
   m_ObjectHideFlags: 0

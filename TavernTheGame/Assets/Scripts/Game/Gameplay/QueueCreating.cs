@@ -5,14 +5,30 @@ using UnityEngine;
 public class QueueCreating : MonoBehaviour
 {
     [SerializeField] private CharactersVariants variants;
-    [SerializeField] private GuestMover guestMover;
     [SerializeField] private Transform cameraTransform;
+    [SerializeField] private FoodOrdering foodOrdering;
+    [SerializeField] private Tavern tavern;
 
     private static int guestCounter = 0;
-    private float waitTime = 20f;
+    private float timeBeforeNewGuest = 20f;
     private int rand;
     private GameObject curGuest;
     private Vector3 spawnPoint;
+    private Status _charStatus;
+    private float waitTime = 30f;
+
+    public enum Status {
+        Waiting,
+        EventWasGenerated,
+        Serviced,
+        EventIsFinished,
+        Left
+    }   
+
+    public Status charStatus {
+        set { _charStatus = value; }
+        get { return _charStatus; }
+    }
 
     private void Start() {
         //Заводим куратину на создание нового гостя через определённый временной промежуток
@@ -22,7 +38,7 @@ public class QueueCreating : MonoBehaviour
 
     private void FixedUpdate() {
         //Если клиент ушёл, то удаляем его со сцены
-        if (guestMover.GetStatus() != GuestMover.Status.Waiting && guestMover.GetStatus() != GuestMover.Status.EventWasGenerated){
+        if (_charStatus != Status.Waiting && _charStatus != Status.EventWasGenerated){
             System.Threading.Thread.Sleep(1000);
             DestroyServicedGuest();
             SpawnNewGuest();
@@ -35,7 +51,7 @@ public class QueueCreating : MonoBehaviour
         while (guestCounter < 16) {
             CreateGuest();
 
-            yield return new WaitForSeconds(waitTime);   
+            yield return new WaitForSeconds(timeBeforeNewGuest);   
         }
 
     }
@@ -45,7 +61,7 @@ public class QueueCreating : MonoBehaviour
             CreateGuest();
         }
         curGuest = Instantiate(variants.Characters[0], spawnPoint, Quaternion.identity);
-        guestMover.SetStatus(GuestMover.Status.Waiting);
+        _charStatus = Status.Waiting;
         EventBus.onGuestSpawned?.Invoke();
     }
 
@@ -53,8 +69,6 @@ public class QueueCreating : MonoBehaviour
         variants.Characters.RemoveAt(0);
         
         Destroy(curGuest);
-        guestMover.CancelSTimeIsUpInvoke();
-        guestMover.SetStatus(GuestMover.Status.Waiting);
         guestCounter--;
     }
 
@@ -81,5 +95,21 @@ public class QueueCreating : MonoBehaviour
 
     public void SetSpawnPoint(Vector3 newSpawnPoint) {
         spawnPoint = newSpawnPoint;
+    }
+
+    public void InvokeSetTimeIsUp() {
+        Invoke("SetTimeIsUp", waitTime);
+    }
+    private void SetTimeIsUp() {
+        if (_charStatus == Status.Waiting) {
+            foodOrdering.AnswerIfClientWasntServiced();
+            tavern.ChangeTavernBonus(-1);
+            _charStatus = Status.Left;
+        }
+    }
+
+    public void CancelSTimeIsUpInvoke() {
+        //Костыль
+        CancelInvoke("SetTimeIsUp");
     }
 }

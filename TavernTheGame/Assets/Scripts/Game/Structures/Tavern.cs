@@ -49,7 +49,7 @@ public class Tavern : MonoBehaviour
             newContentElem.transform.SetParent(parent, false);
         } else {
         //Если нашли, то просто обновляем счётчик
-            curFood.Find("Number").GetComponent<Text>().text = foodStorage[foodName].ToString();
+        curFood.Find("Number").GetComponent<Text>().text = foodStorage[foodName].ToString();
         }
     }
 

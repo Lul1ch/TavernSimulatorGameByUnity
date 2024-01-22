@@ -3,7 +3,7 @@ using UnityEngine;
 public class GameManager : MonoBehaviour
 {
     [SerializeField] private FoodOrdering foodOrdering;
-    [SerializeField] private GuestMover guestMover;
+    [SerializeField] private QueueCreating queueCreating;
 
     private void OnEnable() {
         EventBus.onGuestSpawned += InvokeWhenANewGuestSpawned;
@@ -16,7 +16,8 @@ public class GameManager : MonoBehaviour
 
     private void InvokeWhenANewGuestSpawned() {
         foodOrdering.ClearVariablesValues();
-        guestMover.SetIsTimeIsUpInvoked(false);
+        queueCreating.CancelSTimeIsUpInvoke();
+        queueCreating.InvokeSetTimeIsUp();
     }
 
 }

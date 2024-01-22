@@ -6,7 +6,6 @@ using UnityEngine.UI;
 public class FoodOrdering : MonoBehaviour
 {
     [SerializeField] private CharactersVariants variants;
-    [SerializeField] private GuestMover guestMover;
     [SerializeField] private QueueCreating queueCreator;
     [SerializeField] private Tavern tavern;
     [SerializeField] private Kitchen kitchen;
@@ -52,7 +51,8 @@ public class FoodOrdering : MonoBehaviour
 
     private void FixedUpdate() {
         //Если клиент дошёл до точки и он не сделал ещё заказ, то формируем заказ
-        if (guestMover.GetStatus() == GuestMover.Status.Waiting && _curOrder == null) {
+        Debug.Log((queueCreator.charStatus == QueueCreating.Status.Waiting).ToString() + " " + queueCreator.charStatus);
+        if (queueCreator.charStatus == QueueCreating.Status.Waiting && _curOrder == null) {
             int randForEvent = Random.Range(0, 100);
             messageCloud.SetActive(true);
             if (randForEvent < eventIntiationBorder) {
@@ -66,13 +66,13 @@ public class FoodOrdering : MonoBehaviour
                 //После преветствия с задержкой вызываем функцию, в которой выводится сообщение с заказом
                 Invoke("SayWhatYouWant", 3f);
             } else {
-                guestMover.SetStatus(GuestMover.Status.EventWasGenerated);
+                queueCreator.charStatus = QueueCreating.Status.EventWasGenerated;
                 events.CreateAnEvent();
                 eventIntiationBorder = maxEventInitiationBorder;
             }
         }
         
-        if (_curIssue != null && !isReacted && _isOrderTold && guestMover.GetStatus() == GuestMover.Status.Waiting) {
+        if (_curIssue != null && !isReacted && _isOrderTold && queueCreator.charStatus == QueueCreating.Status.Waiting) {
             //Формируем реакцию клиента
             Mood guestReaction = React();
             //Формируем сообщение с ответной реакцией
@@ -81,15 +81,14 @@ public class FoodOrdering : MonoBehaviour
             Pay(guestReaction);
             isReacted = true;
             //После получения заказа, вызываем функцию, которая заставляет клиента двигаться дальше
-            guestMover.SetStatus(GuestMover.Status.Serviced);
+            queueCreator.charStatus = QueueCreating.Status.Serviced;
         }
     }
 
     private GameObject MakeOrder() {
         GameObject guestOrder = null;
 
-        GameObject guestMover = queueCreator.GetCurGuest();
-        Character charInfo = guestMover.GetComponent<Character>();
+        Character charInfo = queueCreator.GetCurGuest().GetComponent<Character>();
 
         rand = Random.Range(0, kitchen.GetKitchenDishesCount());
         guestOrder = kitchen.GetDishByIndex(rand);
@@ -157,7 +156,6 @@ public class FoodOrdering : MonoBehaviour
         messageText = variants.WasntServicedPhrases[rand];
 
         audioPhrase.Play();
-        guestMover.SetStatus(GuestMover.Status.Left);
     }
 
     public bool GetEventWasGenerated() {

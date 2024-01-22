@@ -6,13 +6,12 @@ public class EventGenerator : MonoBehaviour
 {
     [Header("Message")]
     [SerializeField] private Text messageText;
-    [SerializeField] private SpriteRenderer messageEmoji;
     [SerializeField] private Button confirmButton;
     [SerializeField] private Button denyButton;
 
     [Header("Scripts")]
     [SerializeField] private CharactersVariants variants;
-    [SerializeField] private GuestMover curGuest;
+    [SerializeField] private QueueCreating queueCreator;
     [SerializeField] private Tavern tavern;
 
     public enum Event {
@@ -132,7 +131,7 @@ public class EventGenerator : MonoBehaviour
             }
         }
         HideMessageButtons();
-        curGuest.SetStatus(GuestMover.Status.EventIsFinished);
+        queueCreator.charStatus = QueueCreating.Status.EventIsFinished;
         StopCoroutine(coroutine);
         curEvent = Event.None;
     }
