@@ -6,6 +6,7 @@ using UnityEngine.UI;
 public class CookButton : MonoBehaviour
 {
     private IEnumerator coroutine;
+    private bool isReadyForNextHint = true;
     //Счётсиком будем регулировать,чтоб в один момент готовилось не более трёх блюд
     static int curCookingDishCounter = 3;
 
@@ -19,6 +20,7 @@ public class CookButton : MonoBehaviour
     [SerializeField] private Button cookButton;
     [SerializeField] private Transform contentElemTransform;
     [SerializeField] private GameObject dishObj;
+    [SerializeField] private Hint hint;
 
     private void Start() {
         InitializeVariables();
@@ -28,14 +30,17 @@ public class CookButton : MonoBehaviour
     private void InitializeVariables() {
         kitchen = FindObjectOfType<Kitchen>().GetComponent<Kitchen>();
         tavern = FindObjectOfType<Tavern>().GetComponent<Tavern>();
+        hint = GameObject.Find("/Kitchen").transform.Find("KitchenObjectsGroup").transform.Find("KitchenInterface").transform.Find("FAQKitchen").GetComponent<Hint>();
         contentElemTransform = transform.parent;
     }
 
     public void CookSelectedDish(Transform contentElemTransform) {
         bool isAllComponentsAvailable = true;
+        string additionalStringForHint = "";
         Dictionary<GameObject, int> components = dishScript.componentsObjects;
         foreach(var component in components) {
             if(!tavern.IsEnoughFoodInStorage(component.Key.name, component.Value)) {
+                additionalStringForHint += component.Key.name + "x" + (component.Value - tavern.GetNumberOfFoodInStorage(component.Key.name)).ToString() +", ";
                 isAllComponentsAvailable = false;
             }
         }
@@ -56,6 +61,12 @@ public class CookButton : MonoBehaviour
 
             coroutine = addFinishedDish(curTimer, components);
             StartCoroutine(coroutine);
+        } else if (isReadyForNextHint) {
+            additionalStringForHint += '.';
+            additionalStringForHint = additionalStringForHint.Replace(", .", ".");
+            hint.ShowHint(Hint.EventType.NotEnoughProducts, additionalStringForHint);
+            isReadyForNextHint = false;
+            Invoke("IsReadyForNextHint", hint.hintLifeTime);
         }
     }
 
@@ -80,5 +91,9 @@ public class CookButton : MonoBehaviour
     public void InitDishVariable(GameObject obj) {
         dishObj = obj;
         dishScript = obj.GetComponent<Dish>();
+    }
+
+    private void IsReadyForNextHint() {
+        isReadyForNextHint = true;
     }
 }

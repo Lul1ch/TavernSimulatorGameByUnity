@@ -34,7 +34,7 @@ public class Dish : Food
     private void Start() {
         FillComponentsDictionary();
         ChangeDishPrice();
-        Debug.Log(foodName + " " + price);
+        //Debug.Log(foodName + " " + price);
     }
 
     private void FillComponentsDictionary() {

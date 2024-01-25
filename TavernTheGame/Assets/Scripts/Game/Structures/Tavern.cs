@@ -78,6 +78,13 @@ public class Tavern : MonoBehaviour
         return null;
     }
 
+    public int GetNumberOfFoodInStorage(string foodName) {
+        if (foodStorage.ContainsKey(foodName)){
+            return foodStorage[foodName];
+        }
+        return 0;
+    }
+
     public bool IsEnoughFoodInStorage(string foodName, int foodAmount) {
         if (foodStorage.ContainsKey(foodName)){
             return (foodStorage[foodName] >= foodAmount) ? true : false;
