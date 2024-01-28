@@ -47,6 +47,11 @@ public class CookButton : MonoBehaviour
         
         //Если компонент был куплен и его количество больше 0, то мы можем приготовить блюдо
         if (isAllComponentsAvailable && curCookingDishCounter > 0) {
+                    
+            foreach(var component in components) {
+                tavern.ReduceFoodNumber(component.Key.name, component.Value);
+                tavern.UpdateStorageInfo(component.Key.name);
+            }
             //Создаём таймер готовки блюда
             CanvasButtons.PlayOnClickSound(gameObject.GetComponent<AudioSource>());
 
@@ -74,14 +79,9 @@ public class CookButton : MonoBehaviour
         while(curTimer.GetFillAmount() > 0) {
             yield return new WaitForSeconds(1f);
         }
-
+        Debug.Log("Cook button 77: " + dishScript.foodName);
         tavern.UpdateDictionary(dishScript.foodName, dishObj);
         tavern.UpdateStorageInfo(dishScript.foodName, dishObj);
-        
-        foreach(var component in components) {
-            tavern.ReduceFoodNumber(component.Key.name, component.Value);
-            tavern.UpdateStorageInfo(component.Key.name);
-        }
         
         curCookingDishCounter++;
 

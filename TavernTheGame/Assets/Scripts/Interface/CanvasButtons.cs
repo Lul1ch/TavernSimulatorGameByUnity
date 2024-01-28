@@ -59,6 +59,9 @@ public class CanvasButtons : MonoBehaviour
     }
 
     public static void PlayOnClickSound(AudioSource objectAudioSource) {
+        if (objectAudioSource.enabled == false) {
+            objectAudioSource.enabled = true;
+        }
         objectAudioSource.Play();
     }
 

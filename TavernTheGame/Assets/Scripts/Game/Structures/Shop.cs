@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
+using UnityEditor;
 
 public class Shop : MonoBehaviour
 {
@@ -27,13 +28,15 @@ public class Shop : MonoBehaviour
     private void InitShopShowcase() {
         for (int i = 0; i < _foodStore.Count;i++) {
             GameObject curElement = GameObject.Instantiate(shopContentElement, shopContentElement.transform.localPosition, shopContentElement.transform.rotation);
-
+            _foodStore[i].GetComponent<Product>().InitProductInfo();
+            _foodStore[i].GetComponent<Product>().foodName = _foodStore[i].name;
             GameObject curProductObject = InstantiateProductIcon(curElement, _foodStore[i]);
 
             Product curProduct = curProductObject.GetComponent<Product>();
-            curProduct.InitProductInfo();
             curProduct.productIndex = i;
-            curProductObject.GetComponent<Product>().foodName = _foodStore[i].name;
+            //curProductObject.GetComponent<Product>().foodName = _foodStore[i].name;
+            
+            PrefabUtility.SaveAsPrefabAsset(curProductObject, "Assets/Prefabs/CurrentlyUsingFood/" + _foodStore[i].name + ".prefab");
             
             int curPrice = curProduct.price;
             curElement.transform.Find("Price").GetComponent<Text>().text = curPrice.ToString();
@@ -45,6 +48,7 @@ public class Shop : MonoBehaviour
             CheckForMinPrice(curPrice);
 
         }
+        EventBus.onShopFilled?.Invoke();
     }
 
     private GameObject InstantiateProductIcon(GameObject curContentElement, GameObject objToInstantiate) {
@@ -68,4 +72,5 @@ public class Shop : MonoBehaviour
     public int GetMinPrice() {
         return minPrice;
     }
+
 }

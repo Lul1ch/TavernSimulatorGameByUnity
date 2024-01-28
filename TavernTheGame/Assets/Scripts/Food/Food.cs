@@ -6,7 +6,7 @@ public class Food : MonoBehaviour
     private int rand;
     [SerializeField] private string _foodName;
     [SerializeField] private  Quality _foodQuality;
-    [SerializeField] private  int _price;
+    [SerializeField] private int _price;
 
     public string foodName {
         get { return _foodName; }

@@ -49,7 +49,14 @@ public class Tavern : MonoBehaviour
             newContentElem.transform.SetParent(parent, false);
         } else {
         //Если нашли, то просто обновляем счётчик
-        curFood.Find("Number").GetComponent<Text>().text = foodStorage[foodName].ToString();
+        try
+        {
+            curFood.Find("Number").GetComponent<Text>().text = foodStorage[foodName].ToString();
+        }
+        catch
+        {
+            Debug.Log(curFood + " " + curFood.Find("Number") + " " + curFood.Find("Number").GetComponent<Text>() + " " + foodStorage[foodName].ToString());
+        }
         }
     }
 
@@ -101,7 +108,9 @@ public class Tavern : MonoBehaviour
 
     private void DestroyTavernContentElement(string foodName) {
         Transform curFood = parent.Find(foodName);
-        Destroy(curFood.gameObject, 1f);
+        if (curFood.gameObject != null) {
+            Destroy(curFood.gameObject);
+        }
     }
 
     public bool IsNumberGreaterThanZero(string foodName) {

@@ -13,11 +13,16 @@ public class FoodOrdering : MonoBehaviour
     private AudioSource audioPhrase;
     private bool eventWasGenerated;
     private int eventIntiationBorder = 60, maxEventInitiationBorder = 90, eventIntiationBorderReductionStep = 10;
+    private int _tipsPrice = 3;
 
     private GameObject _curOrder = null;
     private GameObject _curIssue = null;
     private bool _isOrderTold;
 
+    public int tipsPrice {
+        set { _tipsPrice = value; }
+        get { return _tipsPrice; }
+    }
     public GameObject curOrder {
         get { return _curOrder; }
         set { _curOrder = value; }
@@ -51,7 +56,6 @@ public class FoodOrdering : MonoBehaviour
 
     private void FixedUpdate() {
         //Если клиент дошёл до точки и он не сделал ещё заказ, то формируем заказ
-        Debug.Log((queueCreator.charStatus == QueueCreating.Status.Waiting).ToString() + " " + queueCreator.charStatus);
         if (queueCreator.charStatus == QueueCreating.Status.Waiting && _curOrder == null) {
             int randForEvent = Random.Range(0, 100);
             messageCloud.SetActive(true);
@@ -106,10 +110,11 @@ public class FoodOrdering : MonoBehaviour
     private void Pay(Mood reaction) {
         Food clientOrder = _curOrder.GetComponent<Food>();
         Food tavernDish = _curIssue.GetComponent<Food>();
-        int tips = (int)reaction*3;
+        int tips = (int)reaction*_tipsPrice;
+        Debug.Log("Price " + tavernDish.price);
         //Если качество заказа выше самого худшего, то вычисляем оплату по специальной формуле
         if (_curIssue.GetComponent<Food>().foodQuality != Food.Quality.Awful) {
-            float payment = Mathf.Round(clientOrder.price + tips) + tavern.GetTavernBonus(); 
+            float payment = Mathf.Round(tavernDish.price + tips) + tavern.GetTavernBonus(); 
             tavern.IncreaseTavernMoney((int)payment);
         }
         tavern.ChangeTavernBonus((int)reaction);

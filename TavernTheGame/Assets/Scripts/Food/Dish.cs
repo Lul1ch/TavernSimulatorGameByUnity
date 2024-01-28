@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEditor;
 
 public class Dish : Food
 {
@@ -33,8 +34,6 @@ public class Dish : Food
 
     private void Start() {
         FillComponentsDictionary();
-        ChangeDishPrice();
-        //Debug.Log(foodName + " " + price);
     }
 
     private void FillComponentsDictionary() {
@@ -46,13 +45,11 @@ public class Dish : Food
         }
     }
 
-    private void ChangeDishPrice() {
-        Food foodScript = gameObject.GetComponent<Food>();
-        int newPrice = (int)foodScript.foodQuality;
+    public void ChangeDishPrice() {
+        int newPrice = (int)foodQuality;
         foreach(var component in _dishComponents) {
             newPrice += component.GetComponent<Food>().price;
         }
-        foodScript.price = newPrice;
-        foodScript.price = 10; //Костыль
+        price = newPrice;
     }
 }

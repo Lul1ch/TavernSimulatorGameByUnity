@@ -1107,6 +1107,7 @@ GameObject:
   - component: {fileID: 472954084}
   - component: {fileID: 472954085}
   - component: {fileID: 472954086}
+  - component: {fileID: 472954087}
   m_Layer: 0
   m_Name: Tavern
   m_TagString: Tavern
@@ -1244,6 +1245,22 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!114 &472954087
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 472954083}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f58aee9dfeb075e47a9b31a68c814014, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  bonusesList:
+  - {fileID: 1569878332795529482, guid: 981eb535305d5b945b29608a39dc564b, type: 3}
+  bonusesContentElementSample: {fileID: 661778315839437868, guid: 2e1ba8ffa0df7d14d8e80c9447b2345f, type: 3}
+  parent: {fileID: 1954436172}
 --- !u!1 &477349912
 GameObject:
   m_ObjectHideFlags: 0
@@ -5989,6 +6006,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   foodOrdering: {fileID: 1391082695}
   queueCreating: {fileID: 1391082694}
+  kitchen: {fileID: 1019864566}
 --- !u!114 &1391082697
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -8250,8 +8268,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0.13085938, y: -0.00012207031}
-  m_SizeDelta: {x: -0.26013, y: -662.5339}
+  m_AnchoredPosition: {x: 0.13085938, y: 0.0028381348}
+  m_SizeDelta: {x: -0.26013, y: -663.1203}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1954436173
 MonoBehaviour:
@@ -8343,7 +8361,7 @@ GameObject:
   - component: {fileID: 1961773942}
   - component: {fileID: 1961773941}
   m_Layer: 5
-  m_Name: Number
+  m_Name: Price
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -8389,7 +8407,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "<size=64>\u041A\u043E\u043B\u0438\u0447\u0435\u0441\u0442\u0432\u043E"
+  m_text: "<size=64>\u0426\u0435\u043D\u0430"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -9107,7 +9125,7 @@ MonoBehaviour:
         m_MethodName: ShowOrHideWindow
         m_Mode: 2
         m_Arguments:
-          m_ObjectArgument: {fileID: 477349912}
+          m_ObjectArgument: {fileID: 1508512354}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.GameObject, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0

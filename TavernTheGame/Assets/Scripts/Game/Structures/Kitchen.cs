@@ -10,15 +10,12 @@ public class Kitchen : MonoBehaviour
     [SerializeField] private GameObject kitchenContentElementSample;
     [SerializeField] private Transform parent;
 
-    private void Start() {
-        InitKitchenShowcase();
-    }
-
-    private void InitKitchenShowcase() {
+    public void InitKitchenShowcase() {
         int index = 0;
         //Для каждого элемента, который лежит в массиве блюд создаём визуальное отображение в скролере с помощью ранее созданного объекта шаблона
         foreach(var elem in dishes) {
             GameObject curElement = Instantiate(kitchenContentElementSample, kitchenContentElementSample.transform.position, kitchenContentElementSample.transform.rotation);
+            elem.GetComponent<Dish>().ChangeDishPrice();
             GameObject curDish = InstantiateDishIcon(curElement, elem);
 
             Transform elemTransform = curElement.transform;
