@@ -112,4 +112,9 @@ public class QueueCreating : MonoBehaviour
         //Костыль
         CancelInvoke("SetTimeIsUp");
     }
+
+    public string UpdateAllGenderRelatedWords(string str) {
+        Character.Sex curGuestGender = curGuest.GetComponent<Character>().characterGender;
+        return str = (curGuestGender == Character.Sex.Male) ? str.Replace("(а)", "") : str.Replace("(а)", "а");
+    }
 }

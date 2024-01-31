@@ -1364,8 +1364,8 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   m_FontData:
-    m_Font: {fileID: 12800000, guid: e3265ab4bf004d28a9537516768c1c75, type: 3}
-    m_FontSize: 32
+    m_Font: {fileID: 12800000, guid: 9fe0867f516e4c041be21417a2a5cdda, type: 3}
+    m_FontSize: 26
     m_FontStyle: 0
     m_BestFit: 0
     m_MinSize: 0
@@ -1601,17 +1601,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b99e1dd8b503dc44983549f868e67cdb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  kitchenWindow: {fileID: 0}
-  shopWindowContent: {fileID: 0}
-  tavern: {fileID: 0}
-  shop: {fileID: 0}
-  foodOrder: {fileID: 0}
-  events: {fileID: 0}
   musicOn: {fileID: 0}
   musicOff: {fileID: 0}
   musicButton: {fileID: 0}
-  buySound: {fileID: 0}
-  giveSound: {fileID: 0}
+  kitchenWindow: {fileID: 0}
 --- !u!114 &1136749096
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2139,7 +2132,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.19607843, g: 0.19607843, b: 0.19607843, a: 1}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -2147,7 +2140,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   m_FontData:
-    m_Font: {fileID: 12800000, guid: e3265ab4bf004d28a9537516768c1c75, type: 3}
+    m_Font: {fileID: 12800000, guid: 9fe0867f516e4c041be21417a2a5cdda, type: 3}
     m_FontSize: 32
     m_FontStyle: 0
     m_BestFit: 0

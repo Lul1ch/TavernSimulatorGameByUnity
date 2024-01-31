@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1 &1558344440999048511
+--- !u!1 &7663888217010165910
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -8,24 +8,24 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 3662424590606619486}
-  - component: {fileID: 4595710411045980856}
-  - component: {fileID: 2474408587042366408}
-  - component: {fileID: -8343186902977255342}
+  - component: {fileID: 3746911485500690877}
+  - component: {fileID: 9001372565730739281}
+  - component: {fileID: 8197405693343038199}
+  - component: {fileID: 200569326482593768}
   m_Layer: 0
-  m_Name: PieLemon
+  m_Name: "\u0422\u043E\u043C\u0430\u0442"
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!224 &3662424590606619486
+--- !u!224 &3746911485500690877
 RectTransform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1558344440999048511}
+  m_GameObject: {fileID: 7663888217010165910}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
@@ -36,24 +36,24 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 428.78, y: 237.13}
+  m_AnchoredPosition: {x: -360.9575, y: 4}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!222 &4595710411045980856
+--- !u!222 &9001372565730739281
 CanvasRenderer:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1558344440999048511}
+  m_GameObject: {fileID: 7663888217010165910}
   m_CullTransparentMesh: 1
---- !u!114 &2474408587042366408
+--- !u!114 &8197405693343038199
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1558344440999048511}
+  m_GameObject: {fileID: 7663888217010165910}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
@@ -67,7 +67,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: cc4c3524c7779d44dbcf4d432bbe9d06, type: 3}
+  m_Sprite: {fileID: 21300064, guid: 142ff8784e552734f9d6a895491d0ae8, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -77,22 +77,19 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
---- !u!114 &-8343186902977255342
+--- !u!114 &200569326482593768
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1558344440999048511}
+  m_GameObject: {fileID: 7663888217010165910}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a5e53fa06f5459b449ccb1f35473c661, type: 3}
+  m_Script: {fileID: 11500000, guid: 8f6723c41c7778748a76eaa67b0ebe27, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _foodQuality: 5
-  _price: 0
-  _dishComponents:
-  - {fileID: 1952744056348810849, guid: 498e482fc07fae446bf1f21c826c233e, type: 3}
-  - {fileID: 7264275863283836993, guid: 778d5f013651d034e822b4a755d4b142, type: 3}
-  _dishCookingTime: 15
-  _dishSprite: {fileID: 21300000, guid: cc4c3524c7779d44dbcf4d432bbe9d06, type: 3}
+  _foodName: "\u0422\u043E\u043C\u0430\u0442"
+  _foodQuality: 2
+  _price: 4
+  _productSprite: {fileID: 21300064, guid: 142ff8784e552734f9d6a895491d0ae8, type: 3}
