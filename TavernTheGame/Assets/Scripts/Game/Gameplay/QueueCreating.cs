@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class QueueCreating : MonoBehaviour
 {
@@ -18,6 +19,7 @@ public class QueueCreating : MonoBehaviour
     private float waitTime = 30f;
 
     public enum Status {
+        NotSpawned,
         Waiting,
         EventWasGenerated,
         Serviced,
@@ -56,13 +58,15 @@ public class QueueCreating : MonoBehaviour
 
     }
 
-    private void SpawnNewGuest(){
+    public void SpawnNewGuest(){
         if (variants.Characters.Count == 0) {
             CreateGuest();
         }
         curGuest = Instantiate(variants.Characters[0], spawnPoint, Quaternion.identity);
         _charStatus = Status.Waiting;
-        EventBus.onGuestSpawned?.Invoke();
+        if ( SceneManager.GetActiveScene().name != "Training" ) {
+            EventBus.onGuestSpawned?.Invoke();
+        }
     }
 
     private void DestroyServicedGuest(){
@@ -116,4 +120,6 @@ public class QueueCreating : MonoBehaviour
         Character.Sex curGuestGender = curGuest.GetComponent<Character>().characterGender;
         return str = (curGuestGender == Character.Sex.Male) ? str.Replace("(а)", "") : str.Replace("(а)", "а");
     }
+
+    
 }
