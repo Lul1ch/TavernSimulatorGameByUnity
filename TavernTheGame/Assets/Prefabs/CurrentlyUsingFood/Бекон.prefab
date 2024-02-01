@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1 &7264275863283836993
+--- !u!1 &3374082259322362984
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -8,24 +8,24 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 235109975452854152}
-  - component: {fileID: 8476467621971128299}
-  - component: {fileID: 5499013256681336201}
-  - component: {fileID: -248272479798750766}
+  - component: {fileID: 614155026755183597}
+  - component: {fileID: 8945238440560296964}
+  - component: {fileID: 7472552293881744808}
+  - component: {fileID: -6125783738382791668}
   m_Layer: 0
-  m_Name: Flour
+  m_Name: "\u0411\u0435\u043A\u043E\u043D"
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!224 &235109975452854152
+--- !u!224 &614155026755183597
 RectTransform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7264275863283836993}
+  m_GameObject: {fileID: 3374082259322362984}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
@@ -39,21 +39,21 @@ RectTransform:
   m_AnchoredPosition: {x: -360.9575, y: 4}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!222 &8476467621971128299
+--- !u!222 &8945238440560296964
 CanvasRenderer:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7264275863283836993}
+  m_GameObject: {fileID: 3374082259322362984}
   m_CullTransparentMesh: 1
---- !u!114 &5499013256681336201
+--- !u!114 &7472552293881744808
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7264275863283836993}
+  m_GameObject: {fileID: 3374082259322362984}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
@@ -67,7 +67,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: -114657629, guid: d9a4624f94127ea4fa4437d54b2400b7, type: 3}
+  m_Sprite: {fileID: 21300038, guid: 142ff8784e552734f9d6a895491d0ae8, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -77,19 +77,19 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
---- !u!114 &-248272479798750766
+--- !u!114 &-6125783738382791668
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7264275863283836993}
+  m_GameObject: {fileID: 3374082259322362984}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 8f6723c41c7778748a76eaa67b0ebe27, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _foodName: Flour
-  _foodQuality: 1
-  _price: 2
-  _productSprite: {fileID: -114657629, guid: d9a4624f94127ea4fa4437d54b2400b7, type: 3}
+  _foodName: "\u0411\u0435\u043A\u043E\u043D"
+  _foodQuality: 3
+  _price: 6
+  _productSprite: {fileID: 21300038, guid: 142ff8784e552734f9d6a895491d0ae8, type: 3}

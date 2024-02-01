@@ -12,7 +12,7 @@ public class FoodOrdering : MonoBehaviour
 
     private AudioSource audioPhrase;
     private bool eventWasGenerated;
-    private int eventIntiationBorder = 60, maxEventInitiationBorder = 90, eventIntiationBorderReductionStep = 10;
+    private int eventIntiationBorder = 40, maxEventInitiationBorder = 90, eventIntiationBorderReductionStep = 10;
     private int _tipsPrice = 3;
 
     private GameObject _curOrder = null;
@@ -44,7 +44,7 @@ public class FoodOrdering : MonoBehaviour
     [SerializeField] private EventGenerator events;
 
     private string messageText {
-        set { _messageText.text = UpdateAllGenderRelatedWords(value); }
+        set { _messageText.text = queueCreator.UpdateAllGenderRelatedWords(value); }
     }
 
     private int rand = 0;
@@ -150,7 +150,7 @@ public class FoodOrdering : MonoBehaviour
     private void SayWhatYouWant() {
         //Обновляем интерфейс сообщения
         int rand = Random.Range(0, variants.OrderPhrases.Count);
-        messageText = variants.OrderPhrases[rand].Replace("^", _curOrder.name);
+        messageText = variants.OrderPhrases[rand].Replace("^", "\"" + _curOrder.name + "\"");
         
         _isOrderTold = true;
     }
@@ -174,8 +174,4 @@ public class FoodOrdering : MonoBehaviour
         eventWasGenerated = false;
     }
 
-    private string UpdateAllGenderRelatedWords(string str) {
-        Character.Sex curGuestGender = queueCreator.GetCurGuest().GetComponent<Character>().characterGender;
-        return str = (curGuestGender == Character.Sex.Male) ? str.Replace("(а)", "") : str.Replace("(а)", "а");
-    }
 }

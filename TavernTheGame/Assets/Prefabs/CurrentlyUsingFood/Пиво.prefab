@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 433837818989109537}
   - component: {fileID: -881493666986185316}
   m_Layer: 0
-  m_Name: Beer
+  m_Name: "\u041F\u0438\u0432\u043E"
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -89,7 +89,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8f6723c41c7778748a76eaa67b0ebe27, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _foodName: Beer
+  _foodName: "\u041F\u0438\u0432\u043E"
   _foodQuality: 2
   _price: 4
   _productSprite: {fileID: 21300040, guid: 142ff8784e552734f9d6a895491d0ae8, type: 3}
