@@ -9,11 +9,15 @@ public class GameManager : MonoBehaviour
     private void OnEnable() {
         EventBus.onGuestSpawned += InvokeWhenANewGuestSpawned;
         EventBus.onShopFilled += FillKitchen;
+        EventBus.onDoublePayChanceBought += IsDoublePayChanceBought;
+        EventBus.onAutomaticCookingBought += IsAutomaticCookingBought;
     }
 
     private void OnDisable() {
         EventBus.onGuestSpawned -= InvokeWhenANewGuestSpawned;
         EventBus.onShopFilled -= FillKitchen;
+        EventBus.onDoublePayChanceBought -= IsDoublePayChanceBought;
+        EventBus.onAutomaticCookingBought -= IsAutomaticCookingBought;
     }
 
     private void InvokeWhenANewGuestSpawned() {
@@ -24,6 +28,14 @@ public class GameManager : MonoBehaviour
 
     private void FillKitchen() {
         kitchen.InitKitchenShowcase();
+    }
+
+    private void IsDoublePayChanceBought() {
+        foodOrdering.isDoublePayChanceBought = true;
+    }
+
+    private void IsAutomaticCookingBought() {
+        foodOrdering.isAutomaticCookingBought = true;
     }
 
 }
