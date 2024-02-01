@@ -24,7 +24,7 @@ public class CookButton : MonoBehaviour
 
     private void Start() {
         InitializeVariables();
-        cookButton.onClick.AddListener(() => CookSelectedDish(contentElemTransform));
+        cookButton.onClick.AddListener(() => CookSelectedDish());
     }
 
     private void InitializeVariables() {
@@ -34,7 +34,7 @@ public class CookButton : MonoBehaviour
         contentElemTransform = transform.parent;
     }
 
-    public void CookSelectedDish(Transform contentElemTransform) {
+    public void CookSelectedDish() {
         bool isAllComponentsAvailable = true;
         string additionalStringForHint = "";
         Dictionary<GameObject, int> components = dishScript.componentsObjects;
@@ -79,7 +79,6 @@ public class CookButton : MonoBehaviour
         while(curTimer.GetFillAmount() > 0) {
             yield return new WaitForSeconds(1f);
         }
-        Debug.Log("Cook button 77: " + dishScript.foodName);
         tavern.UpdateDictionary(dishScript.foodName, dishObj);
         tavern.UpdateStorageInfo(dishScript.foodName, dishObj);
         

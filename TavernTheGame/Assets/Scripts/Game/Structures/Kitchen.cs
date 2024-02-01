@@ -15,6 +15,7 @@ public class Kitchen : MonoBehaviour
         //Для каждого элемента, который лежит в массиве блюд создаём визуальное отображение в скролере с помощью ранее созданного объекта шаблона
         foreach(var elem in dishes) {
             GameObject curElement = Instantiate(kitchenContentElementSample, kitchenContentElementSample.transform.position, kitchenContentElementSample.transform.rotation);
+            curElement.name = elem.name;
             elem.GetComponent<Dish>().ChangeDishPrice();
             GameObject curDish = InstantiateDishIcon(curElement, elem);
 
@@ -46,6 +47,18 @@ public class Kitchen : MonoBehaviour
             iconObject.name = "Icon";
             
             return iconObject;
+    }
+
+    public void HalfDishesCookTime() {
+        foreach (Transform child in parent) {
+            Dish dish = child.Find("Icon").GetComponent<Dish>();
+            dish.dishCookingTime = (int)Mathf.Round(dish.dishCookingTime / 2);
+            child.Find("Time").GetComponent<TMP_Text>().text = dish.dishCookingTime.ToString();
+        }
+    }
+
+    public void AutomaticCookStart(string dishName) {
+        parent.Find(dishName).Find("Cook").GetComponent<CookButton>().CookSelectedDish();
     }
 
     public GameObject GetDish(int index) {

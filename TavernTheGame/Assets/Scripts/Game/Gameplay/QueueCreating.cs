@@ -109,7 +109,6 @@ public class QueueCreating : MonoBehaviour
     }
 
     public void CancelSTimeIsUpInvoke() {
-        //Костыль
         CancelInvoke("SetTimeIsUp");
     }
 

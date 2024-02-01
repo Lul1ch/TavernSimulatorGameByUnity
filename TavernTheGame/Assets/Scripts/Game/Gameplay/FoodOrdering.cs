@@ -17,7 +17,7 @@ public class FoodOrdering : MonoBehaviour
 
     private GameObject _curOrder = null;
     private GameObject _curIssue = null;
-    private bool _isOrderTold;
+    private bool _isOrderTold, _isDoublePayChanceBought, _isAutomaticCookingBought;
 
     public int tipsPrice {
         set { _tipsPrice = value; }
@@ -34,6 +34,14 @@ public class FoodOrdering : MonoBehaviour
     public bool isOrderTold {
         get { return _isOrderTold; }
         set { _isOrderTold = value; }
+    }
+    public bool isDoublePayChanceBought {
+        get { return _isDoublePayChanceBought; }
+        set { _isDoublePayChanceBought = value; }
+    }
+    public bool isAutomaticCookingBought {
+        get { return _isAutomaticCookingBought; }
+        set { _isAutomaticCookingBought = value; }
     }
 
     [Header("GuestMessage")]
@@ -110,11 +118,13 @@ public class FoodOrdering : MonoBehaviour
     private void Pay(Mood reaction) {
         Food clientOrder = _curOrder.GetComponent<Food>();
         Food tavernDish = _curIssue.GetComponent<Food>();
-        int tips = (int)reaction*_tipsPrice;
-        Debug.Log("Price " + tavernDish.price);
-        //Если качество заказа выше самого худшего, то вычисляем оплату по специальной формуле
+        int rand = Random.Range(0, 100), chanceToDoubleThePayment = 20;
+        int tips = (int)reaction*_tipsPrice, priceToPay = tavernDish.price;
+        priceToPay = (isDoublePayChanceBought && chanceToDoubleThePayment > rand) ? priceToPay*2 : priceToPay;
+        //Костыль
+        if (isDoublePayChanceBought && chanceToDoubleThePayment > rand) { Debug.Log("Price is doubled " + priceToPay.ToString()); }
         if (_curIssue.GetComponent<Food>().foodQuality != Food.Quality.Awful) {
-            float payment = Mathf.Round(tavernDish.price + tips) + tavern.GetTavernBonus(); 
+            float payment = Mathf.Round(priceToPay + tips) + tavern.GetTavernBonus(); 
             tavern.IncreaseTavernMoney((int)payment);
         }
         tavern.ChangeTavernBonus((int)reaction);
@@ -135,12 +145,10 @@ public class FoodOrdering : MonoBehaviour
     }
 
     private void SayHello() {
-        //Выводим приветственную фразу и обновляем интерфейс сообщения
         GameObject curCustomer = queueCreator.GetCurGuest();
         int rand = Random.Range(0, variants.HelloPhrases.Count);
         messageText = variants.HelloPhrases[rand];
         
-        //Рандомим аудио дорожку реплики клиента
         audioPhrase = curCustomer.GetComponent<AudioSource>();
         rand = Random.Range(0, variants.SpeechSounds.Count);
         audioPhrase.clip = variants.SpeechSounds[rand];
@@ -151,7 +159,7 @@ public class FoodOrdering : MonoBehaviour
         //Обновляем интерфейс сообщения
         int rand = Random.Range(0, variants.OrderPhrases.Count);
         messageText = variants.OrderPhrases[rand].Replace("^", "\"" + _curOrder.name + "\"");
-        
+        if (isAutomaticCookingBought && tavern.GetNumberOfFoodInStorage(_curOrder.name) == 0) { kitchen.AutomaticCookStart(_curOrder.name); }
         _isOrderTold = true;
     }
 
