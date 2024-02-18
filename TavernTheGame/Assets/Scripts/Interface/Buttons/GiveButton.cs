@@ -1,11 +1,13 @@
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class GiveButton : MonoBehaviour
 {
     [Header("Scene's objects")]
     [SerializeField] private Button giveButton;
     [SerializeField] private Hint hint;
+    [SerializeField] private TrainingManager trainingManager;
 
     private FoodOrdering foodOrdering;
     private Tavern tavern;
@@ -18,14 +20,24 @@ public class GiveButton : MonoBehaviour
         foodOrdering = FindObjectOfType<FoodOrdering>().GetComponent<FoodOrdering>();
         events = FindObjectOfType<EventGenerator>().GetComponent<EventGenerator>();
         hint = GameObject.Find("/Tavern/TavernObjectsGroup/TavernInterface/FAQTavern").GetComponent<Hint>();
+        if ( SceneManager.GetActiveScene().name == "Training" ) {
+            trainingManager = FindObjectOfType<TrainingManager>().GetComponent<TrainingManager>();
+        }
         giveButton.onClick.AddListener(() => GiveCustomerSelectedOrder());
     }
 
     private void GiveCustomerSelectedOrder() {
         string foodName = food.foodName;
-        //Если от клиента есть заказ, он озвучен, также заказ не был ещё выдан и выбранный продукт присутствует на складе(его количество больше 0), то мы выдаём заказ
         if (foodOrdering.curOrder != null && tavern.IsNumberGreaterThanZero(foodName) && foodOrdering.curIssue == null && foodOrdering.isOrderTold || events.IsItAFreeFoodEvent()) {
-            //Уставливаем выданный заказ
+            if ( SceneManager.GetActiveScene().name == "Training") {
+                string orderFoodName = foodOrdering.curOrder.GetComponent<Food>().foodName;
+                string issueFoodName = tavern.GetFoodObject(foodName).GetComponent<Food>().foodName; 
+                if ( orderFoodName == issueFoodName) {
+                    trainingManager.creditsForNextStep--;
+                } else {
+                    return;
+                }
+            } 
             foodOrdering.curIssue = tavern.GetFoodObject(foodName);
             //Убавляем количество выданного продукта на складе
             tavern.ReduceFoodNumber(foodName);

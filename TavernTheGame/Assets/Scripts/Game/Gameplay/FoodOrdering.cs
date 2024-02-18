@@ -58,6 +58,7 @@ public class FoodOrdering : MonoBehaviour
 
     private string messageText {
         set { _messageText.text = queueCreator.UpdateAllGenderRelatedWords(value); }
+        get { return _messageText.text; }
     }
 
     private int rand = 0;
@@ -167,7 +168,7 @@ public class FoodOrdering : MonoBehaviour
         audioPhrase.Play();
     }
 
-    private void SayWhatYouWant() {
+    public void SayWhatYouWant() {
         //Обновляем интерфейс сообщения
         int rand = Random.Range(0, variants.OrderPhrases.Count);
         messageText = variants.OrderPhrases[rand].Replace("^", "\"" + _curOrder.name + "\"");
@@ -175,6 +176,7 @@ public class FoodOrdering : MonoBehaviour
         _isOrderTold = true;
         if ( SceneManager.GetActiveScene().name == "Training" ) {
             EventBus.onTrainGuestToldHisOrder?.Invoke();
+            trainingManager.SaveMessage(trainingManager.indexToSaveClientOrder, messageText);
         }
     }
 

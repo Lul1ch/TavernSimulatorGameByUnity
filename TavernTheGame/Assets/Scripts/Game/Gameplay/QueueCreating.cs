@@ -6,9 +6,12 @@ using UnityEngine.SceneManagement;
 public class QueueCreating : MonoBehaviour
 {
     [SerializeField] private CharactersVariants variants;
-    [SerializeField] private Transform cameraTransform;
+    [SerializeField] private Transform spawnPointTransform;
     [SerializeField] private FoodOrdering foodOrdering;
     [SerializeField] private Tavern tavern;
+    [Header("Training")]
+    [SerializeField] private GameObject _orderClient;
+    [SerializeField] private GameObject _eventClient;
 
     private static int guestCounter = 0;
     private float timeBeforeNewGuest = 20f;
@@ -31,10 +34,17 @@ public class QueueCreating : MonoBehaviour
         set { _charStatus = value; }
         get { return _charStatus; }
     }
+    public GameObject orderClient {
+        get { return _orderClient; }
+    }
+
+    public GameObject eventClient {
+        get { return _eventClient; }
+    }
 
     private void Start() {
         //Заводим куратину на создание нового гостя через определённый временной промежуток
-        spawnPoint = new Vector3(cameraTransform.position.x, cameraTransform.position.y, 0);
+        InitSpawnPoint();
         StartCoroutine(SpawnNewGuestInQueue());
     }
 
@@ -121,5 +131,11 @@ public class QueueCreating : MonoBehaviour
         return str = (curGuestGender == Character.Sex.Male) ? str.Replace("(а)", "") : str.Replace("(а)", "а");
     }
 
-    
+    public void SpawnCertainClient(GameObject client) {
+        curGuest = Instantiate(client, spawnPoint, Quaternion.identity);
+    }
+
+    public void InitSpawnPoint() {
+        spawnPoint = new Vector3(spawnPointTransform.position.x, spawnPointTransform.position.y, 0);
+    }
 }

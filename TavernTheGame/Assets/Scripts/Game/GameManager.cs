@@ -43,7 +43,6 @@ public class GameManager : MonoBehaviour
 
     private void ShowButtons(){
         trainingManager.ShowOrHideButtons(true);
-        //trainingManager.ChangeMessageIndex();
     }
 
 }

@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 using UnityEditor;
+using UnityEngine.SceneManagement;
 
 public class Shop : MonoBehaviour
 {
@@ -13,16 +14,18 @@ public class Shop : MonoBehaviour
     }
 
     private Tavern tavern;
-    [SerializeField] private  Transform parent;
+    [SerializeField] private Transform parent;
 
-    [SerializeField] private  GameObject shopContentElement;
+    [SerializeField] private GameObject shopContentElement;
 
     private int minPrice = -1;
 
     private void Start() {
         tavern = GameObject.FindGameObjectWithTag("Tavern").GetComponent<Tavern>();
         //Создаём визуальное отображение каждого товара из массива продуктов в скроллере
-        InitShopShowcase();
+        if ( SceneManager.GetActiveScene().name != "Training" ) {
+            InitShopShowcase();
+        }
     }
 
     private void InitShopShowcase() {
@@ -71,6 +74,13 @@ public class Shop : MonoBehaviour
 
     public int GetMinPrice() {
         return minPrice;
+    }
+
+    public void AddTrainProducts(Dish trainDish) {
+        foreach(var component in trainDish.dishComponents) {
+            _foodStore.Add(component);
+        }
+        InitShopShowcase();
     }
 
 }
