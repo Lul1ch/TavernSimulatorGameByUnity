@@ -34,6 +34,7 @@ public class BuyButton : MonoBehaviour
             if ( SceneManager.GetActiveScene().name == "Training" && isCreditDecreaseAvailable) {
                 trainingManager.creditsForNextStep--;
                 isCreditDecreaseAvailable = false;
+                gameObject.SetActive(false);
             }
         } else if (isReadyForNextHint) {
             hint.ShowHint(Hint.EventType.NotEnoughMoney, string.Concat((product.price - tavern.GetTavernMoney()).ToString()," монет."));

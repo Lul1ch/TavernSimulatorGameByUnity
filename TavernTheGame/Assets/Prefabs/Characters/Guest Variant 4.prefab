@@ -53,15 +53,19 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2250622730138740330, guid: 9b72f2d3dabbacc408b4b34fa458265a, type: 3}
       propertyPath: _characterGender
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4488049338151934516, guid: 9b72f2d3dabbacc408b4b34fa458265a, type: 3}
       propertyPath: m_Name
       value: Guest Variant 4
       objectReference: {fileID: 0}
     - target: {fileID: 5808550848740526153, guid: 9b72f2d3dabbacc408b4b34fa458265a, type: 3}
+      propertyPath: m_FlipX
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5808550848740526153, guid: 9b72f2d3dabbacc408b4b34fa458265a, type: 3}
       propertyPath: m_Sprite
       value: 
-      objectReference: {fileID: 21300010, guid: e48ddf4fb7304ce4ab48711eb6617a57, type: 3}
+      objectReference: {fileID: 21300000, guid: 2b0bfdf169e79aa4db11ba8b1feb2767, type: 3}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 9b72f2d3dabbacc408b4b34fa458265a, type: 3}

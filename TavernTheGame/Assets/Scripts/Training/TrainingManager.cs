@@ -29,7 +29,7 @@ public class TrainingManager : MonoBehaviour
     "", "Теперь нажми в левом нижнем углу на стрелку вправо и перейди на другой экран", "Теперь нажми на кнопку \"Рецепты\" и посмотри, какие продукты требуются для приготовления заказа клиента",
     "Теперь нажми в левом нижнем углу на стрелку вправо и перейди на другой экран", "Теперь нажми на кнопку \"Магазин\" и купи нужные продукты, нажав напротив них кнопку \"Купить\"",
     "Теперь нажми на стрелку влево, чтобы вернуться на экран Кухни", "Приготовь нужное блюдо, нажав кнопку \"Готовить\" напротив него", 
-    "Теперь нажми на стрелку влево, чтобы вернуться на экран Таверны", "Отдай приготовленное блюдо, нажав кнопку \"Дать\" напротив него",
+    "Теперь нажми на стрелку влево, чтобы вернуться на экран Таверны", "Теперь нажми на кнопку \"Еда\" и отдай приготовленное блюдо, нажав кнопку \"Отдать\" напротив него",
     "Поздравляю, обучение успешно пройдено! Нажмите на стрелку вправо, чтобы закончить обучение."};
     private int _messageIndex = 0;
     private int _creditsForNextStep;
@@ -93,14 +93,14 @@ public class TrainingManager : MonoBehaviour
     private void CheckForTheAction() {
         if (indexToSpawnFirstClient != -1 && _messageIndex == indexToSpawnFirstClient) {
             InvokeWhenFirstClientSpawned();
-        } else if (indexToMoveToTheKitchen != -1 && _messageIndex == indexToMoveToTheKitchen) {
-            ActivateGameObjectOnce(fromTavernToKitchenButton, indexToMoveToTheKitchen);
-        } else if (indexToMoveToTheShop != -1 && _messageIndex == indexToMoveToTheShop) {
-            ActivateGameObjectOnce(fromKitchenToShopButton, indexToMoveToTheShop);
-        } else if (indexToMoveBackToTheKitchen != -1 && _messageIndex == indexToMoveBackToTheKitchen && _creditsForNextStep == 0) {
-            ActivateGameObjectOnce(fromShopToKitchenButton, indexToMoveBackToTheKitchen);
-        } else if (indexToMoveBackToTheTavern != -1 && _messageIndex == indexToMoveBackToTheTavern && _creditsForNextStep == 0) {
-            ActivateGameObjectOnce(fromKitchenToTavernButton, indexToMoveBackToTheTavern);
+        } else if (_messageIndex == indexToMoveToTheKitchen) {
+            ActivateGameObjectOnce(fromTavernToKitchenButton, ref indexToMoveToTheKitchen);
+        } else if (_messageIndex == indexToMoveToTheShop) {
+            ActivateGameObjectOnce(fromKitchenToShopButton, ref indexToMoveToTheShop);
+        } else if (_messageIndex == indexToMoveBackToTheKitchen && _creditsForNextStep == 0) {
+            ActivateGameObjectOnce(fromShopToKitchenButton, ref indexToMoveBackToTheKitchen);
+        } else if (_messageIndex == indexToMoveBackToTheTavern && _creditsForNextStep == 0) {
+            ActivateGameObjectOnce(fromKitchenToTavernButton, ref indexToMoveBackToTheTavern);
         } else if (_creditsForNextStep == 0) {
             ShowOrHideButtons(true);
         }
@@ -114,7 +114,7 @@ public class TrainingManager : MonoBehaviour
         queueCreating.SpawnCertainClient(queueCreating.orderClient);
         indexToSpawnFirstClient = -1;
     }
-    private void ActivateGameObjectOnce(GameObject obj, int index) {
+    private void ActivateGameObjectOnce(GameObject obj, ref int index) {
         obj.SetActive(true);
         index = -1;
     }

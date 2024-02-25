@@ -24,10 +24,6 @@ public class FoodOrdering : MonoBehaviour
         set { _tipsPrice = value; }
         get { return _tipsPrice; }
     }
-    public int eventIntiationBorder {
-        set { _eventIntiationBorder = value; }
-        get { return _eventIntiationBorder; }
-    }
     public GameObject curOrder {
         get { return _curOrder; }
         set { _curOrder = value; }
@@ -68,7 +64,7 @@ public class FoodOrdering : MonoBehaviour
         Sad = -1, Happy = 1
     }
     private void Start() {
-        if ( SceneManager.GetActiveScene().name == "Training" ) {
+        if ( SceneManager.GetActiveScene().name != "Training" ) { //костыль
             ChangeVariablesIfItIsATrainingScene();
         }
     }
@@ -104,6 +100,7 @@ public class FoodOrdering : MonoBehaviour
             isReacted = true;
             //После получения заказа, вызываем функцию, которая заставляет клиента двигаться дальше
             queueCreator.charStatus = QueueCreating.Status.Serviced;
+            EventBus.onGuestReacted?.Invoke();
         }
     }
 

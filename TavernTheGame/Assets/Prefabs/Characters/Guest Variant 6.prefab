@@ -51,6 +51,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 900777483438177062, guid: 5c097ba8d43ce984989f78dd9b39db89, type: 3}
+      propertyPath: _characterGender
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 3311029954752235384, guid: 5c097ba8d43ce984989f78dd9b39db89, type: 3}
       propertyPath: m_Name
       value: Guest Variant 6
@@ -58,6 +62,6 @@ PrefabInstance:
     - target: {fileID: 4839112385496044805, guid: 5c097ba8d43ce984989f78dd9b39db89, type: 3}
       propertyPath: m_Sprite
       value: 
-      objectReference: {fileID: 21300100, guid: e48ddf4fb7304ce4ab48711eb6617a57, type: 3}
+      objectReference: {fileID: 21300000, guid: a68073205881fc8428869442be3c2968, type: 3}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 5c097ba8d43ce984989f78dd9b39db89, type: 3}

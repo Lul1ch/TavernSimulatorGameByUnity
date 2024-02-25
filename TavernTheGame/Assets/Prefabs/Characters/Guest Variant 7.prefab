@@ -60,8 +60,12 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7634013534054631991, guid: d6d192d895dd59046ad683bc4210e588, type: 3}
+      propertyPath: m_FlipX
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7634013534054631991, guid: d6d192d895dd59046ad683bc4210e588, type: 3}
       propertyPath: m_Sprite
       value: 
-      objectReference: {fileID: 21300102, guid: e48ddf4fb7304ce4ab48711eb6617a57, type: 3}
+      objectReference: {fileID: 21300000, guid: e4bde758e94ae5a4e9cdef18bb5cdcff, type: 3}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: d6d192d895dd59046ad683bc4210e588, type: 3}

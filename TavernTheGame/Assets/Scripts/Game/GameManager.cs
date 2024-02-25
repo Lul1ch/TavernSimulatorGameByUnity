@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.UI;
 
 public class GameManager : MonoBehaviour
 {
@@ -6,6 +7,7 @@ public class GameManager : MonoBehaviour
     [SerializeField] private QueueCreating queueCreating;
     [SerializeField] private Kitchen kitchen;
     [SerializeField] private TrainingManager trainingManager;
+    [SerializeField] private Button nextButton;
 
     private void OnEnable() {
         EventBus.onGuestSpawned += InvokeWhenANewGuestSpawned;
@@ -13,6 +15,8 @@ public class GameManager : MonoBehaviour
         EventBus.onDoublePayChanceBought += IsDoublePayChanceBought;
         EventBus.onAutomaticCookingBought += IsAutomaticCookingBought;
         EventBus.onTrainGuestToldHisOrder += ShowButtons;
+        EventBus.onGuestLeft += InvokeonGuestLeft;
+        EventBus.onGuestReacted += InvokeOnGuestReacted;
     }
 
     private void OnDisable() {
@@ -21,12 +25,23 @@ public class GameManager : MonoBehaviour
         EventBus.onDoublePayChanceBought -= IsDoublePayChanceBought;
         EventBus.onAutomaticCookingBought -= IsAutomaticCookingBought;
         EventBus.onTrainGuestToldHisOrder -= ShowButtons;
+        EventBus.onGuestLeft -= InvokeonGuestLeft;
+        EventBus.onGuestReacted -= InvokeOnGuestReacted;
     }
 
     private void InvokeWhenANewGuestSpawned() {
+        nextButton.gameObject.SetActive(false);
         foodOrdering.ClearVariablesValues();
         queueCreating.CancelSTimeIsUpInvoke();
         queueCreating.InvokeSetTimeIsUp();
+    }
+
+    private void InvokeOnGuestReacted() {
+        nextButton.gameObject.SetActive(true);
+    }
+    
+    private void InvokeonGuestLeft() {
+        queueCreating.DestroyServicedGuest();
     }
 
     private void FillKitchen() {

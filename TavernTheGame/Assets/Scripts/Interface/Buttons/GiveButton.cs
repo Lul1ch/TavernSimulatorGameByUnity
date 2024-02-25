@@ -12,13 +12,13 @@ public class GiveButton : MonoBehaviour
     private FoodOrdering foodOrdering;
     private Tavern tavern;
     private Food food;
-    private EventGenerator events;
+    private QueueCreating queueCreating;
     private bool isReadyForNextHint = true;
 
     private void Start() {
         tavern = FindObjectOfType<Tavern>().GetComponent<Tavern>();
         foodOrdering = FindObjectOfType<FoodOrdering>().GetComponent<FoodOrdering>();
-        events = FindObjectOfType<EventGenerator>().GetComponent<EventGenerator>();
+        queueCreating = FindObjectOfType<QueueCreating>().GetComponent<QueueCreating>();
         hint = GameObject.Find("/Tavern/TavernObjectsGroup/TavernInterface/FAQTavern").GetComponent<Hint>();
         if ( SceneManager.GetActiveScene().name == "Training" ) {
             trainingManager = FindObjectOfType<TrainingManager>().GetComponent<TrainingManager>();
@@ -28,7 +28,7 @@ public class GiveButton : MonoBehaviour
 
     private void GiveCustomerSelectedOrder() {
         string foodName = food.foodName;
-        if (foodOrdering.curOrder != null && tavern.IsNumberGreaterThanZero(foodName) && foodOrdering.curIssue == null && foodOrdering.isOrderTold || events.IsItAFreeFoodEvent()) {
+        if (foodOrdering.curOrder != null && tavern.IsNumberGreaterThanZero(foodName) && foodOrdering.curIssue == null && foodOrdering.isOrderTold || queueCreating.IsItAFreeFoodEvent()) {
             if ( SceneManager.GetActiveScene().name == "Training") {
                 string orderFoodName = foodOrdering.curOrder.GetComponent<Food>().foodName;
                 string issueFoodName = tavern.GetFoodObject(foodName).GetComponent<Food>().foodName; 
@@ -44,8 +44,7 @@ public class GiveButton : MonoBehaviour
             //Визуальное обновление окна склада в игре
             tavern.UpdateStorageInfo(foodName);
             
-            events.UserGaveFreeFood();
-            //gameObject.GetComponent<AudioSource>().enabled = true;
+            queueCreating.SetPlayerAnswer(Event.Answer.FreeDish);
             CanvasButtons.PlayOnClickSound(gameObject.GetComponent<AudioSource>());
         } else if (isReadyForNextHint) {
             hint.ShowHint(Hint.EventType.InappropriateTimeForService);
