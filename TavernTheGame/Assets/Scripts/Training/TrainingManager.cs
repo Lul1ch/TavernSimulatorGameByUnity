@@ -18,18 +18,25 @@ public class TrainingManager : MonoBehaviour
     [SerializeField] private int indexToMoveToTheShop;
     [SerializeField] private int indexToMoveBackToTheKitchen;
     [SerializeField] private int indexToMoveBackToTheTavern;
+    [SerializeField] private int indexToGiveCustomerAnOrder;
+    [SerializeField] private int indexToTrainBonusPurchase;
     [SerializeField] private int indexToFinishTraining;
     [Header("ScreenSwitchButtons")]
     [SerializeField] private GameObject fromTavernToKitchenButton;
     [SerializeField] private GameObject fromKitchenToShopButton;
     [SerializeField] private GameObject fromShopToKitchenButton;
     [SerializeField] private GameObject fromKitchenToTavernButton;
+    [SerializeField] private GameObject bonusesButton;
 
     private List<string> trainingMessages = new List<string>() { "Чтобы начать обучение нажми стрелку вправо",  "Сейчас выйдет обычный клиент, твоя задача будет заключаться в том, чтобы обслужить его",
     "", "Теперь нажми в левом нижнем углу на стрелку вправо и перейди на другой экран", "Теперь нажми на кнопку \"Рецепты\" и посмотри, какие продукты требуются для приготовления заказа клиента",
     "Теперь нажми в левом нижнем углу на стрелку вправо и перейди на другой экран", "Теперь нажми на кнопку \"Магазин\" и купи нужные продукты, нажав напротив них кнопку \"Купить\"",
-    "Теперь нажми на стрелку влево, чтобы вернуться на экран Кухни", "Приготовь нужное блюдо, нажав кнопку \"Готовить\" напротив него", 
+    "Теперь нажми на стрелку влево, чтобы вернуться на экран Кухни", "Теперь нажми на кнопку \"Кухня\" и приготовь нужное блюдо, нажав кнопку \"Готовить\" напротив него", 
     "Теперь нажми на стрелку влево, чтобы вернуться на экран Таверны", "Теперь нажми на кнопку \"Еда\" и отдай приготовленное блюдо, нажав кнопку \"Отдать\" напротив него",
+    "После правильно выданного заказа, вам начислилось одно очко репутации", "Эти очки могут быть, как положительными, так и отрицательными",
+    "Они прибавляются или убавляются к оплате следующих заказов, также их можно потратить для покупки бонусов",
+    "Для этого нажми на кнопку \"Бонусы\" и купи бонус, нажав кнопку \"Купить\" напротив него", "Вам начислено десять монет", 
+    "В игре бонусы - это будут модификации, дающие выгоду на постоянной основе, в обучении для простоты понимание бонус имеет разовый эффект",
     "Поздравляю, обучение успешно пройдено! Нажмите на стрелку вправо, чтобы закончить обучение."};
     private int _messageIndex = 0;
     private int _creditsForNextStep;
@@ -52,11 +59,13 @@ public class TrainingManager : MonoBehaviour
                 CheckForTheAction();
               }                           }
     }
+    private int minCreditsNumber = 1;
 
     private void Start() {
         queueCreating.InitSpawnPoint();
         ChangeMessageText();
         InitializeCreditsDictionary();
+        indexToFinishTraining = trainingMessages.Count;
     }
 
     public void ShowOrHideButtons(bool value) {
@@ -73,7 +82,7 @@ public class TrainingManager : MonoBehaviour
         if (_messageIndex + value >= 0) {
             _messageIndex += value;
             
-            if (_messageIndex == trainingMessages.Count) {
+            if (_messageIndex == indexToFinishTraining) {
                 SceneManager.LoadScene("MainMenu");
                 return;
             }
@@ -101,6 +110,8 @@ public class TrainingManager : MonoBehaviour
             ActivateGameObjectOnce(fromShopToKitchenButton, ref indexToMoveBackToTheKitchen);
         } else if (_messageIndex == indexToMoveBackToTheTavern && _creditsForNextStep == 0) {
             ActivateGameObjectOnce(fromKitchenToTavernButton, ref indexToMoveBackToTheTavern);
+        } else if (_messageIndex == indexToTrainBonusPurchase) {
+            ActivateGameObjectOnce(bonusesButton, ref indexToTrainBonusPurchase);
         } else if (_creditsForNextStep == 0) {
             ShowOrHideButtons(true);
         }
@@ -121,8 +132,9 @@ public class TrainingManager : MonoBehaviour
     private void InitializeCreditsDictionary() {
         creditsOnCertainStep = new Dictionary<int, int>() {
             [indexToMoveBackToTheKitchen - 1] = 2, //костыль
-            [indexToMoveBackToTheTavern - 1] = 1,
-            [indexToFinishTraining - 1] = 1
+            [indexToMoveBackToTheTavern - 1] = minCreditsNumber,
+            [indexToGiveCustomerAnOrder - 1] = minCreditsNumber,
+            [indexToTrainBonusPurchase] = minCreditsNumber
         };
     }
 }

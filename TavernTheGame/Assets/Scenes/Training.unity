@@ -951,7 +951,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.102000006, y: 0.896}
   m_AnchorMax: {x: 0.163, y: 0.96887875}
-  m_AnchoredPosition: {x: -97.00006, y: -0.5}
+  m_AnchoredPosition: {x: -97.00018, y: -0.5}
   m_SizeDelta: {x: 193.42, y: -1.3600001}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &472954083
@@ -1116,10 +1116,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   bonusesList:
-  - {fileID: 1569878332795529482, guid: 981eb535305d5b945b29608a39dc564b, type: 3}
-  - {fileID: 1569878332795529482, guid: e7b93fc7e887ae347a3385d2a72b6f82, type: 3}
-  - {fileID: 1569878332795529482, guid: 8a9b5b0475ef30241b890ee3893bad39, type: 3}
-  - {fileID: 1569878332795529482, guid: 01504464d7a28584b9b6a1cf6043b8ac, type: 3}
+  - {fileID: 8811014361739947262, guid: b221fff60d012ba4eaa42bb52ad132f3, type: 3}
   bonusesContentElementSample: {fileID: 661778315839437868, guid: 2e1ba8ffa0df7d14d8e80c9447b2345f, type: 3}
   parent: {fileID: 1954436172}
 --- !u!1 &477349912
@@ -2493,11 +2490,14 @@ MonoBehaviour:
   indexToMoveToTheShop: 5
   indexToMoveBackToTheKitchen: 7
   indexToMoveBackToTheTavern: 9
-  indexToFinishTraining: 10
+  indexToGiveCustomerAnOrder: 10
+  indexToTrainBonusPurchase: 14
+  indexToFinishTraining: 0
   fromTavernToKitchenButton: {fileID: 1007382722}
   fromKitchenToShopButton: {fileID: 1365197151}
   fromShopToKitchenButton: {fileID: 1849583033}
   fromKitchenToTavernButton: {fileID: 583722679}
+  bonusesButton: {fileID: 2082941186}
 --- !u!4 &729941836
 Transform:
   m_ObjectHideFlags: 0
