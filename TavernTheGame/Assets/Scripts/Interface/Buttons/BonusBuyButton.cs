@@ -24,9 +24,9 @@ public class BonusBuyButton : MonoBehaviour
     }
 
     private void BuySelectedBonus() {
-        if (tavern.GetTavernBonus() >= bonus.price && !isBonusAlreadyBought) {
+        if (tavern.tavernBonus >= bonus.price && !isBonusAlreadyBought) {
             bonus.Buy();
-            tavern.ChangeTavernBonus(-1*bonus.price);
+            tavern.tavernBonus -= bonus.price;
             isBonusAlreadyBought = true;
             if ( SceneManager.GetActiveScene().name == "Training" && isCreditDecreaseAvailable) {
                 trainingManager.creditsForNextStep--;
@@ -36,7 +36,7 @@ public class BonusBuyButton : MonoBehaviour
             Debug.Log("Bonus bought!");
         } else if (isReadyForNextHint) {
             if (!isBonusAlreadyBought) {
-                hint.ShowHint(Hint.EventType.NotEnoughBonuses, string.Concat((bonus.price - tavern.GetTavernBonus()).ToString()," очков репутации."));
+                hint.ShowHint(Hint.EventType.NotEnoughBonuses, string.Concat((bonus.price - tavern.tavernBonus).ToString()," очков репутации."));
             } else {
                 hint.ShowHint(Hint.EventType.BonusAlreadyBought);
             }

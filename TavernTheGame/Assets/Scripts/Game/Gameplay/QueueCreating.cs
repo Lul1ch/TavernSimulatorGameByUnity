@@ -129,7 +129,7 @@ public class QueueCreating : MonoBehaviour
     }
     private void SetTimeIsUp() {
         foodOrdering.AnswerIfClientWasntServiced();
-        tavern.ChangeTavernBonus(-1);
+        tavern.tavernBonus -= 1;
         _charStatus = Status.Left;
         EventBus.onGuestReacted?.Invoke();
     }

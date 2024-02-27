@@ -26,13 +26,13 @@ public class EndOfGameObserver : MonoBehaviour
     }
     private void FixedUpdate() {
         //Если игрок достигает условий окончания игры, то завершаем её с соответствующим результатом
-        if (tavern.GetTavernMoney() < shop.GetMinPrice() && tavern.IsFoodStorageEmpty()) {
+        if (tavern.tavernMoney < shop.GetMinPrice() && tavern.IsFoodStorageEmpty()) {
             ShowEndOfTheGameMessage(noMoneyMessage);
             PlayerPrefs.SetString("Result", "Loss");
         } else if (queue.GetGuestCounter() > maxGuestsInQueue) {
             ShowEndOfTheGameMessage(maxQueueCapacity);
             PlayerPrefs.SetString("Result", "Loss");
-        } else if (tavern.GetTavernMoney() > numberOfCoinsToWin) {
+        } else if (tavern.tavernMoney > numberOfCoinsToWin) {
             ShowEndOfTheGameMessage(victoryMessage);
             PlayerPrefs.SetString("Result", "Victory");
         }
@@ -41,7 +41,7 @@ public class EndOfGameObserver : MonoBehaviour
     private void ShowEndOfTheGameMessage(string message) {
         endOfTheGameWindow.SetActive(true);
         mainBody.text = message;
-        finalCoinsNumber.text = "Итоговое количество монет = " + tavern.GetTavernMoney();
+        finalCoinsNumber.text = "Итоговое количество монет = " + tavern.tavernMoney;
         queue.SetGuestCounter(0);
     }
 

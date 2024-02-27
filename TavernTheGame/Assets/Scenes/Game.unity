@@ -684,7 +684,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 283003098}
-  - component: {fileID: 283003097}
   m_Layer: 0
   m_Name: EventManager
   m_TagString: Untagged
@@ -692,24 +691,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &283003097
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 283003096}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8f6ae439fe54f7840a2ad3582a581ca4, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _messageText: {fileID: 1533558498}
-  confirmButton: {fileID: 1865290594}
-  denyButton: {fileID: 1472405821}
-  variants: {fileID: 1391082691}
-  queueCreator: {fileID: 1391082694}
-  tavern: {fileID: 472954085}
 --- !u!4 &283003098
 Transform:
   m_ObjectHideFlags: 0
@@ -1093,7 +1074,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.102000006, y: 0.896}
   m_AnchorMax: {x: 0.163, y: 0.96887875}
-  m_AnchoredPosition: {x: -97.00008, y: -0.5}
+  m_AnchoredPosition: {x: -97.00006, y: -0.5}
   m_SizeDelta: {x: 193.42, y: -1.3600001}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &472954083
@@ -1283,7 +1264,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &477349913
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4193,8 +4174,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0.13085938, y: -0.0030517578}
-  m_SizeDelta: {x: -0.26013, y: 0}
+  m_AnchoredPosition: {x: 0.13085938, y: -0.0021362305}
+  m_SizeDelta: {x: -0.26013, y: -607.1226}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1028216135
 MonoBehaviour:
@@ -6160,7 +6141,7 @@ MonoBehaviour:
   trainingManager: {fileID: 0}
   messageCloud: {fileID: 1984926994}
   _messageText: {fileID: 1533558498}
-  events: {fileID: 283003097}
+  events: {fileID: 0}
 --- !u!114 &1391082696
 MonoBehaviour:
   m_ObjectHideFlags: 0

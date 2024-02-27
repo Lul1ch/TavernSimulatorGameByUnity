@@ -15,11 +15,19 @@ public class Tavern : MonoBehaviour
     [SerializeField] private GameObject contentSample;
     [SerializeField] private Transform parent;
 
-    private float tavernMoney = 100f;
-    private int moneyBonus;
+    private float _tavernMoney = 100f;
+    private int _moneyBonus;
+
+    public float tavernMoney {
+        set { _tavernMoney = value; }
+        get { return _tavernMoney; }
+    }
+    public int tavernBonus {
+        set { _moneyBonus = value; }
+        get { return _moneyBonus; }
+    }
 
     private void FixedUpdate() {
-        //Обновляем интерфейс со счётчиками клиентов и денег таверны
         UpdateCounterInterface();
     }
 
@@ -74,8 +82,8 @@ public class Tavern : MonoBehaviour
 
     private void UpdateCounterInterface() {
         guestsNumber.text = "<size=64>" + variants.Characters.Count;
-        moneyAmount.text = "<size=56>" + tavernMoney;
-        bonusNumber.text = "<size=56>" + moneyBonus;
+        moneyAmount.text = "<size=56>" + _tavernMoney;
+        bonusNumber.text = "<size=56>" + _moneyBonus;
     }
 
     public GameObject GetFoodObject(string foodName) {
@@ -119,31 +127,5 @@ public class Tavern : MonoBehaviour
 
     public bool IsFoodStorageEmpty() {
         return (parent.GetComponentsInChildren<Transform>().Length == 1);
-    }
-
-    public void IncreaseTavernMoney(int number) {
-        tavernMoney += number;
-    }
-
-    public void DecreaseTavernMoney(int number) {
-        tavernMoney -= number;
-    }
-
-    public float GetTavernMoney() {
-        return tavernMoney;
-    }
-
-    public void ChangeTavernBonus(int number) {
-        moneyBonus += number;
-    }
-
-    public int GetTavernBonus() {
-        return moneyBonus;
-    }
-
-    public void SetTavernMoney(float number) {
-        if (PlayerPrefs.GetString("Result") != null) {
-            tavernMoney = number;
-        }
     }
 }

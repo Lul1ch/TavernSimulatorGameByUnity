@@ -24,18 +24,17 @@ public class SecretBonus : Event
             int randForPunishment = Random.Range(0, 100);
             if (randForPunishment < 15) {
                 ChangeMessageText(positiveEnd);
-                tavern.ChangeTavernBonus(10);
+                tavern.tavernBonus += 10;
             } else {
                 gameObject.GetComponent<SpriteRenderer>().sprite = guardianSprite;
-                if (tavern.GetTavernBonus() > 0) {
-                    tavern.ChangeTavernBonus(-1*tavern.GetTavernBonus());
-                }
-                tavern.DecreaseTavernMoney((int)(tavern.GetTavernMoney() / 2));
+                tavern.tavernBonus = 0;
+
+                tavern.tavernMoney -= (int)(tavern.tavernMoney / 2);
                 ChangeMessageText(negativeEnd);
             }
         } else if (userAnswer == Answer.No) {
             ChangeMessageText(guestRefused);
-            tavern.ChangeTavernBonus(1);
+            tavern.tavernBonus += 1;
         }
         InvokeOnUserResponse();
     }

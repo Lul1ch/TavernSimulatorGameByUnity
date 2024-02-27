@@ -25,8 +25,8 @@ public class BuyButton : MonoBehaviour
     }
 
     private void BuySelectedProduct() {
-        if (tavern.GetTavernMoney() >= product.price) {
-            tavern.DecreaseTavernMoney(product.price);
+        if (tavern.tavernMoney >= product.price) {
+            tavern.tavernMoney -= product.price;
             tavern.UpdateDictionary(product.foodName, productObject);
             tavern.UpdateStorageInfo(product.foodName, productObject);
 
@@ -37,7 +37,7 @@ public class BuyButton : MonoBehaviour
                 gameObject.SetActive(false);
             }
         } else if (isReadyForNextHint) {
-            hint.ShowHint(Hint.EventType.NotEnoughMoney, string.Concat((product.price - tavern.GetTavernMoney()).ToString()," монет."));
+            hint.ShowHint(Hint.EventType.NotEnoughMoney, string.Concat((product.price - tavern.tavernMoney).ToString()," монет."));
             isReadyForNextHint = false;
             Invoke("IsReadyForNextHint", hint.hintLifeTime);
         }

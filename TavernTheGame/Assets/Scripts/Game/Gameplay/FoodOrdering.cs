@@ -12,8 +12,6 @@ public class FoodOrdering : MonoBehaviour
     [SerializeField] private Kitchen kitchen;
     [SerializeField] private TrainingManager trainingManager;
     private AudioSource audioPhrase;
-    private bool eventWasGenerated;
-    private int _eventIntiationBorder = 40, maxEventInitiationBorder = 90, eventIntiationBorderReductionStep = 10;
     private int _tipsPrice = 3;
 
     private GameObject _curOrder = null;
@@ -49,9 +47,6 @@ public class FoodOrdering : MonoBehaviour
     [SerializeField] private GameObject messageCloud;
     [SerializeField] private Text _messageText;
 
-    [Header("EventManager")]
-    [SerializeField] private EventGenerator events;
-
     private string messageText {
         set { _messageText.text = queueCreator.UpdateAllGenderRelatedWords(value); }
         get { return _messageText.text; }
@@ -63,31 +58,16 @@ public class FoodOrdering : MonoBehaviour
     public enum Mood {
         Sad = -1, Happy = 1
     }
-    private void Start() {
-        if ( SceneManager.GetActiveScene().name != "Training" ) { //костыль
-            ChangeVariablesIfItIsATrainingScene();
-        }
-    }
+    
     private void FixedUpdate() {
         //Если клиент дошёл до точки и он не сделал ещё заказ, то формируем заказ
         if (queueCreator.charStatus == QueueCreating.Status.Waiting && _curOrder == null) {
-            int randForEvent = Random.Range(0, 100);
-            messageCloud.SetActive(true);
-            if (randForEvent < _eventIntiationBorder) {
-                if (_eventIntiationBorder > Mathf.Round(maxEventInitiationBorder / 2)) {
-                    _eventIntiationBorder -= eventIntiationBorderReductionStep;
-                }
-                _curOrder = MakeOrder();
-                //Формируем сообщение приветствия и заказа
-                SayHello();
-                _isOrderTold = false;
-                //После преветствия с задержкой вызываем функцию, в которой выводится сообщение с заказом
-                Invoke("SayWhatYouWant", 3f);
-            } else {
-                queueCreator.charStatus = QueueCreating.Status.EventWasGenerated;
-                events.CreateAnEvent();
-                _eventIntiationBorder = maxEventInitiationBorder;
-            }
+            _curOrder = MakeOrder();
+            //Формируем сообщение приветствия и заказа
+            SayHello();
+            _isOrderTold = false;
+            //После преветствия с задержкой вызываем функцию, в которой выводится сообщение с заказом
+            Invoke("SayWhatYouWant", 3f);
         }
         
         if (_curIssue != null && !isReacted && _isOrderTold && queueCreator.charStatus == QueueCreating.Status.Waiting) {
@@ -134,10 +114,10 @@ public class FoodOrdering : MonoBehaviour
         //Костыль
         if (isDoublePayChanceBought && chanceToDoubleThePayment > rand) { Debug.Log("Price is doubled " + priceToPay.ToString()); }
         if (_curIssue.GetComponent<Food>().foodQuality != Food.Quality.Awful) {
-            float payment = Mathf.Round(priceToPay + tips) + tavern.GetTavernBonus(); 
-            tavern.IncreaseTavernMoney((int)payment);
+            float payment = Mathf.Round(priceToPay + tips) + tavern.tavernBonus; 
+            tavern.tavernMoney += (int)payment;
         }
-        tavern.ChangeTavernBonus((int)reaction);
+        tavern.tavernBonus += (int)reaction;
     }
 
     private void Answer(Mood reaction) {
@@ -185,19 +165,9 @@ public class FoodOrdering : MonoBehaviour
         audioPhrase.Play();
     }
 
-    public bool GetEventWasGenerated() {
-        return eventWasGenerated;
-    }
-
     public void ClearVariablesValues() {
         _curOrder = null;
         _curIssue = null;
         isReacted = false;
-        eventWasGenerated = false;
-    }
-
-    private void ChangeVariablesIfItIsATrainingScene() {
-        _eventIntiationBorder = 100;
-        eventIntiationBorderReductionStep = 0;
     }
 }

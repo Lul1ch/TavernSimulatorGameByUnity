@@ -8,6 +8,6 @@ public class TrainingBonus : Bonus
         tavern = FindObjectOfType<Tavern>().GetComponent<Tavern>();
     }
     public override void Buy() {
-        tavern.IncreaseTavernMoney(bonusMoneyNumber);
+        tavern.tavernMoney += bonusMoneyNumber;
     }
 }
