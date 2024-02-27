@@ -46,6 +46,9 @@ public class CanvasButtons : MonoBehaviour
     public void StartTheGame() {
         SceneManager.LoadScene("Game");
     }
+    public void LoadTrainingScene() {
+        SceneManager.LoadScene("Training");
+    }
 
     //Когда игра закончена перезагружаем её, загружая сцену главного меню
     public void RestartTheGame() {

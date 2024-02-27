@@ -1,13 +1,18 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class QueueCreating : MonoBehaviour
 {
     [SerializeField] private CharactersVariants variants;
-    [SerializeField] private Transform cameraTransform;
+    [SerializeField] private Transform spawnPointTransform;
     [SerializeField] private FoodOrdering foodOrdering;
     [SerializeField] private Tavern tavern;
+    [SerializeField] private GameEventsManager gameEventsManager;
+    [Header("Training")]
+    [SerializeField] private GameObject _orderClient;
+    [SerializeField] private GameObject _eventClient;
 
     private static int guestCounter = 0;
     private float timeBeforeNewGuest = 20f;
@@ -16,8 +21,11 @@ public class QueueCreating : MonoBehaviour
     private Vector3 spawnPoint;
     private Status _charStatus;
     private float waitTime = 30f;
+    private int _eventIntiationBorder = 40, maxEventInitiationBorder = 90, eventIntiationBorderReductionStep = 10;
+    private bool _isEventsReadyToCreate;
 
     public enum Status {
+        NotSpawned,
         Waiting,
         EventWasGenerated,
         Serviced,
@@ -29,20 +37,21 @@ public class QueueCreating : MonoBehaviour
         set { _charStatus = value; }
         get { return _charStatus; }
     }
+    public GameObject orderClient {
+        get { return _orderClient; }
+    }
+    public GameObject eventClient {
+        get { return _eventClient; }
+    }
+    public bool isEventsReadyToCreate {
+        get { return _isEventsReadyToCreate; }
+        set { _isEventsReadyToCreate = value; }
+    }
 
     private void Start() {
         //Заводим куратину на создание нового гостя через определённый временной промежуток
-        spawnPoint = new Vector3(cameraTransform.position.x, cameraTransform.position.y, 0);
+        InitSpawnPoint();
         StartCoroutine(SpawnNewGuestInQueue());
-    }
-
-    private void FixedUpdate() {
-        //Если клиент ушёл, то удаляем его со сцены
-        if (_charStatus != Status.Waiting && _charStatus != Status.EventWasGenerated){
-            System.Threading.Thread.Sleep(1000);
-            DestroyServicedGuest();
-            SpawnNewGuest();
-        }
     }
 
     private IEnumerator SpawnNewGuestInQueue() {
@@ -56,20 +65,36 @@ public class QueueCreating : MonoBehaviour
 
     }
 
-    private void SpawnNewGuest(){
+    public void SpawnNewGuest(){
         if (variants.Characters.Count == 0) {
             CreateGuest();
         }
-        curGuest = Instantiate(variants.Characters[0], spawnPoint, Quaternion.identity);
-        _charStatus = Status.Waiting;
-        EventBus.onGuestSpawned?.Invoke();
+        int randForEvent = Random.Range(0, 100);
+        GameObject guestToInstaniate = variants.Characters[0]; //костыль
+
+        if (randForEvent > _eventIntiationBorder && _isEventsReadyToCreate) {
+            guestToInstaniate = gameEventsManager.GetRandomEventGuest();
+            _charStatus = Status.EventWasGenerated;
+            _eventIntiationBorder = maxEventInitiationBorder;
+        } else {
+            if (_eventIntiationBorder > Mathf.Round(maxEventInitiationBorder / 2)) {
+                _eventIntiationBorder -= eventIntiationBorderReductionStep;
+            }
+            guestToInstaniate = variants.Characters[0];
+            _charStatus = Status.Waiting;
+        }
+        curGuest = Instantiate(guestToInstaniate, spawnPoint, Quaternion.identity);
+        if ( SceneManager.GetActiveScene().name != "Training" ) {
+            EventBus.onGuestSpawned?.Invoke();
+        }
     }
 
-    private void DestroyServicedGuest(){
+    public void DestroyServicedGuest(){
         variants.Characters.RemoveAt(0);
         
         Destroy(curGuest);
         guestCounter--;
+        SpawnNewGuest();
     }
 
     public int GetGuestCounter() {
@@ -98,14 +123,15 @@ public class QueueCreating : MonoBehaviour
     }
 
     public void InvokeSetTimeIsUp() {
-        Invoke("SetTimeIsUp", waitTime);
+        if (_charStatus == Status.Waiting) {
+            Invoke("SetTimeIsUp", waitTime);
+        }
     }
     private void SetTimeIsUp() {
-        if (_charStatus == Status.Waiting) {
-            foodOrdering.AnswerIfClientWasntServiced();
-            tavern.ChangeTavernBonus(-1);
-            _charStatus = Status.Left;
-        }
+        foodOrdering.AnswerIfClientWasntServiced();
+        tavern.ChangeTavernBonus(-1);
+        _charStatus = Status.Left;
+        EventBus.onGuestReacted?.Invoke();
     }
 
     public void CancelSTimeIsUpInvoke() {
@@ -115,5 +141,36 @@ public class QueueCreating : MonoBehaviour
     public string UpdateAllGenderRelatedWords(string str) {
         Character.Sex curGuestGender = curGuest.GetComponent<Character>().characterGender;
         return str = (curGuestGender == Character.Sex.Male) ? str.Replace("(а)", "") : str.Replace("(а)", "а");
+    }
+
+    public void SpawnCertainClient(GameObject client) {
+        curGuest = Instantiate(client, spawnPoint, Quaternion.identity);
+    }
+
+    public void InitSpawnPoint() {
+        spawnPoint = new Vector3(spawnPointTransform.position.x, spawnPointTransform.position.y, 0);
+    }
+
+    public void SetPlayerAnswer(Event.Answer answer) {
+        if (_charStatus == Status.EventWasGenerated) {
+            curGuest.GetComponent<Event>().userAnswer = answer;
+        }
+    }
+    public void PlayerAnsweredYes() {
+        if (_charStatus == Status.EventWasGenerated) {
+            curGuest.GetComponent<Event>().userAnswer = Event.Answer.Yes;
+        }
+    }
+    public void PlayerAnsweredNo() {
+        if (_charStatus == Status.EventWasGenerated) {
+            curGuest.GetComponent<Event>().userAnswer = Event.Answer.No;
+        }
+    }
+
+    public bool IsItAFreeFoodEvent() {
+        if (_charStatus == Status.EventWasGenerated) {
+            return curGuest.TryGetComponent<FreeFood>(out FreeFood hinge);
+        }
+        return false;
     }
 }

@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class FoodOrdering : MonoBehaviour
 {
@@ -9,10 +10,10 @@ public class FoodOrdering : MonoBehaviour
     [SerializeField] private QueueCreating queueCreator;
     [SerializeField] private Tavern tavern;
     [SerializeField] private Kitchen kitchen;
-
+    [SerializeField] private TrainingManager trainingManager;
     private AudioSource audioPhrase;
     private bool eventWasGenerated;
-    private int eventIntiationBorder = 40, maxEventInitiationBorder = 90, eventIntiationBorderReductionStep = 10;
+    private int _eventIntiationBorder = 40, maxEventInitiationBorder = 90, eventIntiationBorderReductionStep = 10;
     private int _tipsPrice = 3;
 
     private GameObject _curOrder = null;
@@ -53,6 +54,7 @@ public class FoodOrdering : MonoBehaviour
 
     private string messageText {
         set { _messageText.text = queueCreator.UpdateAllGenderRelatedWords(value); }
+        get { return _messageText.text; }
     }
 
     private int rand = 0;
@@ -61,15 +63,19 @@ public class FoodOrdering : MonoBehaviour
     public enum Mood {
         Sad = -1, Happy = 1
     }
-
+    private void Start() {
+        if ( SceneManager.GetActiveScene().name != "Training" ) { //костыль
+            ChangeVariablesIfItIsATrainingScene();
+        }
+    }
     private void FixedUpdate() {
         //Если клиент дошёл до точки и он не сделал ещё заказ, то формируем заказ
         if (queueCreator.charStatus == QueueCreating.Status.Waiting && _curOrder == null) {
             int randForEvent = Random.Range(0, 100);
             messageCloud.SetActive(true);
-            if (randForEvent < eventIntiationBorder) {
-                if (eventIntiationBorder > Mathf.Round(maxEventInitiationBorder / 2)) {
-                    eventIntiationBorder -= eventIntiationBorderReductionStep;
+            if (randForEvent < _eventIntiationBorder) {
+                if (_eventIntiationBorder > Mathf.Round(maxEventInitiationBorder / 2)) {
+                    _eventIntiationBorder -= eventIntiationBorderReductionStep;
                 }
                 _curOrder = MakeOrder();
                 //Формируем сообщение приветствия и заказа
@@ -80,7 +86,7 @@ public class FoodOrdering : MonoBehaviour
             } else {
                 queueCreator.charStatus = QueueCreating.Status.EventWasGenerated;
                 events.CreateAnEvent();
-                eventIntiationBorder = maxEventInitiationBorder;
+                _eventIntiationBorder = maxEventInitiationBorder;
             }
         }
         
@@ -94,10 +100,14 @@ public class FoodOrdering : MonoBehaviour
             isReacted = true;
             //После получения заказа, вызываем функцию, которая заставляет клиента двигаться дальше
             queueCreator.charStatus = QueueCreating.Status.Serviced;
+            EventBus.onGuestReacted?.Invoke();
         }
     }
 
     private GameObject MakeOrder() {
+        if ( SceneManager.GetActiveScene().name == "Training" ) {
+            trainingManager.ShowOrHideButtons(false);
+        }
         GameObject guestOrder = null;
 
         Character charInfo = queueCreator.GetCurGuest().GetComponent<Character>();
@@ -155,12 +165,16 @@ public class FoodOrdering : MonoBehaviour
         audioPhrase.Play();
     }
 
-    private void SayWhatYouWant() {
+    public void SayWhatYouWant() {
         //Обновляем интерфейс сообщения
         int rand = Random.Range(0, variants.OrderPhrases.Count);
         messageText = variants.OrderPhrases[rand].Replace("^", "\"" + _curOrder.name + "\"");
         if (isAutomaticCookingBought && tavern.GetNumberOfFoodInStorage(_curOrder.name) == 0) { kitchen.AutomaticCookStart(_curOrder.name); }
         _isOrderTold = true;
+        if ( SceneManager.GetActiveScene().name == "Training" ) {
+            EventBus.onTrainGuestToldHisOrder?.Invoke();
+            trainingManager.SaveMessage(trainingManager.indexToSaveClientOrder, messageText);
+        }
     }
 
     public void AnswerIfClientWasntServiced() {
@@ -182,4 +196,8 @@ public class FoodOrdering : MonoBehaviour
         eventWasGenerated = false;
     }
 
+    private void ChangeVariablesIfItIsATrainingScene() {
+        _eventIntiationBorder = 100;
+        eventIntiationBorderReductionStep = 0;
+    }
 }

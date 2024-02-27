@@ -8,6 +8,10 @@ PrefabInstance:
     m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: 1349337391243414768, guid: fcf74b1176018f343b704378af623a50, type: 3}
+      propertyPath: m_FlipX
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1349337391243414768, guid: fcf74b1176018f343b704378af623a50, type: 3}
       propertyPath: m_Sprite
       value: 
       objectReference: {fileID: 21300110, guid: e48ddf4fb7304ce4ab48711eb6617a57, type: 3}
@@ -65,29 +69,3 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: fcf74b1176018f343b704378af623a50, type: 3}
---- !u!1 &6441699795323064830 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 8965840118350306957, guid: fcf74b1176018f343b704378af623a50, type: 3}
-  m_PrefabInstance: {fileID: 2668545232979054451}
-  m_PrefabAsset: {fileID: 0}
---- !u!50 &4724657773906829793
-Rigidbody2D:
-  serializedVersion: 4
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6441699795323064830}
-  m_BodyType: 1
-  m_Simulated: 1
-  m_UseFullKinematicContacts: 0
-  m_UseAutoMass: 0
-  m_Mass: 1
-  m_LinearDrag: 0
-  m_AngularDrag: 0.05
-  m_GravityScale: 1
-  m_Material: {fileID: 0}
-  m_Interpolate: 0
-  m_SleepingMode: 1
-  m_CollisionDetection: 0
-  m_Constraints: 0

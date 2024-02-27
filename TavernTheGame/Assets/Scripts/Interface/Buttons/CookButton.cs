@@ -2,6 +2,7 @@ using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class CookButton : MonoBehaviour
 {
@@ -14,6 +15,7 @@ public class CookButton : MonoBehaviour
     [SerializeField] private Kitchen kitchen;
     [SerializeField] private Tavern tavern;
     [SerializeField] private Dish dishScript;
+    [SerializeField] private TrainingManager trainingManager;
 
     [Header("Scene's objects")]
     [SerializeField] private GameObject timerSample;
@@ -32,6 +34,10 @@ public class CookButton : MonoBehaviour
         tavern = FindObjectOfType<Tavern>().GetComponent<Tavern>();
         hint = GameObject.Find("/Kitchen").transform.Find("KitchenObjectsGroup").transform.Find("KitchenInterface").transform.Find("FAQKitchen").GetComponent<Hint>();
         contentElemTransform = transform.parent;
+
+        if ( SceneManager.GetActiveScene().name == "Training" ) {
+            trainingManager = FindObjectOfType<TrainingManager>().GetComponent<TrainingManager>();
+        }
     }
 
     public void CookSelectedDish() {
@@ -83,7 +89,9 @@ public class CookButton : MonoBehaviour
         tavern.UpdateStorageInfo(dishScript.foodName, dishObj);
         
         curCookingDishCounter++;
-
+        if ( SceneManager.GetActiveScene().name == "Training" ) {
+            trainingManager.creditsForNextStep--;
+        }
         StopCoroutine(coroutine);
     }
 

@@ -7,6 +7,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 40180064160415414, guid: c5e40ada457e7ab419eb5e86016c7d7f, type: 3}
+      propertyPath: _characterGender
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 1066806632426777141, guid: c5e40ada457e7ab419eb5e86016c7d7f, type: 3}
       propertyPath: m_RootOrder
       value: 0
@@ -60,34 +64,12 @@ PrefabInstance:
       value: Guest Variant 5
       objectReference: {fileID: 0}
     - target: {fileID: 5704214390643527829, guid: c5e40ada457e7ab419eb5e86016c7d7f, type: 3}
+      propertyPath: m_FlipX
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5704214390643527829, guid: c5e40ada457e7ab419eb5e86016c7d7f, type: 3}
       propertyPath: m_Sprite
       value: 
-      objectReference: {fileID: 21300012, guid: e48ddf4fb7304ce4ab48711eb6617a57, type: 3}
+      objectReference: {fileID: 21300000, guid: 0908152cbb380a04b99eaa30bdc7c172, type: 3}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: c5e40ada457e7ab419eb5e86016c7d7f, type: 3}
---- !u!1 &3311029954752235384 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 2449307170256880360, guid: c5e40ada457e7ab419eb5e86016c7d7f, type: 3}
-  m_PrefabInstance: {fileID: 868785535564760464}
-  m_PrefabAsset: {fileID: 0}
---- !u!50 &-8060946859871754090
-Rigidbody2D:
-  serializedVersion: 4
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3311029954752235384}
-  m_BodyType: 1
-  m_Simulated: 1
-  m_UseFullKinematicContacts: 0
-  m_UseAutoMass: 0
-  m_Mass: 1
-  m_LinearDrag: 0
-  m_AngularDrag: 0.05
-  m_GravityScale: 1
-  m_Material: {fileID: 0}
-  m_Interpolate: 0
-  m_SleepingMode: 1
-  m_CollisionDetection: 0
-  m_Constraints: 0

@@ -7,4 +7,7 @@ public static class EventBus
     public static Action onShopFilled;
     public static Action onDoublePayChanceBought;
     public static Action onAutomaticCookingBought;
+    public static Action onTrainGuestToldHisOrder;
+    public static Action onGuestLeft;
+    public static Action onGuestReacted;
 }
