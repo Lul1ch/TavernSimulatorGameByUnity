@@ -13,7 +13,6 @@ public class EndOfGameObserver : MonoBehaviour
     [SerializeField] private TMP_Text mainBody;
     [SerializeField] private TMP_Text finalCoinsNumber;
 
-    private int maxGuestsInQueue = 15;
     private int numberOfCoinsToWin = 500;
 
     private string noMoneyMessage = "У вас нет больше средств, чтобы продолжать игру.";
@@ -21,16 +20,12 @@ public class EndOfGameObserver : MonoBehaviour
     private string victoryMessage;
 
     private void Start() {
-        maxQueueCapacity = "Количество гостей в очереди достигло максимального значения = " + maxGuestsInQueue + " человек.";
         victoryMessage = "Поздравляем вы достигли нужной суммы = " + numberOfCoinsToWin + " монет.";
     }
     private void FixedUpdate() {
         //Если игрок достигает условий окончания игры, то завершаем её с соответствующим результатом
         if (tavern.tavernMoney < shop.GetMinPrice() && tavern.IsFoodStorageEmpty()) {
             ShowEndOfTheGameMessage(noMoneyMessage);
-            PlayerPrefs.SetString("Result", "Loss");
-        } else if (queue.GetGuestCounter() > maxGuestsInQueue) {
-            ShowEndOfTheGameMessage(maxQueueCapacity);
             PlayerPrefs.SetString("Result", "Loss");
         } else if (tavern.tavernMoney > numberOfCoinsToWin) {
             ShowEndOfTheGameMessage(victoryMessage);
@@ -42,7 +37,6 @@ public class EndOfGameObserver : MonoBehaviour
         endOfTheGameWindow.SetActive(true);
         mainBody.text = message;
         finalCoinsNumber.text = "Итоговое количество монет = " + tavern.tavernMoney;
-        queue.SetGuestCounter(0);
     }
 
     public void LoadEndGameScene() {

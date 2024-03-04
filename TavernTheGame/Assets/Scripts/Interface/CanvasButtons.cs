@@ -42,7 +42,6 @@ public class CanvasButtons : MonoBehaviour
         windowRT.offsetMax = new Vector2(0f, yCoord);
     }
 
-    //Загружаем сцену игры, когда нажимаем на кнопку "играть"
     public void StartTheGame() {
         SceneManager.LoadScene("Game");
     }

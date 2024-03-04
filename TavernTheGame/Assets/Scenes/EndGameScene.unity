@@ -340,8 +340,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e0d3e153b34d13545920feb1d2fba628, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  lossBG: {fileID: 21300000, guid: c287bd4ceb8667f4aa6d2c0a7aaf8ddd, type: 3}
-  victoryBG: {fileID: 21300000, guid: 3a41b4564ad45cb43ab9bc7bf70729df, type: 3}
+  lossBG: {fileID: 21300000, guid: bb65b2a4ee1312342bd59c0ba41bfd83, type: 3}
+  victoryBG: {fileID: 21300000, guid: 0b98c4067aa4c22499be4c17d3d92c0a, type: 3}
   finishSprite: {fileID: 21300000, guid: ca17a0bbf8982ca49bb004041d11c61b, type: 3}
   sceneBG: {fileID: 1818410716}
   messageText: {fileID: 1593799489}
@@ -762,7 +762,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 3a41b4564ad45cb43ab9bc7bf70729df, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 0b98c4067aa4c22499be4c17d3d92c0a, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1

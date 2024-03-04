@@ -22,13 +22,20 @@ public class Hint : MonoBehaviour
     };
 
     public void ShowHint(EventType eventType, string additionalString = "") {
+        CancelInvoke("HideHint");
         string hintStr = hintsForPlayer[eventType] + additionalString;
         hintText.text = hintStr;
         gameObject.SetActive(true);
         Invoke("HideHint", hintLifeTime);
     }
 
-    private void HideHint() {
+    public void ShowBonusDescription(string description) {
+        CancelInvoke("HideHint");
+        hintText.text = description;
+        gameObject.SetActive(true);
+    }
+
+    public void HideHint() {
         gameObject.SetActive(false);
     }
 }

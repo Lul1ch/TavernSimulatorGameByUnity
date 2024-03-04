@@ -530,7 +530,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 283003098}
-  - component: {fileID: 283003097}
   m_Layer: 0
   m_Name: EventManager
   m_TagString: Untagged
@@ -538,24 +537,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &283003097
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 283003096}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8f6ae439fe54f7840a2ad3582a581ca4, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _messageText: {fileID: 1533558498}
-  confirmButton: {fileID: 1865290594}
-  denyButton: {fileID: 1472405821}
-  variants: {fileID: 1391082691}
-  queueCreator: {fileID: 1391082694}
-  tavern: {fileID: 472954085}
 --- !u!4 &283003098
 Transform:
   m_ObjectHideFlags: 0
@@ -5824,7 +5805,6 @@ MonoBehaviour:
   trainingManager: {fileID: 729941835}
   messageCloud: {fileID: 1984926994}
   _messageText: {fileID: 1533558498}
-  events: {fileID: 283003097}
 --- !u!114 &1391082696
 MonoBehaviour:
   m_ObjectHideFlags: 0

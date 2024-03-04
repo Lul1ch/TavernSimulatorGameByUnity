@@ -18,10 +18,8 @@ public class LostGuest : Event
     
         if (userAnswer == Answer.Yes) {
             ChangeMessageText(guestAgreed);
-            //messageText = "Понял, спасибо!";
         } else if (userAnswer == Answer.No) {
             ChangeMessageText(guestRefused);
-            //messageText = "Ахх...жаль.";
         }
         InvokeOnUserResponse();
     }

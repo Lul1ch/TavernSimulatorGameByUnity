@@ -2,6 +2,7 @@ using UnityEngine;
 
 public class Bonus : MonoBehaviour
 {
+    [Header("BonusVariables")]
     [SerializeField] private string _description;
     [SerializeField] private int _price;
     [SerializeField] private int _bonusIndex;

@@ -12,9 +12,7 @@ public class QueueCreating : MonoBehaviour
     [SerializeField] private GameEventsManager gameEventsManager;
     [Header("Training")]
     [SerializeField] private GameObject _orderClient;
-    [SerializeField] private GameObject _eventClient;
 
-    private static int guestCounter = 0;
     private float timeBeforeNewGuest = 20f;
     private int rand;
     private GameObject curGuest;
@@ -40,9 +38,6 @@ public class QueueCreating : MonoBehaviour
     public GameObject orderClient {
         get { return _orderClient; }
     }
-    public GameObject eventClient {
-        get { return _eventClient; }
-    }
     public bool isEventsReadyToCreate {
         get { return _isEventsReadyToCreate; }
         set { _isEventsReadyToCreate = value; }
@@ -56,13 +51,9 @@ public class QueueCreating : MonoBehaviour
 
     private IEnumerator SpawnNewGuestInQueue() {
         SpawnNewGuest();
-        //Тут ссылаемся на конкретные координаты, в случае чего поменять
-        while (guestCounter < 16) {
-            CreateGuest();
+        CreateGuest();
 
-            yield return new WaitForSeconds(timeBeforeNewGuest);   
-        }
-
+        yield return new WaitForSeconds(timeBeforeNewGuest);  
     }
 
     public void SpawnNewGuest(){
@@ -93,25 +84,13 @@ public class QueueCreating : MonoBehaviour
         variants.Characters.RemoveAt(0);
         
         Destroy(curGuest);
-        guestCounter--;
         SpawnNewGuest();
-    }
-
-    public int GetGuestCounter() {
-        return guestCounter;
-    }
-
-    public void SetGuestCounter(int number) {
-        if (PlayerPrefs.GetString("Result") != null) {
-            guestCounter = number;
-        }
     }
 
     public void CreateGuest() {
         rand = Random.Range(0, variants.CharactersSkins.Count);
         GameObject newGuest = variants.CharactersSkins[rand];
         variants.Characters.Add(newGuest);
-        guestCounter++;
     }
 
     public GameObject GetCurGuest() {

@@ -19,16 +19,12 @@ public class Tavern : MonoBehaviour
     private int _moneyBonus;
 
     public float tavernMoney {
-        set { _tavernMoney = value; }
+        set { _tavernMoney = value; UpdateCounterInterface();}
         get { return _tavernMoney; }
     }
     public int tavernBonus {
-        set { _moneyBonus = value; }
+        set { _moneyBonus = value; UpdateCounterInterface();}
         get { return _moneyBonus; }
-    }
-
-    private void FixedUpdate() {
-        UpdateCounterInterface();
     }
 
     public void UpdateDictionary(string name, GameObject foodObject) {
@@ -81,7 +77,6 @@ public class Tavern : MonoBehaviour
     }
 
     private void UpdateCounterInterface() {
-        guestsNumber.text = "<size=64>" + variants.Characters.Count;
         moneyAmount.text = "<size=56>" + _tavernMoney;
         bonusNumber.text = "<size=56>" + _moneyBonus;
     }
