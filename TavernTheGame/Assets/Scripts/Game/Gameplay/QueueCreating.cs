@@ -80,6 +80,7 @@ public class QueueCreating : MonoBehaviour
             yOffset = guestToInstaniate.GetComponent<Character>().yOffset;
         }
         curGuest = Instantiate(guestToInstaniate, new Vector3(spawnPoint.x + xOffset, spawnPoint.y + yOffset, spawnPoint.z), Quaternion.identity);
+        foodOrdering.InitiateServicingProcess();
         if ( SceneManager.GetActiveScene().name != "Training" ) {
             EventBus.onGuestSpawned?.Invoke();
         }

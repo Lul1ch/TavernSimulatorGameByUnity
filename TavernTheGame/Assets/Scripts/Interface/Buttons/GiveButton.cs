@@ -46,6 +46,8 @@ public class GiveButton : MonoBehaviour
             tavern.UpdateStorageInfo(foodName);
             
             queueCreating.SetPlayerAnswer(Event.Answer.FreeDish);
+            foodOrdering.EndServicingProcess();
+
             CanvasButtons.PlayOnClickSound(gameObject.GetComponent<AudioSource>());
         } else if (isReadyForNextHint) {
             hint.ShowHint(Hint.EventType.InappropriateTimeForService);

@@ -31,13 +31,13 @@ public class GameManager : MonoBehaviour
 
     private void InvokeWhenANewGuestSpawned() {
         nextButton.gameObject.SetActive(false);
-        foodOrdering.ClearVariablesValues();
         queueCreating.CancelSTimeIsUpInvoke();
         queueCreating.InvokeSetTimeIsUp();
     }
 
     private void InvokeOnGuestReacted() {
         nextButton.gameObject.SetActive(true);
+        foodOrdering.ClearVariablesValues();
     }
     
     private void InvokeonGuestLeft() {

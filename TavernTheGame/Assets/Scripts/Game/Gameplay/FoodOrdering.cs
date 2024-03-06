@@ -58,44 +58,34 @@ public class FoodOrdering : MonoBehaviour
     public enum Mood {
         Sad = -1, Happy = 1
     }
-    
-    private void FixedUpdate() {
-        //Если клиент дошёл до точки и он не сделал ещё заказ, то формируем заказ
+
+    public void InitiateServicingProcess() {
         if (queueCreator.charStatus == QueueCreating.Status.Waiting && _curOrder == null) {
-            _curOrder = MakeOrder();
-            //Формируем сообщение приветствия и заказа
+            MakeOrder();
             SayHello();
             _isOrderTold = false;
-            //После преветствия с задержкой вызываем функцию, в которой выводится сообщение с заказом
-            Invoke("SayWhatYouWant", 3f);
+            Invoke("SayWhatYouWant", 2.5f);
         }
-        
+    }
+
+    public void EndServicingProcess() {
         if (_curIssue != null && !isReacted && _isOrderTold && queueCreator.charStatus == QueueCreating.Status.Waiting) {
-            //Формируем реакцию клиента
             Mood guestReaction = React();
-            //Формируем сообщение с ответной реакцией
             Answer(guestReaction);
-            //Проводим плату за заказ
             Pay(guestReaction);
             isReacted = true;
-            //После получения заказа, вызываем функцию, которая заставляет клиента двигаться дальше
             queueCreator.charStatus = QueueCreating.Status.Serviced;
             EventBus.onGuestReacted?.Invoke();
         }
     }
 
-    private GameObject MakeOrder() {
+    private void MakeOrder() {
         if ( SceneManager.GetActiveScene().name == "Training" ) {
             trainingManager.ShowOrHideButtons(false);
         }
-        GameObject guestOrder = null;
-
-        Character charInfo = queueCreator.GetCurGuest().GetComponent<Character>();
 
         rand = Random.Range(0, kitchen.GetKitchenDishesCount());
-        guestOrder = kitchen.GetDishByIndex(rand);
-
-        return guestOrder;
+        curOrder = kitchen.GetDishByIndex(rand);
     }
 
     private Mood React() {
