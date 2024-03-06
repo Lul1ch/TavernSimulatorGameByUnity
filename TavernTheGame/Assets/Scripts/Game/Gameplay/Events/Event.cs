@@ -16,9 +16,18 @@ public class Event : MonoBehaviour
     [SerializeField] private bool activateConfirmButton;
     [SerializeField] private bool activateDenyButton;
     [SerializeField] private string welcomeMessage;
+    [SerializeField] protected float _xOffset = 0f;
+    [SerializeField] protected float _yOffset = 0f;
 
     protected IEnumerator eventCoroutine;
     protected Answer _userAnswer;
+    
+    public float xOffset {
+        get { return _xOffset; }
+    }
+    public float yOffset {
+        get { return _yOffset; }
+    }
     public Answer userAnswer {
         get { return _userAnswer; }
         set { _userAnswer = value; }

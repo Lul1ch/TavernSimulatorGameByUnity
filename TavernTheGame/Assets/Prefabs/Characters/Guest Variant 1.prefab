@@ -16,6 +16,10 @@ PrefabInstance:
       value: Guest Variant 1
       objectReference: {fileID: 0}
     - target: {fileID: 2786105072537605021, guid: 2cac00fe232e3244ebd7eca6f79cb43b, type: 3}
+      propertyPath: _xOffset
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2786105072537605021, guid: 2cac00fe232e3244ebd7eca6f79cb43b, type: 3}
       propertyPath: _characterGender
       value: 1
       objectReference: {fileID: 0}

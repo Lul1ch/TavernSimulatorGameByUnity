@@ -52,6 +52,10 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 900777483438177062, guid: 5c097ba8d43ce984989f78dd9b39db89, type: 3}
+      propertyPath: _xOffset
+      value: -0.1
+      objectReference: {fileID: 0}
+    - target: {fileID: 900777483438177062, guid: 5c097ba8d43ce984989f78dd9b39db89, type: 3}
       propertyPath: _characterGender
       value: 0
       objectReference: {fileID: 0}

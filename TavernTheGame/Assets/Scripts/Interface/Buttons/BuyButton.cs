@@ -37,7 +37,7 @@ public class BuyButton : MonoBehaviour
                 gameObject.SetActive(false);
             }
         } else if (isReadyForNextHint) {
-            hint.ShowHint(Hint.EventType.NotEnoughMoney, string.Concat((product.price - tavern.tavernMoney).ToString()," монет."));
+            hint.ShowHint(Hint.EventType.NotEnoughMoney, (product.price - tavern.tavernMoney).ToString() + ".");
             isReadyForNextHint = false;
             Invoke("IsReadyForNextHint", hint.hintLifeTime);
         }

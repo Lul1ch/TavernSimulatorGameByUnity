@@ -62,19 +62,24 @@ public class QueueCreating : MonoBehaviour
         }
         int randForEvent = Random.Range(0, 100);
         GameObject guestToInstaniate = variants.Characters[0]; //костыль
-
-        if (randForEvent > _eventIntiationBorder && _isEventsReadyToCreate) {
+        float xOffset = 0;
+        float yOffset = 0;
+        if ( randForEvent > _eventIntiationBorder && _isEventsReadyToCreate) {
             guestToInstaniate = gameEventsManager.GetRandomEventGuest();
             _charStatus = Status.EventWasGenerated;
             _eventIntiationBorder = maxEventInitiationBorder;
+            xOffset = guestToInstaniate.GetComponent<Event>().xOffset;
+            yOffset = guestToInstaniate.GetComponent<Event>().yOffset;
         } else {
             if (_eventIntiationBorder > Mathf.Round(maxEventInitiationBorder / 2)) {
                 _eventIntiationBorder -= eventIntiationBorderReductionStep;
             }
             guestToInstaniate = variants.Characters[0];
             _charStatus = Status.Waiting;
+            xOffset = guestToInstaniate.GetComponent<Character>().xOffset;
+            yOffset = guestToInstaniate.GetComponent<Character>().yOffset;
         }
-        curGuest = Instantiate(guestToInstaniate, spawnPoint, Quaternion.identity);
+        curGuest = Instantiate(guestToInstaniate, new Vector3(spawnPoint.x + xOffset, spawnPoint.y + yOffset, spawnPoint.z), Quaternion.identity);
         if ( SceneManager.GetActiveScene().name != "Training" ) {
             EventBus.onGuestSpawned?.Invoke();
         }

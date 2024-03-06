@@ -46,7 +46,7 @@ public class CookButton : MonoBehaviour
         Dictionary<GameObject, int> components = dishScript.componentsObjects;
         foreach(var component in components) {
             if(!tavern.IsEnoughFoodInStorage(component.Key.name, component.Value)) {
-                additionalStringForHint += component.Key.name + "x" + (component.Value - tavern.GetNumberOfFoodInStorage(component.Key.name)).ToString() +", ";
+                additionalStringForHint += component.Key.name + " : " + (component.Value - tavern.GetNumberOfFoodInStorage(component.Key.name)).ToString() +", ";
                 isAllComponentsAvailable = false;
             }
         }

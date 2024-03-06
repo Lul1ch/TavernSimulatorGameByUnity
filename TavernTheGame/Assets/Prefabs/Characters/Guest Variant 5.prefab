@@ -8,6 +8,10 @@ PrefabInstance:
     m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: 40180064160415414, guid: c5e40ada457e7ab419eb5e86016c7d7f, type: 3}
+      propertyPath: _xOffset
+      value: -0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 40180064160415414, guid: c5e40ada457e7ab419eb5e86016c7d7f, type: 3}
       propertyPath: _characterGender
       value: 0
       objectReference: {fileID: 0}

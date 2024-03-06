@@ -36,7 +36,8 @@ public class BonusBuyButton : MonoBehaviour
             Debug.Log("Bonus bought!");
         } else if (isReadyForNextHint) {
             if (!isBonusAlreadyBought) {
-                hint.ShowHint(Hint.EventType.NotEnoughBonuses, string.Concat((bonus.price - tavern.tavernBonus).ToString()," очков репутации."));
+                int priceDiff = bonus.price - tavern.tavernBonus;
+                hint.ShowHint(Hint.EventType.NotEnoughBonuses, (priceDiff).ToString() + ".");
             } else {
                 hint.ShowHint(Hint.EventType.BonusAlreadyBought);
             }
