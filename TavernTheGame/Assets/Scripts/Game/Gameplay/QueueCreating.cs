@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 
 public class QueueCreating : MonoBehaviour
@@ -10,10 +11,11 @@ public class QueueCreating : MonoBehaviour
     [SerializeField] private FoodOrdering foodOrdering;
     [SerializeField] private Tavern tavern;
     [SerializeField] private GameEventsManager gameEventsManager;
+    [SerializeField] private int timeBeforeDestroyingLeftGuest = 0;
+    [SerializeField] private Text destroyLeftGuestTimerText;
     [Header("Training")]
     [SerializeField] private GameObject _orderClient;
 
-    private float timeBeforeNewGuest = 20f;
     private int rand;
     private GameObject curGuest;
     private Vector3 spawnPoint;
@@ -21,6 +23,9 @@ public class QueueCreating : MonoBehaviour
     private float waitTime = 30f;
     private int _eventIntiationBorder = 40, maxEventInitiationBorder = 90, eventIntiationBorderReductionStep = 10;
     private bool _isEventsReadyToCreate;
+    //Время, начиная с которого, показывается таймер отсчёта до ухода текущего клиента
+    private int timeToShowDestroyTimer;
+    private IEnumerator leftClientDestroyCoroutine;
 
     public enum Status {
         NotSpawned,
@@ -46,22 +51,18 @@ public class QueueCreating : MonoBehaviour
     private void Start() {
         //Заводим куратину на создание нового гостя через определённый временной промежуток
         InitSpawnPoint();
-        StartCoroutine(SpawnNewGuestInQueue());
-    }
-
-    private IEnumerator SpawnNewGuestInQueue() {
         SpawnNewGuest();
-        CreateGuest();
-
-        yield return new WaitForSeconds(timeBeforeNewGuest);  
+        InitTimeToShowDestroyTimer();
     }
 
-    public void SpawnNewGuest(){
-        if (variants.Characters.Count == 0) {
-            CreateGuest();
+    public void SpawnNewGuest() {
+        if (leftClientDestroyCoroutine != null) {
+            StopCoroutine(leftClientDestroyCoroutine);
         }
         int randForEvent = Random.Range(0, 100);
-        GameObject guestToInstaniate = variants.Characters[0]; //костыль
+        int randForGuest = Random.Range(0, variants.CharactersSkins.Count);
+
+        GameObject guestToInstaniate = variants.CharactersSkins[randForGuest];
         float xOffset = 0;
         float yOffset = 0;
         if ( randForEvent > _eventIntiationBorder && _isEventsReadyToCreate) {
@@ -74,7 +75,6 @@ public class QueueCreating : MonoBehaviour
             if (_eventIntiationBorder > Mathf.Round(maxEventInitiationBorder / 2)) {
                 _eventIntiationBorder -= eventIntiationBorderReductionStep;
             }
-            guestToInstaniate = variants.Characters[0];
             _charStatus = Status.Waiting;
             xOffset = guestToInstaniate.GetComponent<Character>().xOffset;
             yOffset = guestToInstaniate.GetComponent<Character>().yOffset;
@@ -86,17 +86,10 @@ public class QueueCreating : MonoBehaviour
         }
     }
 
-    public void DestroyServicedGuest(){
-        variants.Characters.RemoveAt(0);
-        
+    public void DestroyServicedGuest() {
+        destroyLeftGuestTimerText.gameObject.SetActive(false);
         Destroy(curGuest);
         SpawnNewGuest();
-    }
-
-    public void CreateGuest() {
-        rand = Random.Range(0, variants.CharactersSkins.Count);
-        GameObject newGuest = variants.CharactersSkins[rand];
-        variants.Characters.Add(newGuest);
     }
 
     public GameObject GetCurGuest() {
@@ -121,6 +114,24 @@ public class QueueCreating : MonoBehaviour
 
     public void CancelSTimeIsUpInvoke() {
         CancelInvoke("SetTimeIsUp");
+    }
+
+    public void InvokeDeferredClientDestroy() {
+        leftClientDestroyCoroutine = DeferredClientDestroyCoroutine();
+        StartCoroutine(leftClientDestroyCoroutine);
+    }
+
+    private IEnumerator DeferredClientDestroyCoroutine() {
+        int counter = timeBeforeDestroyingLeftGuest;
+        while (counter > 0) {
+            counter--;
+            if (counter == timeToShowDestroyTimer) {
+                destroyLeftGuestTimerText.gameObject.SetActive(true);
+            } 
+            destroyLeftGuestTimerText.text = counter.ToString();
+            yield return new WaitForSeconds(1f);
+        }
+        DestroyServicedGuest();
     }
 
     public string UpdateAllGenderRelatedWords(string str) {
@@ -157,5 +168,10 @@ public class QueueCreating : MonoBehaviour
             return curGuest.TryGetComponent<FreeFood>(out FreeFood hinge);
         }
         return false;
+    }
+
+    private void InitTimeToShowDestroyTimer() {
+        float coeff = 0.6f;
+        timeToShowDestroyTimer = (int)Mathf.Round(coeff * timeBeforeDestroyingLeftGuest);
     }
 }

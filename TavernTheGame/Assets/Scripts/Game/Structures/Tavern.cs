@@ -11,7 +11,6 @@ public class Tavern : MonoBehaviour
     private Dictionary<string, GameObject> foodSamples = new Dictionary<string, GameObject>();
     [SerializeField] private TMP_Text moneyAmount, guestsNumber, bonusNumber;
 
-    [SerializeField] private CharactersVariants variants;
     [SerializeField] private GameObject contentSample;
     [SerializeField] private Transform parent;
 
