@@ -3,13 +3,12 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
-using TMPro;
 
 public class Tavern : MonoBehaviour
 {
     private Dictionary<string,int> foodStorage = new Dictionary<string,int>();
     private Dictionary<string, GameObject> foodSamples = new Dictionary<string, GameObject>();
-    [SerializeField] private TMP_Text moneyAmount, guestsNumber, bonusNumber;
+    [SerializeField] private Text moneyAmount, bonusNumber;
 
     [SerializeField] private GameObject contentSample;
     [SerializeField] private Transform parent;
@@ -76,8 +75,8 @@ public class Tavern : MonoBehaviour
     }
 
     private void UpdateCounterInterface() {
-        moneyAmount.text = "<size=56>" + _tavernMoney;
-        bonusNumber.text = "<size=56>" + _moneyBonus;
+        moneyAmount.text = _tavernMoney.ToString();
+        bonusNumber.text = _moneyBonus.ToString();
     }
 
     public GameObject GetFoodObject(string foodName) {

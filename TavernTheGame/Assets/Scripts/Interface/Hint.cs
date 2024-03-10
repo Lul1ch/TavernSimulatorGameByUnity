@@ -10,7 +10,7 @@ public class Hint : MonoBehaviour
         get { return _hintLifeTime; }
     }
     public enum EventType {
-        NotEnoughMoney, NotEnoughProducts, NotEnoughBonuses, InappropriateTimeForService, BonusAlreadyBought
+        NotEnoughMoney, NotEnoughProducts, NotEnoughBonuses, InappropriateTimeForService, BonusAlreadyBought, MaxFoodCooking
     }
 
     Dictionary<EventType, string> hintsForPlayer = new Dictionary<EventType, string>() {
@@ -18,7 +18,8 @@ public class Hint : MonoBehaviour
         [EventType.NotEnoughProducts] = "Недостаточно продуктов для готовки данного блюда. Нужно ещё ",
         [EventType.NotEnoughBonuses] = "Недостаточно очков репутации для покупки этого бонуса. Нужно ещё ",
         [EventType.InappropriateTimeForService] = "Сейчас не требуется выдавать еду клиенту.",
-        [EventType.BonusAlreadyBought] = "Бонус уже куплен."
+        [EventType.BonusAlreadyBought] = "Бонус уже куплен.",
+        [EventType.MaxFoodCooking] = "Сейчас готовится максимальное количество блюд."
     };
 
     public void ShowHint(EventType eventType, string additionalString = "") {

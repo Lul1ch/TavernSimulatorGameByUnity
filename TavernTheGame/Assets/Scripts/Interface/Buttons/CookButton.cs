@@ -73,9 +73,15 @@ public class CookButton : MonoBehaviour
             coroutine = addFinishedDish(curTimer, components);
             StartCoroutine(coroutine);
         } else if (isReadyForNextHint) {
-            additionalStringForHint += '.';
-            additionalStringForHint = additionalStringForHint.Replace(", .", ".");
-            hint.ShowHint(Hint.EventType.NotEnoughProducts, additionalStringForHint);
+            Hint.EventType hintType = Hint.EventType.MaxFoodCooking;
+            if (curCookingDishCounter == 0) {
+                additionalStringForHint = "";
+            } else {
+                additionalStringForHint += '.';
+                additionalStringForHint = additionalStringForHint.Replace(", .", ".");
+                hintType = Hint.EventType.NotEnoughProducts;
+            }
+            hint.ShowHint(hintType, additionalStringForHint);
             isReadyForNextHint = false;
             Invoke("IsReadyForNextHint", hint.hintLifeTime);
         }

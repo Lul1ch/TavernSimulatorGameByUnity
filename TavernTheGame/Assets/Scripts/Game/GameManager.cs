@@ -38,6 +38,7 @@ public class GameManager : MonoBehaviour
         nextButton.gameObject.SetActive(true);
         queueCreating.CancelSTimeIsUpInvoke();
         queueCreating.InvokeDeferredClientDestroy();
+        queueCreating.HideTimeBeforeClientLeaveText();
         foodOrdering.ClearVariablesValues();
     }
     

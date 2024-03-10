@@ -12,20 +12,19 @@ public class QueueCreating : MonoBehaviour
     [SerializeField] private Tavern tavern;
     [SerializeField] private GameEventsManager gameEventsManager;
     [SerializeField] private int timeBeforeDestroyingLeftGuest = 0;
-    [SerializeField] private Text destroyLeftGuestTimerText;
+    [SerializeField] private Text destroyLeftGuestTimerText, timeBeforeClientLeaveText;
     [Header("Training")]
     [SerializeField] private GameObject _orderClient;
 
-    private int rand;
     private GameObject curGuest;
-    private Vector3 spawnPoint;
-    private Status _charStatus;
-    private float waitTime = 30f;
+    private Vector3 spawnPoint = new Vector3(0, 0, 0);
+    private Status _charStatus = Status.NotSpawned;
+    private float waitTime = 35f;
     private int _eventIntiationBorder = 40, maxEventInitiationBorder = 90, eventIntiationBorderReductionStep = 10;
     private bool _isEventsReadyToCreate;
     //Время, начиная с которого, показывается таймер отсчёта до ухода текущего клиента
-    private int timeToShowDestroyTimer;
-    private IEnumerator leftClientDestroyCoroutine;
+    private int timeToShowDestroyTimer = 0;
+    private IEnumerator leftClientDestroyCoroutine, clientLeaveCoroutine;
 
     public enum Status {
         NotSpawned,
@@ -102,10 +101,21 @@ public class QueueCreating : MonoBehaviour
 
     public void InvokeSetTimeIsUp() {
         if (_charStatus == Status.Waiting) {
-            Invoke("SetTimeIsUp", waitTime);
+            clientLeaveCoroutine = SetTimeIsUp();
+            StartCoroutine(clientLeaveCoroutine);
         }
     }
-    private void SetTimeIsUp() {
+    private IEnumerator SetTimeIsUp() {
+        int counter = (int)waitTime;
+        ShowTimeBeforeClientLeaveText();
+        while (counter >= 0) {
+            timeBeforeClientLeaveText.text = "Время до ухода: " + counter;
+            if (counter <= 10) {
+                timeBeforeClientLeaveText.text = "<color=red>" + timeBeforeClientLeaveText.text + "</color>";
+            }
+            counter--;
+            yield return new WaitForSeconds(1f);
+        }
         foodOrdering.AnswerIfClientWasntServiced();
         tavern.tavernBonus -= 1;
         _charStatus = Status.Left;
@@ -113,7 +123,9 @@ public class QueueCreating : MonoBehaviour
     }
 
     public void CancelSTimeIsUpInvoke() {
-        CancelInvoke("SetTimeIsUp");
+        if (clientLeaveCoroutine != null) {
+            StopCoroutine(clientLeaveCoroutine);
+        }
     }
 
     public void InvokeDeferredClientDestroy() {
@@ -173,5 +185,13 @@ public class QueueCreating : MonoBehaviour
     private void InitTimeToShowDestroyTimer() {
         float coeff = 0.6f;
         timeToShowDestroyTimer = (int)Mathf.Round(coeff * timeBeforeDestroyingLeftGuest);
+    }
+
+    public void ShowTimeBeforeClientLeaveText() {
+        timeBeforeClientLeaveText.gameObject.SetActive(true);
+    }
+
+    public void HideTimeBeforeClientLeaveText() {
+        timeBeforeClientLeaveText.gameObject.SetActive(false);
     }
 }
