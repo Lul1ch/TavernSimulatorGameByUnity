@@ -25,7 +25,7 @@ public class FreeFood : Event
             ChangeMessageText(userGaveFoodMessage);
             rand = Random.Range(1, 2);
         }
-        tavern.tavernBonus += rand;
+        tavern.tavernBonus += rand*tavern.bonusesValueModifier;
         InvokeOnUserResponse();
     }
 

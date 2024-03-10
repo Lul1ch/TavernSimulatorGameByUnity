@@ -2,11 +2,12 @@ using UnityEngine;
 
 public class DoubledTips : Bonus
 {
-    [SerializeField] private FoodOrdering foodOrdering;
+    
+    [SerializeField] private Tavern tavern;
     private void Start() {
-        foodOrdering = FindObjectOfType<FoodOrdering>().GetComponent<FoodOrdering>();
+        tavern = FindObjectOfType<Tavern>().GetComponent<Tavern>();
     }
     public override void Buy() {
-        foodOrdering.tipsPrice = foodOrdering.tipsPrice * 2;
+        tavern.bonusesValueModifier = 2;
     }
 }

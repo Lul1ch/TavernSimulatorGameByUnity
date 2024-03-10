@@ -12,16 +12,11 @@ public class FoodOrdering : MonoBehaviour
     [SerializeField] private Kitchen kitchen;
     [SerializeField] private TrainingManager trainingManager;
     private AudioSource audioPhrase;
-    private int _tipsPrice = 3;
 
     private GameObject _curOrder = null;
     private GameObject _curIssue = null;
     private bool _isOrderTold, _isDoublePayChanceBought, _isAutomaticCookingBought;
 
-    public int tipsPrice {
-        set { _tipsPrice = value; }
-        get { return _tipsPrice; }
-    }
     public GameObject curOrder {
         get { return _curOrder; }
         set { _curOrder = value; }
@@ -99,15 +94,15 @@ public class FoodOrdering : MonoBehaviour
         Food clientOrder = _curOrder.GetComponent<Food>();
         Food tavernDish = _curIssue.GetComponent<Food>();
         int rand = Random.Range(0, 100), chanceToDoubleThePayment = 20;
-        int tips = (int)reaction*_tipsPrice, priceToPay = tavernDish.price;
+        int tips = tavern.tavernBonus, priceToPay = tavernDish.price;
         priceToPay = (isDoublePayChanceBought && chanceToDoubleThePayment > rand) ? priceToPay*2 : priceToPay;
         //Костыль
         if (isDoublePayChanceBought && chanceToDoubleThePayment > rand) { Debug.Log("Price is doubled " + priceToPay.ToString()); }
         if (_curIssue.GetComponent<Food>().foodQuality != Food.Quality.Awful) {
-            float payment = Mathf.Round(priceToPay + tips) + tavern.tavernBonus; 
+            float payment = Mathf.Round(priceToPay) + tips; 
             tavern.tavernMoney += (int)payment;
         }
-        tavern.tavernBonus += (int)reaction;
+        tavern.tavernBonus += (int)reaction*tavern.bonusesValueModifier;
     }
 
     private void Answer(Mood reaction) {

@@ -14,7 +14,8 @@ public class Tavern : MonoBehaviour
     [SerializeField] private Transform parent;
 
     private float _tavernMoney = 100f;
-    private int _moneyBonus;
+    private int _moneyBonus = 0;
+    private int _bonusesValueModifier = 1;
 
     public float tavernMoney {
         set { _tavernMoney = value; UpdateCounterInterface();}
@@ -24,6 +25,11 @@ public class Tavern : MonoBehaviour
         set { _moneyBonus = value; UpdateCounterInterface();}
         get { return _moneyBonus; }
     }
+    public int bonusesValueModifier {
+        set { _bonusesValueModifier = value; }
+        get { return _bonusesValueModifier; }
+    }
+
 
     public void UpdateDictionary(string name, GameObject foodObject) {
         //Если еда уже есть на складе, то просто увеличиваем её счётчик
