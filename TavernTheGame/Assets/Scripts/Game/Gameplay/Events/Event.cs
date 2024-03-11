@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 using UnityEngine.UI;
 using System.Collections;
@@ -12,10 +13,11 @@ public class Event : MonoBehaviour
     [SerializeField] private Button confirmButton;
     [SerializeField] private Button denyButton;
     [SerializeField] private Button nextButton;
+    [SerializeField] private CustomTextWriter textWriter;
     [Header("EventVariables")]
-    [SerializeField] private bool activateConfirmButton;
-    [SerializeField] private bool activateDenyButton;
-    [SerializeField] private string welcomeMessage;
+    [SerializeField] protected bool activateConfirmButton;
+    [SerializeField] protected bool activateDenyButton;
+    [SerializeField] protected string welcomeMessage;
     [SerializeField] protected float _xOffset = 0f;
     [SerializeField] protected float _yOffset = 0f;
 
@@ -33,15 +35,16 @@ public class Event : MonoBehaviour
         set { _userAnswer = value; }
     }
 
-    public void InitializeMessageVariables(Text _messageText, Button confirmButton, Button denyButton, Button nextButton) {
+    public void InitializeMessageVariables(Text _messageText, Button confirmButton, Button denyButton, Button nextButton, CustomTextWriter textWriter) {
         this._messageText = _messageText;
         this.confirmButton = confirmButton;
         this.denyButton = denyButton;
         this.nextButton = nextButton;
+        this.textWriter = textWriter;
     }
 
-    protected void ChangeMessageText(string message) {
-        _messageText.text = message;
+    protected void ChangeMessageText(string message, Action onComplete = null) {
+        textWriter.CallMessageWriting(_messageText, message, 0.05f, true, onComplete);
     }
 
     protected void ChangeMessageButtonsVisibility(bool confirmButtonState, bool denyButtonState) {
@@ -49,7 +52,7 @@ public class Event : MonoBehaviour
         denyButton.gameObject.SetActive(denyButtonState);
     }
 
-    protected void InvokeAnEvent() {
+    protected virtual void InvokeAnEvent() {
         ChangeMessageText(welcomeMessage);
         ChangeMessageButtonsVisibility(activateConfirmButton, activateDenyButton);
         eventCoroutine = TriggerEventConsequences();

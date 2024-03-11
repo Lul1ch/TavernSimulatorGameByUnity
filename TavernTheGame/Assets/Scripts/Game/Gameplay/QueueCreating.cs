@@ -64,7 +64,7 @@ public class QueueCreating : MonoBehaviour
         GameObject guestToInstaniate = variants.CharactersSkins[randForGuest];
         float xOffset = 0;
         float yOffset = 0;
-        if ( randForEvent > _eventIntiationBorder && _isEventsReadyToCreate) {
+        if ( randForEvent > _eventIntiationBorder && _isEventsReadyToCreate ) {
             guestToInstaniate = gameEventsManager.GetRandomEventGuest();
             _charStatus = Status.EventWasGenerated;
             _eventIntiationBorder = maxEventInitiationBorder;
@@ -177,7 +177,7 @@ public class QueueCreating : MonoBehaviour
 
     public bool IsItAFreeFoodEvent() {
         if (_charStatus == Status.EventWasGenerated) {
-            return curGuest.TryGetComponent<FreeFood>(out FreeFood hinge);
+            return curGuest.TryGetComponent<FreeFood>(out FreeFood hinge) && foodOrdering.isOrderTold;
         }
         return false;
     }

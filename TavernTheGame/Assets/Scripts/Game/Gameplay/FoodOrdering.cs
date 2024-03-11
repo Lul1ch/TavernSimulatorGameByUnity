@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -11,6 +12,7 @@ public class FoodOrdering : MonoBehaviour
     [SerializeField] private Tavern tavern;
     [SerializeField] private Kitchen kitchen;
     [SerializeField] private TrainingManager trainingManager;
+    [SerializeField] private CustomTextWriter textWriter;
     private AudioSource audioPhrase;
 
     private GameObject _curOrder = null;
@@ -39,7 +41,6 @@ public class FoodOrdering : MonoBehaviour
     }
 
     [Header("GuestMessage")]
-    [SerializeField] private GameObject messageCloud;
     [SerializeField] private Text _messageText;
 
     private string messageText {
@@ -58,8 +59,7 @@ public class FoodOrdering : MonoBehaviour
         if (queueCreator.charStatus == QueueCreating.Status.Waiting && _curOrder == null) {
             MakeOrder();
             SayHello();
-            _isOrderTold = false;
-            Invoke("SayWhatYouWant", 2.5f);
+            SayWhatYouWant();
         }
     }
 
@@ -79,7 +79,7 @@ public class FoodOrdering : MonoBehaviour
             trainingManager.ShowOrHideButtons(false);
         }
 
-        rand = Random.Range(0, kitchen.GetKitchenDishesCount());
+        rand = UnityEngine.Random.Range(0, kitchen.GetKitchenDishesCount());
         curOrder = kitchen.GetDishByIndex(rand);
     }
 
@@ -93,7 +93,7 @@ public class FoodOrdering : MonoBehaviour
     private void Pay(Mood reaction) {
         Food clientOrder = _curOrder.GetComponent<Food>();
         Food tavernDish = _curIssue.GetComponent<Food>();
-        int rand = Random.Range(0, 100), chanceToDoubleThePayment = 20;
+        int rand = UnityEngine.Random.Range(0, 100), chanceToDoubleThePayment = 20;
         int tips = tavern.tavernBonus, priceToPay = tavernDish.price;
         priceToPay = (isDoublePayChanceBought && chanceToDoubleThePayment > rand) ? priceToPay*2 : priceToPay;
         //Костыль
@@ -107,52 +107,61 @@ public class FoodOrdering : MonoBehaviour
 
     private void Answer(Mood reaction) {
         int rand = 0;
-        //В зависимости от реакции клиента обновляем сообщение с реакцией клиента
+        string messageTextStr = "Хорошо.";
         if (reaction == Mood.Happy) {
-            rand = Random.Range(0, variants.GoodReactPharases.Count);
-            messageText = variants.GoodReactPharases[rand];
+            rand = UnityEngine.Random.Range(0, variants.GoodReactPharases.Count);
+            messageTextStr = variants.GoodReactPharases[rand];
         } else if (reaction == Mood.Sad) {
-            rand = Random.Range(0, variants.BadReactPharases.Count);
-            messageText = variants.BadReactPharases[rand];
+            rand = UnityEngine.Random.Range(0, variants.BadReactPharases.Count);
+            messageTextStr = variants.BadReactPharases[rand];
         }
-        //Проигрывание аудио дорожки реплики клиента
-        audioPhrase.Play();
+        Say(messageTextStr);
     }
 
     private void SayHello() {
         GameObject curCustomer = queueCreator.GetCurGuest();
-        int rand = Random.Range(0, variants.HelloPhrases.Count);
-        messageText = variants.HelloPhrases[rand];
-        
+        int rand = UnityEngine.Random.Range(0, variants.HelloPhrases.Count);
+        string messageTextStr = variants.HelloPhrases[rand];
+        Say(messageTextStr);
         audioPhrase = curCustomer.GetComponent<AudioSource>();
-        rand = Random.Range(0, variants.SpeechSounds.Count);
+        rand = UnityEngine.Random.Range(0, variants.SpeechSounds.Count);
         audioPhrase.clip = variants.SpeechSounds[rand];
-        audioPhrase.Play();
+
     }
 
     public void SayWhatYouWant() {
         //Обновляем интерфейс сообщения
-        int rand = Random.Range(0, variants.OrderPhrases.Count);
-        messageText = variants.OrderPhrases[rand].Replace("^", "\"" + _curOrder.name + "\"");
+        int rand = UnityEngine.Random.Range(0, variants.OrderPhrases.Count);
+        string messageTextStr = variants.OrderPhrases[rand].Replace("^", "\"" + _curOrder.name + "\"");
+
+        void ReadyToGiveOrder() => _isOrderTold = true; 
+        Action onComplete = null;
+        onComplete += ReadyToGiveOrder;
+        Say(messageTextStr, onComplete);
+        //_isOrderTold = true;
+        
         if (isAutomaticCookingBought && tavern.GetNumberOfFoodInStorage(_curOrder.name) == 0) { kitchen.AutomaticCookStart(_curOrder.name); }
-        _isOrderTold = true;
         if ( SceneManager.GetActiveScene().name == "Training" ) {
             EventBus.onTrainGuestToldHisOrder?.Invoke();
-            trainingManager.SaveMessage(trainingManager.indexToSaveClientOrder, messageText);
+            trainingManager.SaveMessage(trainingManager.indexToSaveClientOrder, messageTextStr);
         }
     }
 
     public void AnswerIfClientWasntServiced() {
         //Обновляем интерфейс сообщения
-        int rand = Random.Range(0, variants.WasntServicedPhrases.Count);
-        messageText = variants.WasntServicedPhrases[rand];
-
-        audioPhrase.Play();
+        int rand = UnityEngine.Random.Range(0, variants.WasntServicedPhrases.Count);
+        string messageTextStr = variants.WasntServicedPhrases[rand];
+        Say(messageTextStr);
     }
 
     public void ClearVariablesValues() {
         _curOrder = null;
         _curIssue = null;
         isReacted = false;
+        _isOrderTold = false;
+    }
+
+    private void Say(string messageTextStr, Action onComplete = null) {
+        textWriter.CallMessageWriting(_messageText, queueCreator.UpdateAllGenderRelatedWords(messageTextStr), 0.05f, true, onComplete);
     }
 }
