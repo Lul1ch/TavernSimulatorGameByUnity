@@ -32,7 +32,7 @@ public class Whisper : Event
             tavern.tavernMoney += moneyBonus;
             ChangeMessageText(guestGaveMoney);
         } else {
-            ChangeMessageText(guestLeft);
+            ChangeMessageText(guestLeft, false);
         }
         InvokeOnUserResponse();
     }

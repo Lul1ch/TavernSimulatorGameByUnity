@@ -43,8 +43,11 @@ public class Event : MonoBehaviour
         this.textWriter = textWriter;
     }
 
-    protected void ChangeMessageText(string message, Action onComplete = null) {
-        textWriter.CallMessageWriting(_messageText, message, 0.05f, true, onComplete);
+    protected void ChangeMessageText(string message, Action onComplete = null, bool needToVoiceIt = true) {
+        textWriter.CallMessageWriting(_messageText, message, 0.05f, onComplete, needToVoiceIt);
+    }
+    protected void ChangeMessageText(string message, bool needToVoiceIt) {
+        textWriter.CallMessageWriting(_messageText, message, 0.05f, null, needToVoiceIt);
     }
 
     protected void ChangeMessageButtonsVisibility(bool confirmButtonState, bool denyButtonState) {

@@ -13,27 +13,29 @@ public class CustomTextWriter : MonoBehaviour
     private float timer;
     private bool invisibleCharacters;
     private Action onComplete;
+    private bool needToVoiceIt;
     private IEnumerator writeMessageCoroutine;
     private Queue<CustomTextWriter.Call> messagesQueue = new Queue<CustomTextWriter.Call>();
     [SerializeField] private float timeBeforeNextMessage = 3f;
     [SerializeField] private BoxCollider2D objectCollider;
     private bool isActive = false;
 
-    public void CallMessageWriting(Text uiText, string textToWrite, float timePerCharacter, bool invisibleCharacters = true, Action onComplete = null) {
+    public void CallMessageWriting(Text uiText, string textToWrite, float timePerCharacter, Action onComplete = null, bool needToVoiceIt = true, bool invisibleCharacters = true) {
         if (!isActive && messagesQueue.Count == 0) {
-            StartMessageWriting(uiText, textToWrite, timePerCharacter, invisibleCharacters, onComplete);
+            StartMessageWriting(uiText, textToWrite, timePerCharacter, onComplete, needToVoiceIt, invisibleCharacters);
         } else {
-            messagesQueue.Enqueue(new CustomTextWriter.Call(uiText, textToWrite, timePerCharacter, invisibleCharacters, onComplete));
+            messagesQueue.Enqueue(new CustomTextWriter.Call(uiText, textToWrite, timePerCharacter, onComplete, needToVoiceIt, invisibleCharacters));
         }
     }
 
-    private void StartMessageWriting(Text uiText, string textToWrite, float timePerCharacter, bool invisibleCharacters, Action onComplete) {
+    private void StartMessageWriting(Text uiText, string textToWrite, float timePerCharacter, Action onComplete, bool needToVoiceIt, bool invisibleCharacters) {
         isActive = true;
         this.uiText = uiText;
         this.textToWrite = textToWrite;
         this.timePerCharacter = timePerCharacter;
-        this.invisibleCharacters = invisibleCharacters;
         this.onComplete = onComplete;
+        this.needToVoiceIt = needToVoiceIt;
+        this.invisibleCharacters = invisibleCharacters;
         characterIndex = 0;
 
         writeMessageCoroutine = WriteText();
@@ -41,6 +43,9 @@ public class CustomTextWriter : MonoBehaviour
     }
 
     private IEnumerator WriteText() {
+        if (needToVoiceIt) {
+            VoiceOverText.StartTalkingSound();
+        }
         while (characterIndex < textToWrite.Length) {
             timer += timePerCharacter;
             characterIndex++;
@@ -62,6 +67,7 @@ public class CustomTextWriter : MonoBehaviour
     }
 
     private void InvokeOnStringWrote() {
+        VoiceOverText.StopTalkingSound();
         onComplete?.Invoke();
         isActive = false;
         Invoke("MessageWriteFromQueue", timeBeforeNextMessage);
@@ -70,7 +76,7 @@ public class CustomTextWriter : MonoBehaviour
     private void MessageWriteFromQueue() {
         if (!isActive && messagesQueue.Count > 0) {
             CustomTextWriter.Call call = messagesQueue.Dequeue();
-            StartMessageWriting(call.uiText, call.textToWrite, call.timePerCharacter, call.invisibleCharacters, call.onComplete);
+            StartMessageWriting(call.uiText, call.textToWrite, call.timePerCharacter, call.onComplete, call.needToVoiceIt, call.invisibleCharacters);
         }
     }
 
@@ -95,8 +101,9 @@ public class CustomTextWriter : MonoBehaviour
         private Text _uiText;
         private string _textToWrite;
         private float _timePerCharacter;
-        private bool _invisibleCharacters;
         private Action _onComlete;
+        private bool _needToVoiceIt;
+        private bool _invisibleCharacters;
 
         public Text uiText {
             get { return _uiText; }
@@ -107,19 +114,23 @@ public class CustomTextWriter : MonoBehaviour
         public float timePerCharacter {
             get { return _timePerCharacter; }
         }
-        public bool invisibleCharacters {
-            get { return _invisibleCharacters; }
-        }
         public Action onComplete {
             get { return _onComlete; }
         }
+        public bool needToVoiceIt {
+            get { return _needToVoiceIt; }
+        }
+        public bool invisibleCharacters {
+            get { return _invisibleCharacters; }
+        }
 
-        public Call(Text uiText, string textToWrite, float timePerCharacter, bool invisibleCharacters, Action onComplete) {
+        public Call(Text uiText, string textToWrite, float timePerCharacter, Action onComplete, bool needToVoiceIt, bool invisibleCharacters) {
             this._uiText = uiText;
             this._textToWrite = textToWrite;
             this._timePerCharacter = timePerCharacter;
-            this._invisibleCharacters = invisibleCharacters;
             this._onComlete = onComplete;
+            this._needToVoiceIt = needToVoiceIt;
+            this._invisibleCharacters = invisibleCharacters;
         }
     }
 }

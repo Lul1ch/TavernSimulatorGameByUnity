@@ -162,6 +162,6 @@ public class FoodOrdering : MonoBehaviour
     }
 
     private void Say(string messageTextStr, Action onComplete = null) {
-        textWriter.CallMessageWriting(_messageText, queueCreator.UpdateAllGenderRelatedWords(messageTextStr), 0.05f, true, onComplete);
+        textWriter.CallMessageWriting(_messageText, queueCreator.UpdateAllGenderRelatedWords(messageTextStr), 0.05f, onComplete);
     }
 }
