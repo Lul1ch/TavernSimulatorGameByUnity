@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 using TMPro;
 
@@ -11,7 +12,7 @@ public class EndOfGameObserver : MonoBehaviour
     [Header("End of the game variables")]
     [SerializeField] private GameObject endOfTheGameWindow;
     [SerializeField] private TMP_Text mainBody;
-    [SerializeField] private TMP_Text finalCoinsNumber;
+    [SerializeField] private Text finalCoinsNumber;
 
     private int numberOfCoinsToWin = 500;
 

@@ -10,6 +10,7 @@ public class GameEventsManager : MonoBehaviour
     [SerializeField] private Button confirmButton;
     [SerializeField] private Button denyButton;
     [SerializeField] private Button nextButton;
+    [SerializeField] private CustomTextWriter textWriter;
     [Header("SceneObjects")]
     [SerializeField] private QueueCreating queueCreating;
     private void Start() {
@@ -22,7 +23,7 @@ public class GameEventsManager : MonoBehaviour
 
     private void InitiateEventsMessageVariables() {
         foreach(var eventGuest in eventGuests) {
-            eventGuest.GetComponent<Event>().InitializeMessageVariables(_messageText, confirmButton, denyButton, nextButton);
+            eventGuest.GetComponent<Event>().InitializeMessageVariables(_messageText, confirmButton, denyButton, nextButton, textWriter);
         }
         queueCreating.isEventsReadyToCreate = true;
     }

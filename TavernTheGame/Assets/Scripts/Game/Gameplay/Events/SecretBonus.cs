@@ -23,14 +23,14 @@ public class SecretBonus : Event
         if (userAnswer == Answer.Yes) {
             int randForPunishment = Random.Range(0, 100);
             if (randForPunishment < 15) {
-                ChangeMessageText(positiveEnd);
+                ChangeMessageText(positiveEnd, false);
                 tavern.tavernBonus += 10*tavern.bonusesValueModifier;
             } else {
                 gameObject.GetComponent<SpriteRenderer>().sprite = guardianSprite;
                 tavern.tavernBonus = 0;
 
                 tavern.tavernMoney -= (int)(tavern.tavernMoney / 2);
-                ChangeMessageText(negativeEnd);
+                ChangeMessageText(negativeEnd, false);
             }
         } else if (userAnswer == Answer.No) {
             ChangeMessageText(guestRefused);
