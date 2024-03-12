@@ -26,7 +26,7 @@ public class BonusBuyButton : MonoBehaviour
     private void BuySelectedBonus() {
         if (tavern.tavernBonus >= bonus.price && !isBonusAlreadyBought) {
             bonus.Buy();
-            tavern.tavernBonus -= bonus.price;
+            tavern.ChangeTavernBonusWithOutModifier(-1*bonus.price);
             isBonusAlreadyBought = true;
             if ( SceneManager.GetActiveScene().name == "Training" && isCreditDecreaseAvailable) {
                 trainingManager.creditsForNextStep--;
@@ -49,4 +49,5 @@ public class BonusBuyButton : MonoBehaviour
     private void IsReadyForNextHint() {
         isReadyForNextHint = true;
     }
+
 }

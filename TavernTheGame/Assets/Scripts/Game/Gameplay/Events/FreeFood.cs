@@ -38,7 +38,7 @@ public class FreeFood : Event
             ChangeMessageText(userGaveFoodMessage);
             rand = UnityEngine.Random.Range(1, 2);
         }
-        tavern.tavernBonus += rand*tavern.bonusesValueModifier;
+        tavern.tavernBonus += rand;
         InvokeOnUserResponse();
     }
 

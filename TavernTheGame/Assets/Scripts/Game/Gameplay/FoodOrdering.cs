@@ -102,7 +102,7 @@ public class FoodOrdering : MonoBehaviour
             float payment = Mathf.Round(priceToPay) + tips; 
             tavern.tavernMoney += (int)payment;
         }
-        tavern.tavernBonus += (int)reaction*tavern.bonusesValueModifier;
+        tavern.tavernBonus += (int)reaction;
     }
 
     private void Answer(Mood reaction) {

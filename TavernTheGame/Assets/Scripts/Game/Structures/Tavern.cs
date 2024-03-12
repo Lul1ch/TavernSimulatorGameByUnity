@@ -22,7 +22,7 @@ public class Tavern : MonoBehaviour
         get { return _tavernMoney; }
     }
     public int tavernBonus {
-        set { _moneyBonus = value; UpdateCounterInterface();}
+        set { int oldBonusValue = _moneyBonus; _moneyBonus += (value - oldBonusValue)*_bonusesValueModifier; UpdateCounterInterface();}
         get { return _moneyBonus; }
     }
     public int bonusesValueModifier {
@@ -126,5 +126,10 @@ public class Tavern : MonoBehaviour
 
     public bool IsFoodStorageEmpty() {
         return (parent.GetComponentsInChildren<Transform>().Length == 1);
+    }
+
+    public void ChangeTavernBonusWithOutModifier(int value) {
+        _moneyBonus += value;
+        UpdateCounterInterface();
     }
 }

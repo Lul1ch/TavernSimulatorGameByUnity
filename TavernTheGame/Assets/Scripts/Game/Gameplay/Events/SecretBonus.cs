@@ -24,7 +24,7 @@ public class SecretBonus : Event
             int randForPunishment = Random.Range(0, 100);
             if (randForPunishment < 15) {
                 ChangeMessageText(positiveEnd, false);
-                tavern.tavernBonus += 10*tavern.bonusesValueModifier;
+                tavern.tavernBonus += 10;
             } else {
                 gameObject.GetComponent<SpriteRenderer>().sprite = guardianSprite;
                 tavern.tavernBonus = 0;
@@ -34,7 +34,7 @@ public class SecretBonus : Event
             }
         } else if (userAnswer == Answer.No) {
             ChangeMessageText(guestRefused);
-            tavern.tavernBonus += 1*tavern.bonusesValueModifier;
+            tavern.tavernBonus += 1;
         }
         InvokeOnUserResponse();
     }

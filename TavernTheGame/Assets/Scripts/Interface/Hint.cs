@@ -5,6 +5,7 @@ using UnityEngine.UI;
 public class Hint : MonoBehaviour
 {
     [SerializeField] private Text hintText;
+    [SerializeField] private BoxCollider2D messageBrokerCollider;
     private float _hintLifeTime = 3f;
     public float hintLifeTime {
         get { return _hintLifeTime; }
@@ -24,6 +25,7 @@ public class Hint : MonoBehaviour
 
     public void ShowHint(EventType eventType, string additionalString = "") {
         CancelInvoke("HideHint");
+        messageBrokerCollider.enabled = false;
         string hintStr = hintsForPlayer[eventType] + additionalString;
         hintText.text = hintStr;
         gameObject.SetActive(true);
@@ -37,6 +39,11 @@ public class Hint : MonoBehaviour
     }
 
     public void HideHint() {
+        messageBrokerCollider.enabled = true;
         gameObject.SetActive(false);
+    }
+
+    private void OnMouseDown() {
+        HideHint();
     }
 }

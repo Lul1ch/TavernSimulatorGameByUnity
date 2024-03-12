@@ -117,7 +117,7 @@ public class QueueCreating : MonoBehaviour
             yield return new WaitForSeconds(1f);
         }
         foodOrdering.AnswerIfClientWasntServiced();
-        tavern.tavernBonus -= 1*tavern.bonusesValueModifier;
+        tavern.tavernBonus -= 1;
         _charStatus = Status.Left;
         EventBus.onGuestReacted?.Invoke();
     }

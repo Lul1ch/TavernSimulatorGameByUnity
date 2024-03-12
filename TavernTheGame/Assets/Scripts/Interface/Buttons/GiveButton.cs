@@ -34,7 +34,7 @@ public class GiveButton : MonoBehaviour
                 string issueFoodName = tavern.GetFoodObject(foodName).GetComponent<Food>().foodName; 
                 if ( orderFoodName == issueFoodName) {
                     trainingManager.creditsForNextStep--;
-                    tavern.tavernBonus += 1*tavern.bonusesValueModifier;
+                    tavern.tavernBonus += 1;
                 } else {
                     return;
                 }
