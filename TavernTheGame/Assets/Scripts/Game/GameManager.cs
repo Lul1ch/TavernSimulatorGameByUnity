@@ -17,6 +17,7 @@ public class GameManager : MonoBehaviour
         EventBus.onTrainGuestToldHisOrder += ShowButtons;
         EventBus.onGuestLeft += InvokeonGuestLeft;
         EventBus.onGuestReacted += InvokeOnGuestReacted;
+        EventBus.onGameFinished += InvokeOnGameFinished;
     }
 
     private void OnDisable() {
@@ -27,6 +28,7 @@ public class GameManager : MonoBehaviour
         EventBus.onTrainGuestToldHisOrder -= ShowButtons;
         EventBus.onGuestLeft -= InvokeonGuestLeft;
         EventBus.onGuestReacted -= InvokeOnGuestReacted;
+        EventBus.onGameFinished -= InvokeOnGameFinished;
     }
 
     private void InvokeWhenANewGuestSpawned() {
@@ -60,6 +62,10 @@ public class GameManager : MonoBehaviour
 
     private void ShowButtons(){
         trainingManager.ShowOrHideButtons(true);
+    }
+
+    private void InvokeOnGameFinished() {
+        queueCreating.gameIsNotEnd = false;
     }
 
 }

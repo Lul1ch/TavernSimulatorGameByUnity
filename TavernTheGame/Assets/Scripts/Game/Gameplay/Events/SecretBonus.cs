@@ -27,7 +27,9 @@ public class SecretBonus : Event
                 tavern.tavernBonus += 10;
             } else {
                 gameObject.GetComponent<SpriteRenderer>().sprite = guardianSprite;
-                tavern.tavernBonus = 0;
+                if (tavern.tavernBonus < 0) {
+                    tavern.tavernBonus = 0;
+                }
 
                 tavern.tavernMoney -= (int)(tavern.tavernMoney / 2);
                 ChangeMessageText(negativeEnd, false);

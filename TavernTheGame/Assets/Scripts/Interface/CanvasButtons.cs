@@ -4,16 +4,13 @@ using UnityEngine.SceneManagement;
 
 public class CanvasButtons : MonoBehaviour
 {
-    [Header("Sprites")]
-    [SerializeField] private Sprite musicOn;
-    [SerializeField] private Sprite musicOff;
+    
 
     [Header("Scenes's objects")]
-    [SerializeField] private Button musicButton;
+    
     [SerializeField] private  GameObject kitchenWindow;
 
     private bool isKitchenWindowActive = false;
-    private bool isMusicOn = true;
 
     private float kitchenWindowYpos1 = 0f, kitchenWindowYpos2 = 1500f;
 
@@ -52,12 +49,6 @@ public class CanvasButtons : MonoBehaviour
     //Когда игра закончена перезагружаем её, загружая сцену главного меню
     public void RestartTheGame() {
         SceneManager.LoadScene("MainMenu");
-    }
-
-    public void ChangeMusicActivity() {
-        isMusicOn = !isMusicOn;
-        AudioListener.volume = (isMusicOn) ? 1f : 0f;
-        musicButton.GetComponent<Image>().sprite = (isMusicOn) ? musicOn : musicOff;
     }
 
     public static void PlayOnClickSound(AudioSource objectAudioSource) {

@@ -25,6 +25,7 @@ public class QueueCreating : MonoBehaviour
     //Время, начиная с которого, показывается таймер отсчёта до ухода текущего клиента
     private int timeToShowDestroyTimer = 0;
     private IEnumerator leftClientDestroyCoroutine, clientLeaveCoroutine;
+    private bool _gameIsNotEnd = true;
 
     public enum Status {
         NotSpawned,
@@ -46,6 +47,10 @@ public class QueueCreating : MonoBehaviour
         get { return _isEventsReadyToCreate; }
         set { _isEventsReadyToCreate = value; }
     }
+    public bool gameIsNotEnd {
+        get { return _gameIsNotEnd; }
+        set { _gameIsNotEnd = value; }
+    }
 
     private void Start() {
         //Заводим куратину на создание нового гостя через определённый временной промежуток
@@ -55,6 +60,9 @@ public class QueueCreating : MonoBehaviour
     }
 
     public void SpawnNewGuest() {
+        if (!gameIsNotEnd) {
+            return;
+        }
         if (leftClientDestroyCoroutine != null) {
             StopCoroutine(leftClientDestroyCoroutine);
         }

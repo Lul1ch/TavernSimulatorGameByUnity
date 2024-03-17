@@ -12,6 +12,10 @@ PrefabInstance:
       value: -0.5
       objectReference: {fileID: 0}
     - target: {fileID: 40180064160415414, guid: c5e40ada457e7ab419eb5e86016c7d7f, type: 3}
+      propertyPath: _yOffset
+      value: -0.2
+      objectReference: {fileID: 0}
+    - target: {fileID: 40180064160415414, guid: c5e40ada457e7ab419eb5e86016c7d7f, type: 3}
       propertyPath: _characterGender
       value: 0
       objectReference: {fileID: 0}
@@ -74,6 +78,6 @@ PrefabInstance:
     - target: {fileID: 5704214390643527829, guid: c5e40ada457e7ab419eb5e86016c7d7f, type: 3}
       propertyPath: m_Sprite
       value: 
-      objectReference: {fileID: 21300000, guid: 0908152cbb380a04b99eaa30bdc7c172, type: 3}
+      objectReference: {fileID: 21300000, guid: fdc40ef1c8d6cb2478d989b60d3067a3, type: 3}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: c5e40ada457e7ab419eb5e86016c7d7f, type: 3}
