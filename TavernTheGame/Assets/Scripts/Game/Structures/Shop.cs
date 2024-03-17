@@ -37,9 +37,6 @@ public class Shop : MonoBehaviour
 
             Product curProduct = curProductObject.GetComponent<Product>();
             curProduct.productIndex = i;
-            //curProductObject.GetComponent<Product>().foodName = _foodStore[i].name;
-            
-            PrefabUtility.SaveAsPrefabAsset(curProductObject, "Assets/Prefabs/CurrentlyUsingFood/" + _foodStore[i].name + ".prefab");
             
             int curPrice = curProduct.price;
             curElement.transform.Find("Price").GetComponent<Text>().text = curPrice.ToString();
