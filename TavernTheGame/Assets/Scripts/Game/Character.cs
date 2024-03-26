@@ -9,6 +9,10 @@ public class Character : MonoBehaviour
     [SerializeField] private float _xOffset = 0;
     [SerializeField] private float _yOffset = 0;
 
+    private void Start() {
+        Debug.Log("x " + _xOffset + " y " + _yOffset);
+    }
+
     public float xOffset {
         get { return _xOffset; }
     }

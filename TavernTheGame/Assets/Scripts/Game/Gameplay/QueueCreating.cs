@@ -19,7 +19,7 @@ public class QueueCreating : MonoBehaviour
     private GameObject curGuest;
     private Vector3 spawnPoint = new Vector3(0, 0, 0);
     private Status _charStatus = Status.NotSpawned;
-    private float waitTime = 35f;
+    private float waitTime = 45f;
     private int _eventIntiationBorder = 40, maxEventInitiationBorder = 90, eventIntiationBorderReductionStep = 10;
     private bool _isEventsReadyToCreate;
     //Время, начиная с которого, показывается таймер отсчёта до ухода текущего клиента
@@ -86,7 +86,13 @@ public class QueueCreating : MonoBehaviour
             xOffset = guestToInstaniate.GetComponent<Character>().xOffset;
             yOffset = guestToInstaniate.GetComponent<Character>().yOffset;
         }
-        curGuest = Instantiate(guestToInstaniate, new Vector3(spawnPoint.x + xOffset, spawnPoint.y + yOffset, spawnPoint.z), Quaternion.identity);
+        Debug.Log(spawnPoint);
+        float xCoord = spawnPoint.x; xCoord += xOffset;
+        float yCoord = spawnPoint.y; yCoord += yOffset;
+        float zCoord = spawnPoint.z;
+        Vector3 vec = new Vector3(xCoord, yCoord, zCoord);
+        curGuest = Instantiate(guestToInstaniate, vec, Quaternion.identity);
+        //curGuest = Instantiate(guestToInstaniate, new Vector3(xCoord + xOffset, yCoord + yOffset, zCoord), Quaternion.identity);
         foodOrdering.InitiateServicingProcess();
         if ( SceneManager.GetActiveScene().name != "Training" ) {
             EventBus.onGuestSpawned?.Invoke();

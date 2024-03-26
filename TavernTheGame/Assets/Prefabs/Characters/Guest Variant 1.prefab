@@ -20,6 +20,10 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2786105072537605021, guid: 2cac00fe232e3244ebd7eca6f79cb43b, type: 3}
+      propertyPath: _yOffset
+      value: -0.2
+      objectReference: {fileID: 0}
+    - target: {fileID: 2786105072537605021, guid: 2cac00fe232e3244ebd7eca6f79cb43b, type: 3}
       propertyPath: _characterGender
       value: 1
       objectReference: {fileID: 0}
@@ -75,5 +79,9 @@ PrefabInstance:
       propertyPath: m_Sprite
       value: 
       objectReference: {fileID: 21300000, guid: 7fbd0b6e1d0065744bc6832aaa83df26, type: 3}
+    - target: {fileID: 7569975411420659134, guid: 2cac00fe232e3244ebd7eca6f79cb43b, type: 3}
+      propertyPath: m_WasSpriteAssigned
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 2cac00fe232e3244ebd7eca6f79cb43b, type: 3}

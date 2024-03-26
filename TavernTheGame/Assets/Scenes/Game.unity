@@ -272,7 +272,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.0063405386, y: 0}
   m_AnchorMax: {x: 0.21900001, y: 1}
-  m_AnchoredPosition: {x: -6.050171, y: -1.0024414}
+  m_AnchoredPosition: {x: -6.050293, y: -1.0024414}
   m_SizeDelta: {x: 14.070007, y: -0.5}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &65754190
@@ -391,7 +391,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.068473674, y: 0.23083887}
   m_AnchorMax: {x: 0.9272632, y: 0.35319427}
-  m_AnchoredPosition: {x: 1, y: 0.22000122}
+  m_AnchoredPosition: {x: 1, y: 0.2199707}
   m_SizeDelta: {x: -0.480011, y: 3.4099998}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &177348020
@@ -872,7 +872,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.102000006, y: 0.9048787}
   m_AnchorMax: {x: 0.16350603, y: 0.9763869}
-  m_AnchoredPosition: {x: 0.13342285, y: -0.2999878}
+  m_AnchoredPosition: {x: 0.13330078, y: -0.30004883}
   m_SizeDelta: {x: -0.26299, y: -0.36}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &276960573
@@ -1666,7 +1666,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.22166665, y: 0.2735585}
   m_AnchorMax: {x: 0.71287507, y: 0.9834114}
-  m_AnchoredPosition: {x: 0.000061035156, y: 0.5}
+  m_AnchoredPosition: {x: 0.00012207031, y: 0.5}
   m_SizeDelta: {x: -0.6300049, y: 0.3899994}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &514446216
@@ -1857,7 +1857,7 @@ Camera:
   far clip plane: 1000
   field of view: 60
   orthographic: 1
-  orthographic size: 4
+  orthographic size: 5
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2
@@ -2291,7 +2291,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.012229884, y: 0.046147954}
   m_AnchorMax: {x: 0.096, y: 0.15751784}
-  m_AnchoredPosition: {x: 0.4000244, y: 0.025024414}
+  m_AnchoredPosition: {x: 0.39990234, y: 0.025024414}
   m_SizeDelta: {x: 0, y: -90}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &583722681
@@ -2635,7 +2635,7 @@ MonoBehaviour:
   m_ScaleFactor: 1
   m_ReferenceResolution: {x: 1920, y: 1080}
   m_ScreenMatchMode: 0
-  m_MatchWidthOrHeight: 0
+  m_MatchWidthOrHeight: 0.5
   m_PhysicalUnit: 3
   m_FallbackScreenDPI: 96
   m_DefaultSpriteDPI: 96
@@ -2700,7 +2700,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: -0.26013, y: -664.3795}
+  m_SizeDelta: {x: -0.26013, y: -700.5884}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &673268038
 MonoBehaviour:
@@ -3038,7 +3038,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &750584740
 RectTransform:
   m_ObjectHideFlags: 0
@@ -3269,7 +3269,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 920092485}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 370779447}
+        m_TargetAssemblyTypeName: CustomTextWriter, Assembly-CSharp
+        m_MethodName: WriteAllAndDestroy
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &920092485
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3381,8 +3393,8 @@ MonoBehaviour:
   m_ReferencePixelsPerUnit: 100
   m_ScaleFactor: 1
   m_ReferenceResolution: {x: 1920, y: 1080}
-  m_ScreenMatchMode: 0
-  m_MatchWidthOrHeight: 1
+  m_ScreenMatchMode: 1
+  m_MatchWidthOrHeight: 0
   m_PhysicalUnit: 3
   m_FallbackScreenDPI: 96
   m_DefaultSpriteDPI: 96
@@ -3514,7 +3526,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7597836524308740697, guid: e6d7494ffce8a1646b1753934a902164, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 0.10120392
+      value: 0.10119629
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: e6d7494ffce8a1646b1753934a902164, type: 3}
@@ -3812,9 +3824,9 @@ RectTransform:
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.12510413, y: 0.04336721}
-  m_AnchorMax: {x: 0.208, y: 0.15751784}
-  m_AnchoredPosition: {x: -0.5, y: 0.5}
-  m_SizeDelta: {x: 0, y: -93}
+  m_AnchorMax: {x: 0.208, y: 0.16029562}
+  m_AnchoredPosition: {x: -0.5, y: -0.4699707}
+  m_SizeDelta: {x: 0, y: -94.95}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1007382724
 MonoBehaviour:
@@ -4068,9 +4080,9 @@ MonoBehaviour:
   m_UiScaleMode: 1
   m_ReferencePixelsPerUnit: 100
   m_ScaleFactor: 1
-  m_ReferenceResolution: {x: 1920, y: 1080}
-  m_ScreenMatchMode: 0
-  m_MatchWidthOrHeight: 1
+  m_ReferenceResolution: {x: 1920, y: 1020}
+  m_ScreenMatchMode: 1
+  m_MatchWidthOrHeight: 0
   m_PhysicalUnit: 3
   m_FallbackScreenDPI: 96
   m_DefaultSpriteDPI: 96
@@ -4770,6 +4782,18 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+      - m_Target: {fileID: 1391082697}
+        m_TargetAssemblyTypeName: CanvasButtons, Assembly-CSharp
+        m_MethodName: HideAnotherWindow
+        m_Mode: 2
+        m_Arguments:
+          m_ObjectArgument: {fileID: 1508512354}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.GameObject, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1085931881
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5150,7 +5174,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.215, y: 0.8406375}
   m_AnchorMax: {x: 0.46456185, y: 0.96950865}
-  m_AnchoredPosition: {x: -1.2617798, y: 0}
+  m_AnchoredPosition: {x: -1.2617188, y: 0}
   m_SizeDelta: {x: 0.47999954, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1151111303
@@ -5285,7 +5309,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.83972365, y: 0.065595634}
   m_AnchorMax: {x: 0.90436184, y: 0.24864943}
-  m_AnchoredPosition: {x: 0.6394043, y: 0.40000916}
+  m_AnchoredPosition: {x: 0.6394043, y: 0.4000244}
   m_SizeDelta: {x: 1.28, y: -0.9699998}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1175341886
@@ -5825,6 +5849,18 @@ MonoBehaviour:
         m_Arguments:
           m_ObjectArgument: {fileID: 1247837083}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.AudioSource, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 1391082697}
+        m_TargetAssemblyTypeName: CanvasButtons, Assembly-CSharp
+        m_MethodName: HideAnotherWindow
+        m_Mode: 2
+        m_Arguments:
+          m_ObjectArgument: {fileID: 1511417811}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.GameObject, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: 
@@ -6706,6 +6742,18 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+      - m_Target: {fileID: 370779447}
+        m_TargetAssemblyTypeName: CustomTextWriter, Assembly-CSharp
+        m_MethodName: WriteAllAndDestroy
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1472405822
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6784,7 +6832,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.22166665, y: 0.2735585}
   m_AnchorMax: {x: 0.71287507, y: 0.9834114}
-  m_AnchoredPosition: {x: 0.000061035156, y: 0.5}
+  m_AnchoredPosition: {x: 0.00012207031, y: 0.5}
   m_SizeDelta: {x: -0.6300049, y: 0.3899994}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1508512356
@@ -7427,7 +7475,7 @@ MonoBehaviour:
   m_ReferencePixelsPerUnit: 100
   m_ScaleFactor: 1
   m_ReferenceResolution: {x: 1920, y: 1080}
-  m_ScreenMatchMode: 0
+  m_ScreenMatchMode: 1
   m_MatchWidthOrHeight: 1
   m_PhysicalUnit: 3
   m_FallbackScreenDPI: 96
@@ -7570,7 +7618,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.029000001, y: 0.9048787}
   m_AnchorMax: {x: 0.053300433, y: 0.9763869}
-  m_AnchoredPosition: {x: -20.000061, y: 0.18139648}
+  m_AnchoredPosition: {x: -20, y: 0.18139648}
   m_SizeDelta: {x: 42.9, y: 0.5999999}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1589424120
@@ -8137,6 +8185,18 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+      - m_Target: {fileID: 370779447}
+        m_TargetAssemblyTypeName: CustomTextWriter, Assembly-CSharp
+        m_MethodName: WriteAllAndDestroy
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1865290595
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -8409,7 +8469,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -6.5599976, y: 0.0014648438}
+  m_AnchoredPosition: {x: -6.5600586, y: 0.0014648438}
   m_SizeDelta: {x: 17.06, y: -665.60187}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1904898142
@@ -8527,7 +8587,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0.85998535, y: 0.0013427734}
+  m_AnchoredPosition: {x: 0.85998535, y: -0.000061035156}
   m_SizeDelta: {x: -2.26, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1939250285
@@ -8780,7 +8840,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0.13085938, y: 0.0047302246}
+  m_AnchoredPosition: {x: 0.13085938, y: 0.004699707}
   m_SizeDelta: {x: -0.26013, y: -607.645}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1954436173
@@ -9281,6 +9341,18 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+      - m_Target: {fileID: 1391082697}
+        m_TargetAssemblyTypeName: CanvasButtons, Assembly-CSharp
+        m_MethodName: ShowOrHideKitchenWindow
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &2025649249
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -9653,6 +9725,18 @@ MonoBehaviour:
         m_Arguments:
           m_ObjectArgument: {fileID: 2082941188}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.AudioSource, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 1391082697}
+        m_TargetAssemblyTypeName: CanvasButtons, Assembly-CSharp
+        m_MethodName: HideAnotherWindow
+        m_Mode: 2
+        m_Arguments:
+          m_ObjectArgument: {fileID: 477349912}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.GameObject, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: 

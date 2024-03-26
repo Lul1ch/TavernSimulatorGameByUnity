@@ -53,6 +53,8 @@ public class Tavern : MonoBehaviour
             newContentElem.transform.Find("Name").GetComponent<Text>().text = foodName;
             newContentElem.transform.Find("Give").GetComponent<GiveButton>().InitFoodVariable(curFoodObject.GetComponent<Food>());
 
+            curFood = newContentElem.transform;
+
             newContentElem.name = foodName;
             newContentElem.transform.SetParent(parent, false);
         } else {
@@ -66,6 +68,7 @@ public class Tavern : MonoBehaviour
             Debug.Log(curFood + " " + curFood.Find("Number") + " " + curFood.Find("Number").GetComponent<Text>() + " " + foodStorage[foodName].ToString());
         }
         }
+        curFood.SetSiblingIndex(0);
     }
 
     private GameObject InstantiateFoodIcon(GameObject curContentElement, GameObject objToInstantiate) {

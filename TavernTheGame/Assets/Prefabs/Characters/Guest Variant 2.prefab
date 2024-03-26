@@ -8,6 +8,10 @@ PrefabInstance:
     m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: 89595878694093578, guid: 9a0a08f5c30681b46909869f425cf243, type: 3}
+      propertyPath: _yOffset
+      value: -0.075
+      objectReference: {fileID: 0}
+    - target: {fileID: 89595878694093578, guid: 9a0a08f5c30681b46909869f425cf243, type: 3}
       propertyPath: _characterGender
       value: 1
       objectReference: {fileID: 0}

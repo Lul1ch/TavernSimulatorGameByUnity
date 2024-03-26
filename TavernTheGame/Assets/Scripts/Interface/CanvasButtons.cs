@@ -19,6 +19,10 @@ public class CanvasButtons : MonoBehaviour
         window.SetActive(!window.activeSelf);
     }
 
+    public void HideAnotherWindow(GameObject window) {
+        window.SetActive(false);
+    }
+
     public void ShowOrHideKitchenWindow() {
         RectTransform kitchenRT = kitchenWindow.GetComponent<RectTransform>();
         isKitchenWindowActive = !isKitchenWindowActive;
