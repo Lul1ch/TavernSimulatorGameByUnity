@@ -42,14 +42,14 @@ public class Tavern : MonoBehaviour
         }
     }
 
-    public void UpdateStorageInfo(string foodName, GameObject foodObject = null) {
+    public void UpdateStorageInfo(string foodName, GameObject foodObject = null, int foodNumber = 1) {
         //Пытаемся найти созданный элемент интерфейса
         Transform curFood = parent.Find(foodName);
         //Если не находим, то создаём новый и добавляем в скроллер
         if (curFood == null) {
             GameObject newContentElem = Instantiate(contentSample, contentSample.transform.position, contentSample.transform.rotation);
             GameObject curFoodObject = InstantiateFoodIcon(newContentElem, foodObject);
-            newContentElem.transform.Find("Number").GetComponent<Text>().text = "1";
+            newContentElem.transform.Find("Number").GetComponent<Text>().text = foodNumber.ToString();
             newContentElem.transform.Find("Name").GetComponent<Text>().text = foodName;
             newContentElem.transform.Find("Give").GetComponent<GiveButton>().InitFoodVariable(curFoodObject.GetComponent<Food>());
 
@@ -124,7 +124,7 @@ public class Tavern : MonoBehaviour
     }
 
     public bool IsNumberGreaterThanZero(string foodName) {
-        return (foodStorage[foodName] > 0);
+        return (foodStorage.ContainsKey(foodName) && foodStorage[foodName] > 0);
     }
 
     public bool IsFoodStorageEmpty() {

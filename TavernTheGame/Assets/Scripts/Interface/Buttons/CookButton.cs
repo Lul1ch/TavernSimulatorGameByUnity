@@ -67,7 +67,10 @@ public class CookButton : MonoBehaviour
             newTimerObject.transform.SetParent(contentElemTransform);
             //Устанавливаем время готовки
             curTimer.GetTimerTextObject();
-            curTimer.SetMultiplier(dishScript.dishCookingTime);
+            curTimer.SetMultiplier((float)dishScript.dishCookingTime);
+            
+            tavern.UpdateStorageInfo(dishScript.foodName, dishObj, 0);
+            
             curCookingDishCounter--;
 
             coroutine = addFinishedDish(curTimer, components);

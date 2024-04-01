@@ -24,7 +24,7 @@ public class Kitchen : MonoBehaviour
             Dish elemDishScript = elem.GetComponent<Dish>();
             int curDishCookingTime = elemDishScript.dishCookingTime;
 
-            elemTransform.Find("Time").GetComponent<TMP_Text>().text = curDishCookingTime.ToString();
+            elemTransform.Find("Time").GetComponent<Text>().text = curDishCookingTime.ToString();
             elemTransform.Find("Name").GetComponent<TMP_Text>().text = elem.name;
             elemTransform.Find("Cook").GetComponent<CookButton>().InitDishVariable(curDish);
 

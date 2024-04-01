@@ -90,8 +90,7 @@ public class QueueCreating : MonoBehaviour
         float xCoord = spawnPoint.x; xCoord += xOffset;
         float yCoord = spawnPoint.y; yCoord += yOffset;
         float zCoord = spawnPoint.z;
-        Vector3 vec = new Vector3(xCoord, yCoord, zCoord);
-        curGuest = Instantiate(guestToInstaniate, vec, Quaternion.identity);
+        curGuest = Instantiate(guestToInstaniate, new Vector3(xCoord, yCoord, zCoord), Quaternion.identity);
         //curGuest = Instantiate(guestToInstaniate, new Vector3(xCoord + xOffset, yCoord + yOffset, zCoord), Quaternion.identity);
         foodOrdering.InitiateServicingProcess();
         if ( SceneManager.GetActiveScene().name != "Training" ) {

@@ -49,7 +49,7 @@ public class GiveButton : MonoBehaviour
             foodOrdering.EndServicingProcess();
 
             CanvasButtons.PlayOnClickSound(gameObject.GetComponent<AudioSource>());
-        } else if (isReadyForNextHint) {
+        } else if (tavern.IsNumberGreaterThanZero(foodName) && isReadyForNextHint) {
             hint.ShowHint(Hint.EventType.InappropriateTimeForService);
             isReadyForNextHint = false;
             Invoke("IsReadyForNextHint", hint.hintLifeTime);
