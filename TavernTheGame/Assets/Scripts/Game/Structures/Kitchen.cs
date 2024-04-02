@@ -9,6 +9,8 @@ public class Kitchen : MonoBehaviour
     [SerializeField] private List<GameObject> dishes;
     [SerializeField] private GameObject kitchenContentElementSample;
     [SerializeField] private Transform parent;
+    [SerializeField] private Hint tavernHint;
+    [SerializeField] private Tavern tavern;
 
     public void InitKitchenShowcase() {
         int index = 0;
@@ -58,7 +60,15 @@ public class Kitchen : MonoBehaviour
     }
 
     public void AutomaticCookStart(string dishName) {
-        parent.Find(dishName).Find("Cook").GetComponent<CookButton>().CookSelectedDish();
+        if (tavern.IsNumberGreaterThanZero(dishName)) {
+            return;
+        }
+        string addHintStr = parent.Find(dishName).Find("Cook").GetComponent<CookButton>().CookSelectedDish(true);
+        if (addHintStr != null) {
+            tavernHint.ShowHint(Hint.EventType.NotEnoughProducts, addHintStr);
+        } else {
+            tavernHint.ShowHint(Hint.EventType.AutomaticCookingStarted);
+        }
     }
 
     public GameObject GetDish(int index) {

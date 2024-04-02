@@ -135,12 +135,17 @@ public class FoodOrdering : MonoBehaviour
         string messageTextStr = variants.OrderPhrases[rand].Replace("^", "\"" + _curOrder.name + "\"");
 
         void ReadyToGiveOrder() => _isOrderTold = true; 
+        void StartTimer() => queueCreator.InvokeSetTimeIsUp();
+        
         Action onComplete = null;
         onComplete += ReadyToGiveOrder;
+        onComplete += StartTimer;
+        if (isAutomaticCookingBought && tavern.GetNumberOfFoodInStorage(_curOrder.name) == 0) {
+            void AutomaticDishCook() => kitchen.AutomaticCookStart(_curOrder.name); 
+            onComplete += AutomaticDishCook;
+        }
         Say(messageTextStr, onComplete);
-        //_isOrderTold = true;
         
-        if (isAutomaticCookingBought && tavern.GetNumberOfFoodInStorage(_curOrder.name) == 0) { kitchen.AutomaticCookStart(_curOrder.name); }
         if ( SceneManager.GetActiveScene().name == "Training" ) {
             EventBus.onTrainGuestToldHisOrder?.Invoke();
             trainingManager.SaveMessage(trainingManager.indexToSaveClientOrder, messageTextStr);

@@ -40,7 +40,7 @@ public class CookButton : MonoBehaviour
         }
     }
 
-    public void CookSelectedDish() {
+    public string CookSelectedDish(bool isItAutomaticCook = false) {
         bool isAllComponentsAvailable = true;
         string additionalStringForHint = "";
         Dictionary<GameObject, int> components = dishScript.componentsObjects;
@@ -50,8 +50,9 @@ public class CookButton : MonoBehaviour
                 isAllComponentsAvailable = false;
             }
         }
+        additionalStringForHint += '.';
+        additionalStringForHint = additionalStringForHint.Replace(", .", ".");
         
-        //Если компонент был куплен и его количество больше 0, то мы можем приготовить блюдо
         if (isAllComponentsAvailable && curCookingDishCounter > 0) {
                     
             foreach(var component in components) {
@@ -75,19 +76,21 @@ public class CookButton : MonoBehaviour
 
             coroutine = addFinishedDish(curTimer, components);
             StartCoroutine(coroutine);
-        } else if (isReadyForNextHint) {
+        } else if (isReadyForNextHint && !isItAutomaticCook) {
             Hint.EventType hintType = Hint.EventType.MaxFoodCooking;
             if (curCookingDishCounter == 0) {
                 additionalStringForHint = "";
             } else {
-                additionalStringForHint += '.';
-                additionalStringForHint = additionalStringForHint.Replace(", .", ".");
                 hintType = Hint.EventType.NotEnoughProducts;
             }
             hint.ShowHint(hintType, additionalStringForHint);
             isReadyForNextHint = false;
             Invoke("IsReadyForNextHint", hint.hintLifeTime);
+        } else if (isItAutomaticCook) {
+            return additionalStringForHint;
         }
+        
+        return null;
     }
 
     private IEnumerator addFinishedDish(Timer curTimer, Dictionary<GameObject, int> components) {

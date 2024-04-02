@@ -33,7 +33,6 @@ public class GameManager : MonoBehaviour
 
     private void InvokeWhenANewGuestSpawned() {
         nextButton.gameObject.SetActive(false);
-        queueCreating.InvokeSetTimeIsUp();
     }
 
     private void InvokeOnGuestReacted() {
