@@ -33,7 +33,7 @@ public class CanvasButtons : MonoBehaviour
         }
     }
 
-    public void HideKitchenWindowOnExit() {
+    public void HideKitchenWindow() {
         isKitchenWindowActive = true;
         ShowOrHideKitchenWindow();
     }
