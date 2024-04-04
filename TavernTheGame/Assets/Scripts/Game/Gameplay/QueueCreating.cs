@@ -26,6 +26,7 @@ public class QueueCreating : MonoBehaviour
     private int timeToShowDestroyTimer = 0;
     private IEnumerator leftClientDestroyCoroutine, clientLeaveCoroutine;
     private bool _gameIsNotEnd = true;
+    private bool _isUnfairGuestSpawned = false;
 
     public enum Status {
         NotSpawned,
@@ -51,6 +52,10 @@ public class QueueCreating : MonoBehaviour
         get { return _gameIsNotEnd; }
         set { _gameIsNotEnd = value; }
     }
+    public bool isUnfairGuestSpawned {
+        get { return _isUnfairGuestSpawned; }
+        set { _isUnfairGuestSpawned = value; }
+    }
 
     private void Start() {
         //Заводим куратину на создание нового гостя через определённый временной промежуток
@@ -60,6 +65,7 @@ public class QueueCreating : MonoBehaviour
     }
 
     public void SpawnNewGuest() {
+        _isUnfairGuestSpawned = false;
         if (!gameIsNotEnd) {
             return;
         }
@@ -68,31 +74,30 @@ public class QueueCreating : MonoBehaviour
         }
         int randForEvent = Random.Range(0, 100);
         int randForGuest = Random.Range(0, variants.CharactersSkins.Count);
-
+        int reputationNumber = tavern.tavernBonus * -5;
         GameObject guestToInstaniate = variants.CharactersSkins[randForGuest];
-        float xOffset = 0;
-        float yOffset = 0;
-        if ( randForEvent > _eventIntiationBorder && _isEventsReadyToCreate ) {
-            guestToInstaniate = gameEventsManager.GetRandomEventGuest();
-            _charStatus = Status.EventWasGenerated;
-            _eventIntiationBorder = maxEventInitiationBorder;
-            xOffset = guestToInstaniate.GetComponent<Event>().xOffset;
-            yOffset = guestToInstaniate.GetComponent<Event>().yOffset;
-        } else {
-            if (_eventIntiationBorder > Mathf.Round(maxEventInitiationBorder / 2)) {
-                _eventIntiationBorder -= eventIntiationBorderReductionStep;
+        _charStatus = Status.Waiting;
+        if (randForEvent > reputationNumber) {
+            if ( randForEvent > _eventIntiationBorder && _isEventsReadyToCreate ) {
+                guestToInstaniate = gameEventsManager.GetRandomEventGuest();
+                _charStatus = Status.EventWasGenerated;
+                _eventIntiationBorder = maxEventInitiationBorder;
+            } else {
+                if (_eventIntiationBorder > Mathf.Round(maxEventInitiationBorder / 2)) {
+                    _eventIntiationBorder -= eventIntiationBorderReductionStep;
+                }
             }
-            _charStatus = Status.Waiting;
-            xOffset = guestToInstaniate.GetComponent<Character>().xOffset;
-            yOffset = guestToInstaniate.GetComponent<Character>().yOffset;
+        } else {
+            _isUnfairGuestSpawned = true;
+            guestToInstaniate = variants.GetRandomUnfairGuest();
         }
-        Debug.Log(spawnPoint);
-        float xCoord = spawnPoint.x; xCoord += xOffset;
-        float yCoord = spawnPoint.y; yCoord += yOffset;
+        float xCoord = spawnPoint.x; 
+        float yCoord = spawnPoint.y; 
         float zCoord = spawnPoint.z;
+
         curGuest = Instantiate(guestToInstaniate, new Vector3(xCoord, yCoord, zCoord), Quaternion.identity);
-        //curGuest = Instantiate(guestToInstaniate, new Vector3(xCoord + xOffset, yCoord + yOffset, zCoord), Quaternion.identity);
         foodOrdering.InitiateServicingProcess();
+
         if ( SceneManager.GetActiveScene().name != "Training" ) {
             EventBus.onGuestSpawned?.Invoke();
         }

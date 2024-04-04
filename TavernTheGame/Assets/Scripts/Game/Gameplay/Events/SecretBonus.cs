@@ -27,11 +27,12 @@ public class SecretBonus : Event
                 tavern.tavernBonus += 10;
             } else {
                 gameObject.GetComponent<SpriteRenderer>().sprite = guardianSprite;
-                if (tavern.tavernBonus < 0) {
+                if (tavern.tavernBonus > 0) {
                     tavern.tavernBonus = 0;
                 }
-
-                tavern.tavernMoney -= (int)(tavern.tavernMoney / 2);
+                if (tavern.tavernMoney > 0) {
+                    tavern.tavernMoney -= (int)(tavern.tavernMoney / 2);
+                }
                 ChangeMessageText(negativeEnd, false);
             }
         } else if (userAnswer == Answer.No) {

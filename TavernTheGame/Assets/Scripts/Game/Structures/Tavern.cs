@@ -68,7 +68,13 @@ public class Tavern : MonoBehaviour
             Debug.Log(curFood + " " + curFood.Find("Number") + " " + curFood.Find("Number").GetComponent<Text>() + " " + foodStorage[foodName].ToString());
         }
         }
-        curFood.SetSiblingIndex(0);
+    }
+
+    public void MoveFoodToTheTop(string foodName) {
+        Transform curFood = parent.Find(foodName);
+        if (curFood != null) {
+            curFood.SetSiblingIndex(0);
+        }
     }
 
     private GameObject InstantiateFoodIcon(GameObject curContentElement, GameObject objToInstantiate) {

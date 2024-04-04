@@ -13,6 +13,10 @@ public class FoodOrdering : MonoBehaviour
     [SerializeField] private Kitchen kitchen;
     [SerializeField] private TrainingManager trainingManager;
     [SerializeField] private CustomTextWriter textWriter;
+    [SerializeField] private Hint tavernHint;
+    [Header("ForUnfairGuests")]
+    [SerializeField] private int chanceNotToPay = 55;
+    [SerializeField] private int chanceToPayHalfOfPrice = 90;
     private AudioSource audioPhrase;
 
     private GameObject _curOrder = null;
@@ -91,6 +95,17 @@ public class FoodOrdering : MonoBehaviour
     }
 
     private void Pay(Mood reaction) {
+        float paymentModifier = 1;
+        if (queueCreator.isUnfairGuestSpawned) {
+            int randForUnfairGuest = UnityEngine.Random.Range(0, 100);
+            if (randForUnfairGuest < chanceNotToPay) {
+                tavernHint.ShowHint(Hint.EventType.isUnfairGuestGone);
+                EventBus.onGuestLeft?.Invoke();
+                return;
+            } else if ( randForUnfairGuest < chanceToPayHalfOfPrice) {
+                paymentModifier = 0.5f;
+            }
+        }
         Food clientOrder = _curOrder.GetComponent<Food>();
         Food tavernDish = _curIssue.GetComponent<Food>();
         int rand = UnityEngine.Random.Range(0, 100), chanceToDoubleThePayment = 20;
@@ -100,7 +115,7 @@ public class FoodOrdering : MonoBehaviour
         if (isDoublePayChanceBought && chanceToDoubleThePayment > rand) { Debug.Log("Price is doubled " + priceToPay.ToString()); }
         if (_curIssue.GetComponent<Food>().foodQuality != Food.Quality.Awful) {
             float payment = Mathf.Round(priceToPay) + tips; 
-            tavern.tavernMoney += (int)payment;
+            tavern.tavernMoney += Mathf.Round((int)payment * paymentModifier);
         }
         tavern.tavernBonus += (int)reaction;
     }

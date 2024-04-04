@@ -55,7 +55,7 @@ public class Kitchen : MonoBehaviour
         foreach (Transform child in parent) {
             Dish dish = child.Find("Icon").GetComponent<Dish>();
             dish.dishCookingTime = (int)Mathf.Round(dish.dishCookingTime / 2);
-            child.Find("Time").GetComponent<TMP_Text>().text = dish.dishCookingTime.ToString();
+            child.Find("Time").GetComponent<Text>().text = dish.dishCookingTime.ToString();
         }
     }
 

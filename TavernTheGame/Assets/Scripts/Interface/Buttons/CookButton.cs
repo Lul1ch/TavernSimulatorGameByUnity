@@ -71,6 +71,7 @@ public class CookButton : MonoBehaviour
             curTimer.SetMultiplier((float)dishScript.dishCookingTime);
             
             tavern.UpdateStorageInfo(dishScript.foodName, dishObj, 0);
+            tavern.MoveFoodToTheTop(dishScript.foodName);
             
             curCookingDishCounter--;
 

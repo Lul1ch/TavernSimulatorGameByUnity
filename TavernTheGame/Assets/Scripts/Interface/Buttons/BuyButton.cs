@@ -29,7 +29,7 @@ public class BuyButton : MonoBehaviour
             tavern.tavernMoney -= product.price;
             tavern.UpdateDictionary(product.foodName, productObject);
             tavern.UpdateStorageInfo(product.foodName, productObject);
-
+            tavern.MoveFoodToTheTop(product.foodName);
             gameObject.GetComponent<AudioSource>().Play();
             if ( SceneManager.GetActiveScene().name == "Training" && isCreditDecreaseAvailable) {
                 trainingManager.creditsForNextStep--;

@@ -4,6 +4,7 @@ using UnityEngine;
 public class CharactersVariants : MonoBehaviour {
     [Header("Characters")]
     public List<GameObject> Characters;
+    public List<GameObject> UnfairCharacters;
     public List<GameObject> CharactersSkins;
 
     [Header("Phrases")]
@@ -18,4 +19,8 @@ public class CharactersVariants : MonoBehaviour {
     [Header("Sounds")]
     public List<AudioClip> SpeechSounds;
 
+
+    public GameObject GetRandomUnfairGuest() {
+        return UnfairCharacters[Random.Range(0, UnfairCharacters.Count)];
+    }
 }
