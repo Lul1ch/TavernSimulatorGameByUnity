@@ -11,6 +11,7 @@ public class FoodOrdering : MonoBehaviour
     [SerializeField] private QueueCreating queueCreator;
     [SerializeField] private Tavern tavern;
     [SerializeField] private Kitchen kitchen;
+    [SerializeField] private Shop shop;
     [SerializeField] private TrainingManager trainingManager;
     [SerializeField] private CustomTextWriter textWriter;
     [SerializeField] private Hint tavernHint;
@@ -83,6 +84,10 @@ public class FoodOrdering : MonoBehaviour
             trainingManager.ShowOrHideButtons(false);
         }
 
+        if (queueCreator.isUnfairGuestSpawned) {
+            curOrder = shop.GetRandomAlcohol();
+            return;
+        }
         rand = UnityEngine.Random.Range(0, kitchen.GetKitchenDishesCount());
         curOrder = kitchen.GetDishByIndex(rand);
     }

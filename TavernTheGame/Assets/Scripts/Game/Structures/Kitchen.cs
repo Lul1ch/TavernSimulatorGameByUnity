@@ -14,8 +14,11 @@ public class Kitchen : MonoBehaviour
 
     public void InitKitchenShowcase() {
         int index = 0;
-        //Для каждого элемента, который лежит в массиве блюд создаём визуальное отображение в скролере с помощью ранее созданного объекта шаблона
-        foreach(var elem in dishes) {
+        CreateFoodContentObjects(dishes, ref index);
+    }
+
+    private void CreateFoodContentObjects(List<GameObject> list, ref int index) {
+        foreach(var elem in list) {
             GameObject curElement = Instantiate(kitchenContentElementSample, kitchenContentElementSample.transform.position, kitchenContentElementSample.transform.rotation);
             curElement.name = elem.name;
             elem.GetComponent<Dish>().ChangeDishPrice();

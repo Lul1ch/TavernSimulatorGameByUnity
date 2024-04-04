@@ -9,6 +9,7 @@ using UnityEngine.SceneManagement;
 public class Shop : MonoBehaviour
 {
     [SerializeField] private List<GameObject> _foodStore;
+    [SerializeField] private List<GameObject> alcohol;
     public List<GameObject> foodStore {
         get { return _foodStore; }
     }
@@ -30,25 +31,32 @@ public class Shop : MonoBehaviour
 
     private void InitShopShowcase() {
         for (int i = 0; i < _foodStore.Count;i++) {
+            CreateFoodContentObject(_foodStore[i], i);
+        }
+        int index = _foodStore.Count;
+        for (int i = 0; i < alcohol.Count;i++) {
+            CreateFoodContentObject(alcohol[i], i + index);
+        }
+        EventBus.onShopFilled?.Invoke();
+    }
+
+    private void CreateFoodContentObject(GameObject foodObject, int i) {
             GameObject curElement = GameObject.Instantiate(shopContentElement, shopContentElement.transform.localPosition, shopContentElement.transform.rotation);
-            _foodStore[i].GetComponent<Product>().InitProductInfo();
-            _foodStore[i].GetComponent<Product>().foodName = _foodStore[i].name;
-            GameObject curProductObject = InstantiateProductIcon(curElement, _foodStore[i]);
+            foodObject.GetComponent<Product>().InitProductInfo();
+            foodObject.GetComponent<Product>().foodName = foodObject.name;
+            GameObject curProductObject = InstantiateProductIcon(curElement, foodObject);
 
             Product curProduct = curProductObject.GetComponent<Product>();
             curProduct.productIndex = i;
             
             int curPrice = curProduct.price;
             curElement.transform.Find("Price").GetComponent<Text>().text = curPrice.ToString();
-            curElement.transform.Find("Name").GetComponent<TMP_Text>().text = _foodStore[i].name;
+            curElement.transform.Find("Name").GetComponent<TMP_Text>().text = foodObject.name;
             curElement.transform.Find("Buy").GetComponent<BuyButton>().InitProductVariable(curProductObject);
             //curProduct.productSprite = curProductSprite;
             curElement.transform.SetParent(parent, false);
             
             CheckForMinPrice(curPrice);
-
-        }
-        EventBus.onShopFilled?.Invoke();
     }
 
     private GameObject InstantiateProductIcon(GameObject curContentElement, GameObject objToInstantiate) {
@@ -80,4 +88,7 @@ public class Shop : MonoBehaviour
         InitShopShowcase();
     }
 
+    public GameObject GetRandomAlcohol() {
+        return alcohol[Random.Range(0, alcohol.Count)]; 
+    }
 }

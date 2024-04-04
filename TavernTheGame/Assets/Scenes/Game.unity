@@ -461,6 +461,8 @@ MonoBehaviour:
   - {fileID: 7663888217010165910, guid: 67f971371c703bc4ca6888356d7a879b, type: 3}
   - {fileID: 1214601942928797431, guid: 6fb0ef2236824fd48a0f4d0da116cc05, type: 3}
   - {fileID: 9094816943121590810, guid: d3d179a55242c044289c2a00b2ad0d17, type: 3}
+  alcohol:
+  - {fileID: 4671588902404071097, guid: 3e930b29009c9fb42984ee33732e3bf4, type: 3}
   parent: {fileID: 673268037}
   shopContentElement: {fileID: 661778315839437868, guid: 9dce99db67b400d4fa9bcaec7e389c97, type: 3}
 --- !u!1 &194226949
@@ -7027,6 +7029,7 @@ MonoBehaviour:
   queueCreator: {fileID: 1391082694}
   tavern: {fileID: 472954085}
   kitchen: {fileID: 1019864566}
+  shop: {fileID: 177348022}
   trainingManager: {fileID: 0}
   textWriter: {fileID: 370779447}
   tavernHint: {fileID: 1189765604}

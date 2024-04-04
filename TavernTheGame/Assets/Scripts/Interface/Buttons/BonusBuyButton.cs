@@ -1,8 +1,10 @@
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
+using TMPro;
 public class BonusBuyButton : MonoBehaviour
 {
+    [SerializeField] private Sprite boughtSprite;
     [Header("Scene's objects")]
     [SerializeField] private Button bonusBuyButton;
     [SerializeField] private Hint hint;
@@ -33,7 +35,7 @@ public class BonusBuyButton : MonoBehaviour
                 isCreditDecreaseAvailable = false;
                 gameObject.SetActive(false);
             }
-            Debug.Log("Bonus bought!");
+            InvokeOnBonusBought();
         } else if (isReadyForNextHint) {
             if (!isBonusAlreadyBought) {
                 int priceDiff = bonus.price - tavern.tavernBonus;
@@ -48,6 +50,11 @@ public class BonusBuyButton : MonoBehaviour
 
     private void IsReadyForNextHint() {
         isReadyForNextHint = true;
+    }
+
+    private void InvokeOnBonusBought() {
+        gameObject.GetComponent<Image>().sprite = boughtSprite;
+        gameObject.transform.parent.Find("Name").GetComponent<TMP_Text>().text = "<color=grey>" + gameObject.transform.parent.Find("Name").GetComponent<TMP_Text>().text + "</color>"; 
     }
 
 }
