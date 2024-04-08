@@ -10,8 +10,8 @@ GameObject:
   m_Component:
   - component: {fileID: 8482252308894356190}
   - component: {fileID: 8482252308894356191}
-  - component: {fileID: 8482252308894356184}
   - component: {fileID: 8482252308894356185}
+  - component: {fileID: 5611378304649402747}
   m_Layer: 0
   m_Name: UnfairGuest 1
   m_TagString: Untagged
@@ -86,20 +86,6 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!114 &8482252308894356184
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8482252308894356186}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 454904f8e67ac3d45bf6f558db4a5e73, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _characterGender: 0
-  _characterType: 1
 --- !u!82 &8482252308894356185
 AudioSource:
   m_ObjectHideFlags: 0
@@ -196,3 +182,18 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!114 &5611378304649402747
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8482252308894356186}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d34423498061dd64e9ab2bc4ccfa2249, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _characterGender: 0
+  _characterType: 0
+  _characterReaction: -1

@@ -7,21 +7,37 @@ using UnityEngine.SceneManagement;
 
 public class FoodOrdering : MonoBehaviour
 {
-    [SerializeField] private CharactersVariants variants;
-    [SerializeField] private QueueCreating queueCreator;
-    [SerializeField] private Tavern tavern;
-    [SerializeField] private Kitchen kitchen;
+    [SerializeField] private CharactersVariants _variants;
+    [SerializeField] private QueueCreating _queueCreator;
+    [SerializeField] private Tavern _tavern;
+    [SerializeField] private Kitchen _kitchen;
     [SerializeField] private Shop shop;
     [SerializeField] private TrainingManager trainingManager;
-    [SerializeField] private CustomTextWriter textWriter;
+    [SerializeField] private CustomTextWriter _textWriter;
     [SerializeField] private Hint tavernHint;
     [Header("ForUnfairGuests")]
     [SerializeField] private int chanceNotToPay = 55;
     [SerializeField] private int chanceToPayHalfOfPrice = 90;
-    private AudioSource audioPhrase;
+
+    public CharactersVariants variants {
+        get { return _variants; }
+    }
+    public QueueCreating queueCreating {
+        get { return _queueCreator; }
+    }
+    public Tavern tavern {
+        get { return _tavern; }
+    }
+    public Kitchen kitchen {
+        get { return _kitchen; }
+    }
+    public CustomTextWriter textWriter {
+        get { return _textWriter; }
+    }
 
     private GameObject _curOrder = null;
     private GameObject _curIssue = null;
+    private Character _curGuestScript = null;
     private bool _isOrderTold, _isDoublePayChanceBought, _isAutomaticCookingBought;
 
     public GameObject curOrder {
@@ -48,33 +64,32 @@ public class FoodOrdering : MonoBehaviour
     [Header("GuestMessage")]
     [SerializeField] private Text _messageText;
 
-    private string messageText {
-        set { _messageText.text = queueCreator.UpdateAllGenderRelatedWords(value); }
+    public Text message {
+        get { return _messageText; }
+    }
+    public string messageText {
+        set { _messageText.text = queueCreating.UpdateAllGenderRelatedWords(value); }
         get { return _messageText.text; }
     }
 
-    private int rand = 0;
-    private bool isReacted = false;
 
     public enum Mood {
         Sad = -1, Happy = 1
     }
 
     public void InitiateServicingProcess() {
-        if (queueCreator.charStatus == QueueCreating.Status.Waiting && _curOrder == null) {
-            MakeOrder();
-            SayHello();
-            SayWhatYouWant();
+        _curGuestScript = queueCreating.curGuest.GetComponent<Character>();
+        if (queueCreating.charStatus == QueueCreating.Status.Waiting && _curOrder == null) {
+            _curGuestScript.SayHello();
+            _curGuestScript.MakeOrder();
         }
     }
 
     public void EndServicingProcess() {
-        if (_curIssue != null && !isReacted && _isOrderTold && queueCreator.charStatus == QueueCreating.Status.Waiting) {
-            Mood guestReaction = React();
-            Answer(guestReaction);
-            Pay(guestReaction);
-            isReacted = true;
-            queueCreator.charStatus = QueueCreating.Status.Serviced;
+        if (_curIssue != null && _isOrderTold && queueCreating.charStatus == QueueCreating.Status.Waiting) {
+            _curGuestScript.React();
+            _curGuestScript.Pay();
+            queueCreating.charStatus = QueueCreating.Status.Serviced;
             EventBus.onGuestReacted?.Invoke();
         }
     }
@@ -84,12 +99,11 @@ public class FoodOrdering : MonoBehaviour
             trainingManager.ShowOrHideButtons(false);
         }
 
-        if (queueCreator.isUnfairGuestSpawned) {
+        if (queueCreating.isUnfairGuestSpawned) {
             curOrder = shop.GetRandomAlcohol();
             return;
         }
-        rand = UnityEngine.Random.Range(0, kitchen.GetKitchenDishesCount());
-        curOrder = kitchen.GetDishByIndex(rand);
+        curOrder = kitchen.GetDishByIndex(UnityEngine.Random.Range(0, kitchen.GetKitchenDishesCount()));
     }
 
     private Mood React() {
@@ -101,7 +115,7 @@ public class FoodOrdering : MonoBehaviour
 
     private void Pay(Mood reaction) {
         float paymentModifier = 1;
-        if (queueCreator.isUnfairGuestSpawned) {
+        if (queueCreating.isUnfairGuestSpawned) {
             int randForUnfairGuest = UnityEngine.Random.Range(0, 100);
             if (randForUnfairGuest < chanceNotToPay) {
                 tavernHint.ShowHint(Hint.EventType.isUnfairGuestGone);
@@ -139,14 +153,10 @@ public class FoodOrdering : MonoBehaviour
     }
 
     private void SayHello() {
-        GameObject curCustomer = queueCreator.GetCurGuest();
+        GameObject curCustomer = queueCreating.curGuest;
         int rand = UnityEngine.Random.Range(0, variants.HelloPhrases.Count);
         string messageTextStr = variants.HelloPhrases[rand];
         Say(messageTextStr);
-        audioPhrase = curCustomer.GetComponent<AudioSource>();
-        rand = UnityEngine.Random.Range(0, variants.SpeechSounds.Count);
-        audioPhrase.clip = variants.SpeechSounds[rand];
-
     }
 
     public void SayWhatYouWant() {
@@ -155,7 +165,7 @@ public class FoodOrdering : MonoBehaviour
         string messageTextStr = variants.OrderPhrases[rand].Replace("^", "\"" + _curOrder.name + "\"");
 
         void ReadyToGiveOrder() => _isOrderTold = true; 
-        void StartTimer() => queueCreator.InvokeSetTimeIsUp();
+        void StartTimer() => queueCreating.InvokeSetTimeIsUp();
         
         Action onComplete = null;
         onComplete += ReadyToGiveOrder;
@@ -182,11 +192,10 @@ public class FoodOrdering : MonoBehaviour
     public void ClearVariablesValues() {
         _curOrder = null;
         _curIssue = null;
-        isReacted = false;
         _isOrderTold = false;
     }
 
     private void Say(string messageTextStr, Action onComplete = null) {
-        textWriter.CallMessageWriting(_messageText, queueCreator.UpdateAllGenderRelatedWords(messageTextStr), 0.05f, onComplete);
+        textWriter.CallMessageWriting(_messageText, queueCreating.UpdateAllGenderRelatedWords(messageTextStr), 0.05f, onComplete);
     }
 }

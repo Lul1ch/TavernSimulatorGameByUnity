@@ -7,7 +7,7 @@ public class CharactersVariants : MonoBehaviour {
     public List<GameObject> UnfairCharacters;
     public List<GameObject> CharactersSkins;
 
-    [Header("Phrases")]
+    [Header("NormalPhrases")]
     public List<string> HelloPhrases;
     public List<string> OrderPhrases;
 
@@ -15,6 +15,14 @@ public class CharactersVariants : MonoBehaviour {
     public List<string> GoodReactPharases;
 
     public List<string> WasntServicedPhrases;
+    [Header("PhrasesForUnfairGuests")]
+    public List<string> HelloPhrasesUnfair;
+    public List<string> OrderPhrasesUnfair;
+
+    public List<string> BadReactPharasesUnfair;
+    public List<string> GoodReactPharasesUnfair;
+
+    public List<string> WasntServicedPhrasesUnfair;
 
     [Header("Sounds")]
     public List<AudioClip> SpeechSounds;

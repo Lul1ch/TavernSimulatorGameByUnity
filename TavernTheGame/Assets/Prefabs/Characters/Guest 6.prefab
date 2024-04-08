@@ -10,8 +10,8 @@ GameObject:
   m_Component:
   - component: {fileID: 7292264790267459324}
   - component: {fileID: 7292264790267459325}
-  - component: {fileID: 7292264790267459298}
   - component: {fileID: 4241808480206519201}
+  - component: {fileID: 2617833219984746219}
   m_Layer: 0
   m_Name: Guest 6
   m_TagString: Untagged
@@ -86,19 +86,6 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!114 &7292264790267459298
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7292264790267459299}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 454904f8e67ac3d45bf6f558db4a5e73, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _characterGender: 1
 --- !u!82 &4241808480206519201
 AudioSource:
   m_ObjectHideFlags: 0
@@ -195,3 +182,18 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!114 &2617833219984746219
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7292264790267459299}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 192ef8ef97dda184ca5a68bc32439145, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _characterGender: 1
+  _characterType: 0
+  _characterReaction: 1

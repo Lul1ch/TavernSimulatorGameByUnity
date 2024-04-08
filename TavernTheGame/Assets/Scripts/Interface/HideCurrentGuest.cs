@@ -6,7 +6,7 @@ public class HideCurrentGuest : MonoBehaviour
     [SerializeField] private Transform cameraPos;
 
     public void HideCurGuest() {
-        GameObject curGuest = queueCreator.GetCurGuest();
+        GameObject curGuest = queueCreator.curGuest;
 
         Vector3 guestPosition = curGuest.transform.position;
         curGuest.transform.position = new Vector3(guestPosition.x, guestPosition.y, cameraPos.position.z*2);

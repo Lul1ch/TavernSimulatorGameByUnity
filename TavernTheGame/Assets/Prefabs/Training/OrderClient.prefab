@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 4845123962378344758}
   - component: {fileID: 4845123962378344761}
   - component: {fileID: 4845123962378344760}
-  - component: {fileID: 753830266464192297}
+  - component: {fileID: 6015381690505820681}
   m_Layer: 0
   m_Name: OrderClient
   m_TagString: Untagged
@@ -198,7 +198,7 @@ MonoBehaviour:
   foodOrdering: {fileID: 0}
   shop: {fileID: 0}
   trainingDish: {fileID: 1558344440999048511, guid: c1a52a336ac48344ea52786cbf33e90d, type: 3}
---- !u!114 &753830266464192297
+--- !u!114 &6015381690505820681
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -207,7 +207,15 @@ MonoBehaviour:
   m_GameObject: {fileID: 4845123962378344763}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 454904f8e67ac3d45bf6f558db4a5e73, type: 3}
+  m_Script: {fileID: 11500000, guid: 192ef8ef97dda184ca5a68bc32439145, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   _characterGender: 0
+  _characterType: 0
+  _characterReaction: 1
+  variants: {fileID: 0}
+  textWriter: {fileID: 0}
+  queueCreating: {fileID: 0}
+  foodOrdering: {fileID: 0}
+  kitchen: {fileID: 0}
+  _messageText: {fileID: 0}

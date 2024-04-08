@@ -16,7 +16,7 @@ public class QueueCreating : MonoBehaviour
     [Header("Training")]
     [SerializeField] private GameObject _orderClient;
 
-    private GameObject curGuest;
+    private GameObject _curGuest;
     private Vector3 spawnPoint = new Vector3(0, 0, 0);
     private Status _charStatus = Status.NotSpawned;
     private float waitTime = 45f;
@@ -36,7 +36,10 @@ public class QueueCreating : MonoBehaviour
         EventIsFinished,
         Left
     }   
-
+    public GameObject curGuest {
+        set { _curGuest = value; }
+        get { return _curGuest; }
+    }
     public Status charStatus {
         set { _charStatus = value; }
         get { return _charStatus; }
@@ -95,8 +98,7 @@ public class QueueCreating : MonoBehaviour
         float yCoord = spawnPoint.y; 
         float zCoord = spawnPoint.z;
 
-        curGuest = Instantiate(guestToInstaniate, new Vector3(xCoord, yCoord, zCoord), Quaternion.identity);
-        foodOrdering.InitiateServicingProcess();
+        _curGuest = Instantiate(guestToInstaniate, new Vector3(xCoord, yCoord, zCoord), Quaternion.identity);
 
         if ( SceneManager.GetActiveScene().name != "Training" ) {
             EventBus.onGuestSpawned?.Invoke();
@@ -105,12 +107,8 @@ public class QueueCreating : MonoBehaviour
 
     public void DestroyServicedGuest() {
         destroyLeftGuestTimerText.gameObject.SetActive(false);
-        Destroy(curGuest);
+        Destroy(_curGuest);
         SpawnNewGuest();
-    }
-
-    public GameObject GetCurGuest() {
-        return curGuest;
     }
 
     public void SetSpawnPoint(Vector3 newSpawnPoint) {
@@ -134,7 +132,7 @@ public class QueueCreating : MonoBehaviour
             counter--;
             yield return new WaitForSeconds(1f);
         }
-        foodOrdering.AnswerIfClientWasntServiced();
+        _curGuest.GetComponent<Character>().AnswerIfClientWasntServiced();
         tavern.tavernBonus -= 1;
         _charStatus = Status.Left;
         EventBus.onGuestReacted?.Invoke();
@@ -165,12 +163,12 @@ public class QueueCreating : MonoBehaviour
     }
 
     public string UpdateAllGenderRelatedWords(string str) {
-        Character.Sex curGuestGender = curGuest.GetComponent<Character>().characterGender;
+        Character.Sex curGuestGender = _curGuest.GetComponent<Character>().characterGender;
         return str = (curGuestGender == Character.Sex.Male) ? str.Replace("(а)", "") : str.Replace("(а)", "а");
     }
 
     public void SpawnCertainClient(GameObject client) {
-        curGuest = Instantiate(client, spawnPoint, Quaternion.identity);
+        _curGuest = Instantiate(client, spawnPoint, Quaternion.identity);
     }
 
     public void InitSpawnPoint() {
@@ -179,23 +177,23 @@ public class QueueCreating : MonoBehaviour
 
     public void SetPlayerAnswer(Event.Answer answer) {
         if (_charStatus == Status.EventWasGenerated) {
-            curGuest.GetComponent<Event>().userAnswer = answer;
+            _curGuest.GetComponent<Event>().userAnswer = answer;
         }
     }
     public void PlayerAnsweredYes() {
         if (_charStatus == Status.EventWasGenerated) {
-            curGuest.GetComponent<Event>().userAnswer = Event.Answer.Yes;
+            _curGuest.GetComponent<Event>().userAnswer = Event.Answer.Yes;
         }
     }
     public void PlayerAnsweredNo() {
         if (_charStatus == Status.EventWasGenerated) {
-            curGuest.GetComponent<Event>().userAnswer = Event.Answer.No;
+            _curGuest.GetComponent<Event>().userAnswer = Event.Answer.No;
         }
     }
 
     public bool IsItAFreeFoodEvent() {
         if (_charStatus == Status.EventWasGenerated) {
-            return curGuest.TryGetComponent<FreeFood>(out FreeFood hinge) && foodOrdering.isOrderTold;
+            return _curGuest.TryGetComponent<FreeFood>(out FreeFood hinge) && foodOrdering.isOrderTold;
         }
         return false;
     }
