@@ -18,8 +18,9 @@ public class NormalCharacter : Character
         Say(messageTextStr, onComplete);
     }
 
-    public override void React() {
-        base.React(foodOrdering.variants.GoodReactPharases, foodOrdering.variants.BadReactPharases);
+    public override bool React(List<string> goodReactList = null, List<string> badReactList = null) {
+        UpdateTavernBonus();
+        return base.React(foodOrdering.variants.GoodReactPharases, foodOrdering.variants.BadReactPharases);
     }
 
     public override void AnswerIfClientWasntServiced(List<string> list = null) {
@@ -27,6 +28,6 @@ public class NormalCharacter : Character
     }
 
     public override void Pay(float paymentModifier = 1f) {
-        base.Pay(paymentModifier);
+        base.Pay();
     } 
 }

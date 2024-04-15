@@ -11,8 +11,7 @@ GameObject:
   - component: {fileID: 4845123962378344759}
   - component: {fileID: 4845123962378344758}
   - component: {fileID: 4845123962378344761}
-  - component: {fileID: 4845123962378344760}
-  - component: {fileID: 6015381690505820681}
+  - component: {fileID: -6341717729032814685}
   m_Layer: 0
   m_Name: OrderClient
   m_TagString: Untagged
@@ -183,7 +182,7 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
---- !u!114 &4845123962378344760
+--- !u!114 &-6341717729032814685
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -192,30 +191,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 4845123962378344763}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: cd5631c016c3dda4e83bcaeba048469f, type: 3}
+  m_Script: {fileID: 11500000, guid: a31430aa077477140a8946d100753aed, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  foodOrdering: {fileID: 0}
-  shop: {fileID: 0}
-  trainingDish: {fileID: 1558344440999048511, guid: c1a52a336ac48344ea52786cbf33e90d, type: 3}
---- !u!114 &6015381690505820681
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4845123962378344763}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 192ef8ef97dda184ca5a68bc32439145, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _characterGender: 0
+  _characterGender: 1
   _characterType: 0
   _characterReaction: 1
-  variants: {fileID: 0}
-  textWriter: {fileID: 0}
-  queueCreating: {fileID: 0}
   foodOrdering: {fileID: 0}
-  kitchen: {fileID: 0}
-  _messageText: {fileID: 0}
+  trainingDish: {fileID: 1558344440999048511, guid: c1a52a336ac48344ea52786cbf33e90d, type: 3}

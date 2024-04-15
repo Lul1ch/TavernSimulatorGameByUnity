@@ -24,10 +24,6 @@ public class CharactersVariants : MonoBehaviour {
 
     public List<string> WasntServicedPhrasesUnfair;
 
-    [Header("Sounds")]
-    public List<AudioClip> SpeechSounds;
-
-
     public GameObject GetRandomUnfairGuest() {
         return UnfairCharacters[Random.Range(0, UnfairCharacters.Count)];
     }

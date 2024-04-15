@@ -2,6 +2,7 @@ using System;
 using UnityEngine;
 using UnityEngine.UI;
 using System.Collections.Generic;
+using UnityEngine.SceneManagement;
 
 public class Character : MonoBehaviour
 {
@@ -31,7 +32,7 @@ public class Character : MonoBehaviour
         get { return _characterReaction; }
     }
 
-    public virtual void SayHello(List<string> list) {
+    public virtual void SayHello(List<string> list = null) {
         int rand = UnityEngine.Random.Range(0, list.Count);
         string messageTextStr = list[rand];
         Say(messageTextStr);
@@ -58,9 +59,11 @@ public class Character : MonoBehaviour
         }
         return onComplete;
     }
-    public virtual void React(List<string> goodReactList, List<string> badReactList) { 
+    protected void UpdateTavernBonus() {
         _characterReaction = (foodOrdering.curIssue.GetComponent<Food>().foodName == foodOrdering.curOrder.GetComponent<Food>().foodName) ? Mood.Happy : Mood.Sad;
-
+        foodOrdering.tavern.tavernBonus += (int)_characterReaction;
+    }
+    public virtual bool React(List<string> goodReactList = null, List<string> badReactList = null) {
         int rand = 0;
         string messageTextStr = "Хорошо.";
         if (_characterReaction == Mood.Happy) {
@@ -71,13 +74,14 @@ public class Character : MonoBehaviour
             messageTextStr = badReactList[rand];
         }
         Say(messageTextStr);
+        return true;
     }
-    public virtual void AnswerIfClientWasntServiced(List<string> list) {
+    public virtual void AnswerIfClientWasntServiced(List<string> list = null) {
         int rand = UnityEngine.Random.Range(0, list.Count);
         string messageTextStr = list[rand];
         Say(messageTextStr);
     }
-    public virtual void Pay(int paymentModifier) {
+    public virtual void Pay(float paymentModifier = 1f) {
         Food clientOrder = foodOrdering.curOrder.GetComponent<Food>();
         Food tavernDish = foodOrdering.curIssue.GetComponent<Food>();
         int rand = UnityEngine.Random.Range(0, 100), chanceToDoubleThePayment = 20;
@@ -85,18 +89,17 @@ public class Character : MonoBehaviour
         priceToPay = (foodOrdering.isDoublePayChanceBought && chanceToDoubleThePayment > rand) ? priceToPay*2 : priceToPay;
         //Костыль
         if (foodOrdering.isDoublePayChanceBought && chanceToDoubleThePayment > rand) { Debug.Log("Price is doubled " + priceToPay.ToString()); }
-        if (tavernDish.foodQuality != Food.Quality.Awful) {
-            float payment = Mathf.Round(priceToPay) + tips; 
-            foodOrdering.tavern.tavernMoney += Mathf.Round((int)payment * paymentModifier);
-        }
-        foodOrdering.tavern.tavernBonus += (int)_characterReaction;
+        float payment = Mathf.Round(priceToPay) + tips; 
+        foodOrdering.tavern.tavernMoney += Mathf.Round((int)payment * paymentModifier);
     }
     protected void Say(string messageTextStr, Action onComplete = null) {
         foodOrdering.textWriter.CallMessageWriting(foodOrdering.message, foodOrdering.queueCreating.UpdateAllGenderRelatedWords(messageTextStr), 0.05f, onComplete);
     }
 
     private void Start() {
-        InitiateCharacterVariables();
+        if ( SceneManager.GetActiveScene().name != "Training" ) {
+            InitiateCharacterVariables();
+        }
     }
 
     private void InitiateCharacterVariables() {

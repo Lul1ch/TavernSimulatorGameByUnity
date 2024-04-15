@@ -11,10 +11,10 @@ public class FoodOrdering : MonoBehaviour
     [SerializeField] private QueueCreating _queueCreator;
     [SerializeField] private Tavern _tavern;
     [SerializeField] private Kitchen _kitchen;
-    [SerializeField] private Shop shop;
-    [SerializeField] private TrainingManager trainingManager;
+    [SerializeField] private Shop _shop;
+    [SerializeField] private TrainingManager _trainingManager;
     [SerializeField] private CustomTextWriter _textWriter;
-    [SerializeField] private Hint tavernHint;
+    [SerializeField] private Hint _tavernHint;
     [Header("ForUnfairGuests")]
     [SerializeField] private int chanceNotToPay = 55;
     [SerializeField] private int chanceToPayHalfOfPrice = 90;
@@ -28,11 +28,20 @@ public class FoodOrdering : MonoBehaviour
     public Tavern tavern {
         get { return _tavern; }
     }
+    public Shop shop {
+        get { return _shop; }
+    }
+    public TrainingManager trainingManager {
+        get { return _trainingManager; }
+    }
     public Kitchen kitchen {
         get { return _kitchen; }
     }
     public CustomTextWriter textWriter {
         get { return _textWriter; }
+    }
+    public Hint tavernHint {
+        get { return _tavernHint; }
     }
 
     private GameObject _curOrder = null;
@@ -87,8 +96,9 @@ public class FoodOrdering : MonoBehaviour
 
     public void EndServicingProcess() {
         if (_curIssue != null && _isOrderTold && queueCreating.charStatus == QueueCreating.Status.Waiting) {
-            _curGuestScript.React();
-            _curGuestScript.Pay();
+            if (_curGuestScript.React()) {
+                _curGuestScript.Pay();
+            }
             queueCreating.charStatus = QueueCreating.Status.Serviced;
             EventBus.onGuestReacted?.Invoke();
         }
