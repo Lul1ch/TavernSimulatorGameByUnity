@@ -8461,10 +8461,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   eventGuests:
-  - {fileID: 2678867580891948636, guid: fc023fa9429ebe940861339dde449339, type: 3}
-  - {fileID: 1334137392151062212, guid: 8b8bdcdb2c5d0d54d8cc8a5fafec7d6e, type: 3}
-  - {fileID: 3182857804251083776, guid: d2c22ff6850576c49bc04e1413033fbc, type: 3}
-  - {fileID: 3256698003701440166, guid: ae4a3aa72c4ba8844987fda6137c02cd, type: 3}
+  - {fileID: 6973175593560289659, guid: c4c9a45603007c84686d3346a57d77b4, type: 3}
   _messageText: {fileID: 1533558498}
   confirmButton: {fileID: 1865290594}
   denyButton: {fileID: 1472405821}

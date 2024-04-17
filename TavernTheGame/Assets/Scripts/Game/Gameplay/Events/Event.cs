@@ -18,21 +18,21 @@ public class Event : MonoBehaviour
     [SerializeField] protected bool activateConfirmButton;
     [SerializeField] protected bool activateDenyButton;
     [SerializeField] protected string welcomeMessage;
-    [SerializeField] protected float _xOffset = 0f;
-    [SerializeField] protected float _yOffset = 0f;
+    [SerializeField] protected bool doesEventRequireAFoodIssuing = false;
+    [SerializeField] protected bool _isGiveButtonAnAnswerButton = false;
 
     protected IEnumerator eventCoroutine;
-    protected Answer _userAnswer;
-    
-    public float xOffset {
-        get { return _xOffset; }
-    }
-    public float yOffset {
-        get { return _yOffset; }
-    }
+    [SerializeField] protected Answer _userAnswer;
     public Answer userAnswer {
         get { return _userAnswer; }
         set { _userAnswer = value; }
+    }
+    public bool isGiveButtonAnAnswerButton {
+        get { return _isGiveButtonAnAnswerButton; }
+    }
+
+    private void Start() {
+        FindObjectOfType<QueueCreating>().GetComponent<QueueCreating>().isItAFoodRequiredEventVar = doesEventRequireAFoodIssuing;
     }
 
     public void InitializeMessageVariables(Text _messageText, Button confirmButton, Button denyButton, Button nextButton, CustomTextWriter textWriter) {
@@ -55,9 +55,11 @@ public class Event : MonoBehaviour
         denyButton.gameObject.SetActive(denyButtonState);
     }
 
-    protected virtual void InvokeAnEvent() {
+    protected virtual void InvokeAnEvent(bool activateButtons = true) {
         ChangeMessageText(welcomeMessage);
-        ChangeMessageButtonsVisibility(activateConfirmButton, activateDenyButton);
+        if (activateButtons) {
+            ChangeMessageButtonsVisibility(activateConfirmButton, activateDenyButton);
+        }
         eventCoroutine = TriggerEventConsequences();
         StartCoroutine(eventCoroutine);
     }
@@ -66,7 +68,11 @@ public class Event : MonoBehaviour
         while (userAnswer == Answer.Empty) {
             yield return new WaitForSeconds(1f);
         }
+
+        
     }
+
+    public virtual void InvokeOnUserGaveFood() {}
 
     protected void InvokeOnUserResponse() {
         ChangeMessageButtonsVisibility(false, false);

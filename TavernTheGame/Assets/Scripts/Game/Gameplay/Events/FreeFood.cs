@@ -14,7 +14,8 @@ public class FreeFood : Event
         InvokeAnEvent();
     }
 
-    protected override void InvokeAnEvent() {
+    protected override void InvokeAnEvent(bool activateButtons = true) {
+
         void ReadyToGiveOrder() => foodOrdering.isOrderTold = true; 
         Action onComplete = null;
         onComplete += ReadyToGiveOrder;

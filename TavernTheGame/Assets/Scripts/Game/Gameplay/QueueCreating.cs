@@ -27,6 +27,7 @@ public class QueueCreating : MonoBehaviour
     private IEnumerator leftClientDestroyCoroutine, clientLeaveCoroutine;
     private bool _gameIsNotEnd = true;
     private bool _isUnfairGuestSpawned = false;
+    private bool _isItAFoodRequiredEventVar = false;
 
     public enum Status {
         NotSpawned,
@@ -59,6 +60,10 @@ public class QueueCreating : MonoBehaviour
         get { return _isUnfairGuestSpawned; }
         set { _isUnfairGuestSpawned = value; }
     }
+    public bool isItAFoodRequiredEventVar {
+        get { return _isItAFoodRequiredEventVar; }
+        set { _isItAFoodRequiredEventVar = value; }
+    }
 
     private void Start() {
         //Заводим куратину на создание нового гостя через определённый временной промежуток
@@ -68,7 +73,7 @@ public class QueueCreating : MonoBehaviour
     }
 
     public void SpawnNewGuest() {
-        _isUnfairGuestSpawned = false;
+        ClearVariables();
         if (!gameIsNotEnd) {
             return;
         }
@@ -81,7 +86,7 @@ public class QueueCreating : MonoBehaviour
         GameObject guestToInstaniate = variants.CharactersSkins[randForGuest];
         _charStatus = Status.Waiting;
         if (randForEvent > reputationNumber) {
-            if ( randForEvent > _eventIntiationBorder && _isEventsReadyToCreate ) {
+            if ( true && _isEventsReadyToCreate) {//randForEvent > _eventIntiationBorder && _isEventsReadyToCreate ) {
                 guestToInstaniate = gameEventsManager.GetRandomEventGuest();
                 _charStatus = Status.EventWasGenerated;
                 _eventIntiationBorder = maxEventInitiationBorder;
@@ -175,6 +180,12 @@ public class QueueCreating : MonoBehaviour
         spawnPoint = new Vector3(spawnPointTransform.position.x, spawnPointTransform.position.y, 0);
     }
 
+
+    public void SetPlayerAnswerWhenUserGaveFood(Event.Answer answer) {
+        if (_charStatus == Status.EventWasGenerated && _curGuest.GetComponent<Event>().isGiveButtonAnAnswerButton) {
+            _curGuest.GetComponent<Event>().userAnswer = answer;
+        }
+    }
     public void SetPlayerAnswer(Event.Answer answer) {
         if (_charStatus == Status.EventWasGenerated) {
             _curGuest.GetComponent<Event>().userAnswer = answer;
@@ -191,11 +202,8 @@ public class QueueCreating : MonoBehaviour
         }
     }
 
-    public bool IsItAFreeFoodEvent() {
-        if (_charStatus == Status.EventWasGenerated) {
-            return _curGuest.TryGetComponent<FreeFood>(out FreeFood hinge) && foodOrdering.isOrderTold;
-        }
-        return false;
+    public bool IsItAFoodRequiredEvent() {
+        return _isItAFoodRequiredEventVar && foodOrdering.isOrderTold;
     }
 
     private void InitTimeToShowDestroyTimer() {
@@ -209,5 +217,10 @@ public class QueueCreating : MonoBehaviour
 
     public void HideTimeBeforeClientLeaveText() {
         timeBeforeClientLeaveText.gameObject.SetActive(false);
+    }
+
+    private void ClearVariables() {
+        _isItAFoodRequiredEventVar = false;
+        _isUnfairGuestSpawned = false;
     }
 }

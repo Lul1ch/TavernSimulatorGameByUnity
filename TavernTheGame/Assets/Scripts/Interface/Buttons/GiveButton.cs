@@ -28,7 +28,7 @@ public class GiveButton : MonoBehaviour
 
     private void GiveCustomerSelectedOrder() {
         string foodName = food.foodName;
-        if (foodOrdering.curOrder != null && tavern.IsNumberGreaterThanZero(foodName) && foodOrdering.curIssue == null && foodOrdering.isOrderTold || queueCreating.IsItAFreeFoodEvent()) {
+        if (foodOrdering.curOrder != null && tavern.IsNumberGreaterThanZero(foodName) && foodOrdering.curIssue == null && foodOrdering.isOrderTold || queueCreating.IsItAFoodRequiredEvent()) {
             if ( SceneManager.GetActiveScene().name == "Training") {
                 string orderFoodName = foodOrdering.curOrder.GetComponent<Food>().foodName;
                 string issueFoodName = tavern.GetFoodObject(foodName).GetComponent<Food>().foodName; 
@@ -45,8 +45,12 @@ public class GiveButton : MonoBehaviour
             //Визуальное обновление окна склада в игре
             tavern.UpdateStorageInfo(foodName);
             
-            queueCreating.SetPlayerAnswer(Event.Answer.FreeDish);
+            queueCreating.SetPlayerAnswerWhenUserGaveFood(Event.Answer.FreeDish);
             foodOrdering.EndServicingProcess();
+
+            if( queueCreating.curGuest.TryGetComponent<Event>(out Event hinge) ) {
+                queueCreating.curGuest.GetComponent<Event>().InvokeOnUserGaveFood();
+            }
 
             CanvasButtons.PlayOnClickSound(gameObject.GetComponent<AudioSource>());
         } else if (tavern.IsNumberGreaterThanZero(foodName) && isReadyForNextHint) {
