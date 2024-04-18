@@ -89,7 +89,7 @@ public class QueueCreating : MonoBehaviour
         GameObject guestToInstaniate = variants.CharactersSkins[randForGuest];
         _charStatus = Status.Waiting;
         if (randForEvent > reputationNumber) {
-            if ( _isEventsReadyToCreate) {//randForEvent > _eventIntiationBorder && _isEventsReadyToCreate ) {
+            if ( randForEvent > _eventIntiationBorder && _isEventsReadyToCreate ) {
                 guestToInstaniate = gameEventsManager.GetRandomEventGuest();
                 _charStatus = Status.EventWasGenerated;
                 _eventIntiationBorder = maxEventInitiationBorder;
