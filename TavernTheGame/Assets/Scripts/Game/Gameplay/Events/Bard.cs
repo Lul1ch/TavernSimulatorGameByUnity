@@ -5,10 +5,11 @@ using UnityEngine;
 
 public class Bard : Event
 {
-    [Header("SecretBonusVariables")]
+    [Header("BardVariables")]
     [SerializeField] private Character characterScript;
     [SerializeField] private List<string> supportingMessages;
     [SerializeField] private List<string> resultMessages;
+    [SerializeField] private string onDenyResponseMessage;
     [SerializeField] private Tavern tavern;
     [SerializeField] private int maxBonusModifier = 5;
     static private int _curBonusModifier = -1;
@@ -17,11 +18,11 @@ public class Bard : Event
 
     private int indexOfCurSupportingMessage {
         get { return _indexOfCurSupportingMessage; }
-        set { if (value <= supportingMessages.Count - 1 && value >= 0) { _indexOfCurSupportingMessage = value; Debug.Log("Index sup " + _indexOfCurSupportingMessage); } }
+        set { if (value <= supportingMessages.Count - 1 && value >= 0) { _indexOfCurSupportingMessage = value; } }
     }
     private int indexOfCurResultMessage {
         get { return _indexOfCurResultMessage; }
-        set { if (value <= resultMessages.Count - 1 && value >= 0) { _indexOfCurResultMessage = value; Debug.Log("Index res " + _indexOfCurResultMessage);} }
+        set { if (value <= resultMessages.Count - 1 && value >= 0) { _indexOfCurResultMessage = value; } }
     }
     private int curBonusModifier {
         get { return _curBonusModifier; }
@@ -57,11 +58,11 @@ public class Bard : Event
         if (userAnswer == Answer.Yes) {
             tavern.tavernBonus += curBonusModifier;
             ChangeMessageText(resultMessages[indexOfCurResultMessage++], false);
-            _curBonusModifier++;
+            curBonusModifier++;
         } else {
             indexOfCurSupportingMessage--;
+            ChangeMessageText(onDenyResponseMessage);
             characterScript.Pay();
-            InvokeOnUserResponse();
         }
         InvokeOnUserResponse();
     }

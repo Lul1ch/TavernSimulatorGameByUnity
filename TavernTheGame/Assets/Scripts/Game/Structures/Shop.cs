@@ -10,6 +10,7 @@ public class Shop : MonoBehaviour
 {
     [SerializeField] private List<GameObject> _foodStore;
     [SerializeField] private List<GameObject> alcohol;
+    [SerializeField] private List<GameObject> natureFood;
     public List<GameObject> foodStore {
         get { return _foodStore; }
     }
@@ -90,5 +91,9 @@ public class Shop : MonoBehaviour
 
     public GameObject GetRandomAlcohol() {
         return alcohol[Random.Range(0, alcohol.Count)]; 
+    }
+
+    public GameObject GetRandomNatureFood() {
+        return natureFood[Random.Range(0, natureFood.Count)]; 
     }
 }

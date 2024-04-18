@@ -24,7 +24,7 @@ public class UnfairCharacter : Character
         int rand = UnityEngine.Random.Range(0, 100);
         if (rand < chanceNotToPay) {
             foodOrdering.tavernHint.ShowHint(Hint.EventType.isUnfairGuestGone);
-            EventBus.onGuestLeft?.Invoke();
+            gameObject.SetActive(false);
             return false;
         }
         base.React(foodOrdering.variants.GoodReactPharasesUnfair, foodOrdering.variants.BadReactPharasesUnfair);

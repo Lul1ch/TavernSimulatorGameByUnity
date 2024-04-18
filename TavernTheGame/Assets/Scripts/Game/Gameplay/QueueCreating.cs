@@ -74,6 +74,9 @@ public class QueueCreating : MonoBehaviour
 
     public void SpawnNewGuest() {
         ClearVariables();
+        if ( SceneManager.GetActiveScene().name != "Training" ) {
+            EventBus.onGuestSpawned?.Invoke();
+        }
         if (!gameIsNotEnd) {
             return;
         }
@@ -86,7 +89,7 @@ public class QueueCreating : MonoBehaviour
         GameObject guestToInstaniate = variants.CharactersSkins[randForGuest];
         _charStatus = Status.Waiting;
         if (randForEvent > reputationNumber) {
-            if ( true && _isEventsReadyToCreate) {//randForEvent > _eventIntiationBorder && _isEventsReadyToCreate ) {
+            if ( _isEventsReadyToCreate) { //randForEvent > _eventIntiationBorder && _isEventsReadyToCreate ) {
                 guestToInstaniate = gameEventsManager.GetRandomEventGuest();
                 _charStatus = Status.EventWasGenerated;
                 _eventIntiationBorder = maxEventInitiationBorder;
@@ -104,10 +107,6 @@ public class QueueCreating : MonoBehaviour
         float zCoord = spawnPoint.z;
 
         _curGuest = Instantiate(guestToInstaniate, new Vector3(xCoord, yCoord, zCoord), Quaternion.identity);
-
-        if ( SceneManager.GetActiveScene().name != "Training" ) {
-            EventBus.onGuestSpawned?.Invoke();
-        }
     }
 
     public void DestroyServicedGuest() {
