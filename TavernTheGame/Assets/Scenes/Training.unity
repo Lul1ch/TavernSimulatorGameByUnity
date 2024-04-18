@@ -279,6 +279,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _foodStore: []
   alcohol: []
+  natureFood: []
   parent: {fileID: 673268037}
   shopContentElement: {fileID: 661778315839437868, guid: 9dce99db67b400d4fa9bcaec7e389c97, type: 3}
 --- !u!1 &194226949
@@ -6257,8 +6258,6 @@ MonoBehaviour:
   _trainingManager: {fileID: 729941835}
   _textWriter: {fileID: 766761679}
   _tavernHint: {fileID: 1646632968}
-  chanceNotToPay: 55
-  chanceToPayHalfOfPrice: 90
   _messageText: {fileID: 1533558498}
 --- !u!114 &1391082696
 MonoBehaviour:
@@ -8332,7 +8331,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0.85998535, y: 0.0031738281}
+  m_AnchoredPosition: {x: 0.85998535, y: 0.003753662}
   m_SizeDelta: {x: -2.26, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1939250285

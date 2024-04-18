@@ -12,6 +12,7 @@ public class FreeFood : Event
     private void Start() {
         InitializeVariables();
         InvokeAnEvent();
+        FindObjectOfType<QueueCreating>().GetComponent<QueueCreating>().isItAFoodRequiredEventVar = doesEventRequireAFoodIssuing;
     }
 
     protected override void InvokeAnEvent(bool activateButtons = true) {

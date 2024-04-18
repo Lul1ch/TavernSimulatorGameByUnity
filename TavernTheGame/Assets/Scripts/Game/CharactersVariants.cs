@@ -3,7 +3,6 @@ using UnityEngine;
 
 public class CharactersVariants : MonoBehaviour {
     [Header("Characters")]
-    public List<GameObject> Characters;
     public List<GameObject> UnfairCharacters;
     public List<GameObject> CharactersSkins;
 

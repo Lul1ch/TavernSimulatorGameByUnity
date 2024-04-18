@@ -31,10 +31,6 @@ public class Event : MonoBehaviour
         get { return _isGiveButtonAnAnswerButton; }
     }
 
-    private void Start() {
-        FindObjectOfType<QueueCreating>().GetComponent<QueueCreating>().isItAFoodRequiredEventVar = doesEventRequireAFoodIssuing;
-    }
-
     public void InitializeMessageVariables(Text _messageText, Button confirmButton, Button denyButton, Button nextButton, CustomTextWriter textWriter) {
         this._messageText = _messageText;
         this.confirmButton = confirmButton;

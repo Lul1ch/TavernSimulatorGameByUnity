@@ -30,6 +30,7 @@ public class Bard : Event
     }
 
     private void Start() {
+        FindObjectOfType<QueueCreating>().GetComponent<QueueCreating>().isItAFoodRequiredEventVar = doesEventRequireAFoodIssuing;
         InitializeVariables();
         characterScript.SayHello();
         characterScript.MakeOrder();

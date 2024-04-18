@@ -15,9 +15,6 @@ public class FoodOrdering : MonoBehaviour
     [SerializeField] private TrainingManager _trainingManager;
     [SerializeField] private CustomTextWriter _textWriter;
     [SerializeField] private Hint _tavernHint;
-    [Header("ForUnfairGuests")]
-    [SerializeField] private int chanceNotToPay = 55;
-    [SerializeField] private int chanceToPayHalfOfPrice = 90;
 
     public CharactersVariants variants {
         get { return _variants; }
@@ -104,108 +101,9 @@ public class FoodOrdering : MonoBehaviour
         }
     }
 
-    private void MakeOrder() {
-        if ( SceneManager.GetActiveScene().name == "Training" ) {
-            trainingManager.ShowOrHideButtons(false);
-        }
-
-        if (queueCreating.isUnfairGuestSpawned) {
-            curOrder = shop.GetRandomAlcohol();
-            return;
-        }
-        curOrder = kitchen.GetDishByIndex(UnityEngine.Random.Range(0, kitchen.GetKitchenDishesCount()));
-    }
-
-    private Mood React() {
-        Mood reaction = Mood.Sad;
-        //Формируем реакцию клиента в зависимости от того совпадает ли выданный заказ с заказом клиента
-        reaction = (_curIssue.GetComponent<Food>().foodName == _curOrder.GetComponent<Food>().foodName) ? Mood.Happy : Mood.Sad;
-        return reaction;
-    }
-
-    private void Pay(Mood reaction) {
-        float paymentModifier = 1;
-        if (queueCreating.isUnfairGuestSpawned) {
-            int randForUnfairGuest = UnityEngine.Random.Range(0, 100);
-            if (randForUnfairGuest < chanceNotToPay) {
-                tavernHint.ShowHint(Hint.EventType.isUnfairGuestGone);
-                EventBus.onGuestLeft?.Invoke();
-                return;
-            } else if ( randForUnfairGuest < chanceToPayHalfOfPrice) {
-                paymentModifier = 0.5f;
-            }
-        }
-        Food clientOrder = _curOrder.GetComponent<Food>();
-        Food tavernDish = _curIssue.GetComponent<Food>();
-        int rand = UnityEngine.Random.Range(0, 100), chanceToDoubleThePayment = 20;
-        int tips = tavern.tavernBonus, priceToPay = tavernDish.price;
-        priceToPay = (isDoublePayChanceBought && chanceToDoubleThePayment > rand) ? priceToPay*2 : priceToPay;
-        //Костыль
-        if (isDoublePayChanceBought && chanceToDoubleThePayment > rand) { Debug.Log("Price is doubled " + priceToPay.ToString()); }
-        if (_curIssue.GetComponent<Food>().foodQuality != Food.Quality.Awful) {
-            float payment = Mathf.Round(priceToPay) + tips; 
-            tavern.tavernMoney += Mathf.Round((int)payment * paymentModifier);
-        }
-        tavern.tavernBonus += (int)reaction;
-    }
-
-    private void Answer(Mood reaction) {
-        int rand = 0;
-        string messageTextStr = "Хорошо.";
-        if (reaction == Mood.Happy) {
-            rand = UnityEngine.Random.Range(0, variants.GoodReactPharases.Count);
-            messageTextStr = variants.GoodReactPharases[rand];
-        } else if (reaction == Mood.Sad) {
-            rand = UnityEngine.Random.Range(0, variants.BadReactPharases.Count);
-            messageTextStr = variants.BadReactPharases[rand];
-        }
-        Say(messageTextStr);
-    }
-
-    private void SayHello() {
-        GameObject curCustomer = queueCreating.curGuest;
-        int rand = UnityEngine.Random.Range(0, variants.HelloPhrases.Count);
-        string messageTextStr = variants.HelloPhrases[rand];
-        Say(messageTextStr);
-    }
-
-    public void SayWhatYouWant() {
-        //Обновляем интерфейс сообщения
-        int rand = UnityEngine.Random.Range(0, variants.OrderPhrases.Count);
-        string messageTextStr = variants.OrderPhrases[rand].Replace("^", "\"" + _curOrder.name + "\"");
-
-        void ReadyToGiveOrder() => _isOrderTold = true; 
-        void StartTimer() => queueCreating.InvokeSetTimeIsUp();
-        
-        Action onComplete = null;
-        onComplete += ReadyToGiveOrder;
-        onComplete += StartTimer;
-        if (isAutomaticCookingBought && tavern.GetNumberOfFoodInStorage(_curOrder.name) == 0) {
-            void AutomaticDishCook() => kitchen.AutomaticCookStart(_curOrder.name); 
-            onComplete += AutomaticDishCook;
-        }
-        Say(messageTextStr, onComplete);
-        
-        if ( SceneManager.GetActiveScene().name == "Training" ) {
-            EventBus.onTrainGuestToldHisOrder?.Invoke();
-            trainingManager.SaveMessage(trainingManager.indexToSaveClientOrder, messageTextStr);
-        }
-    }
-
-    public void AnswerIfClientWasntServiced() {
-        //Обновляем интерфейс сообщения
-        int rand = UnityEngine.Random.Range(0, variants.WasntServicedPhrases.Count);
-        string messageTextStr = variants.WasntServicedPhrases[rand];
-        Say(messageTextStr);
-    }
-
     public void ClearVariablesValues() {
         _curOrder = null;
         _curIssue = null;
         _isOrderTold = false;
-    }
-
-    private void Say(string messageTextStr, Action onComplete = null) {
-        textWriter.CallMessageWriting(_messageText, queueCreating.UpdateAllGenderRelatedWords(messageTextStr), 0.05f, onComplete);
     }
 }

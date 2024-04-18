@@ -453,12 +453,11 @@ MonoBehaviour:
   - {fileID: 7264275863283836993, guid: c812524b73d172145b37190d6f02ae97, type: 3}
   - {fileID: 6553859512350844597, guid: ba573d9e59288384a9bfe360a6eec400, type: 3}
   - {fileID: 3885127059034939259, guid: 4b2db691daf6e534fb741ba28fd2d468, type: 3}
-  - {fileID: 4671588902404071097, guid: 3e930b29009c9fb42984ee33732e3bf4, type: 3}
   - {fileID: 4580522146714174745, guid: c7b2bf9ee20e79649a1f60999b824b25, type: 3}
   - {fileID: 5821462067852556008, guid: 121be8bda235c4448a876b4bde03bc2b, type: 3}
   - {fileID: 2375947227772490418, guid: 4f2f4508caecf5a4b920883cfadcfbc7, type: 3}
   - {fileID: 7663888217010165910, guid: 67f971371c703bc4ca6888356d7a879b, type: 3}
-  - {fileID: 1214601942928797431, guid: 6fb0ef2236824fd48a0f4d0da116cc05, type: 3}
+  - {fileID: 7959656565180557776, guid: a20aa6b2d66736f489b65fec4b59654c, type: 3}
   - {fileID: 9094816943121590810, guid: d3d179a55242c044289c2a00b2ad0d17, type: 3}
   alcohol:
   - {fileID: 5572207454818117774, guid: 27222f3c2d6159545b95dd9c7b7d1863, type: 3}
@@ -4681,13 +4680,17 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   dishes:
+  - {fileID: 14199176597576278, guid: 5f13523121dbb93479e796ce03296ec3, type: 3}
   - {fileID: 4689151228524657258, guid: 4c2b455b42d73314297fc210e46868cc, type: 3}
   - {fileID: 1558344440999048511, guid: c1a52a336ac48344ea52786cbf33e90d, type: 3}
+  - {fileID: 2156915347310209625, guid: bf1acc25edae7664eadd5336da209212, type: 3}
+  - {fileID: 3350254675761571812, guid: ddef41087a056ae4f813a1b6b45add59, type: 3}
   - {fileID: 48229715033592946, guid: 216e45b81a3c04f42a0550aedd876ec6, type: 3}
   - {fileID: 6041560023597966300, guid: b1956760ed5cc7a4785c29d7145b2319, type: 3}
   - {fileID: 532176508905772173, guid: 1f9e067ecb6198f4ea330dad0ec4da29, type: 3}
   - {fileID: 8807613066196385588, guid: 135e7f7f51e5a0b4883526fc9ceeedff, type: 3}
   - {fileID: 3530387243363237722, guid: ac9d41d134861f846b6441e2719fa8e2, type: 3}
+  - {fileID: 1214601942928797431, guid: 6fb0ef2236824fd48a0f4d0da116cc05, type: 3}
   - {fileID: 3647754014617163100, guid: a6f83eb848da55d458ba06d3f0b7e09f, type: 3}
   kitchenContentElementSample: {fileID: 2777668332133976790, guid: 1ed57a58f48a68646ac09eb67fa801df, type: 3}
   parent: {fileID: 1939250284}
@@ -7131,8 +7134,6 @@ MonoBehaviour:
   _trainingManager: {fileID: 0}
   _textWriter: {fileID: 370779447}
   _tavernHint: {fileID: 1189765604}
-  chanceNotToPay: 55
-  chanceToPayHalfOfPrice: 90
   _messageText: {fileID: 1533558498}
 --- !u!114 &1391082696
 MonoBehaviour:
