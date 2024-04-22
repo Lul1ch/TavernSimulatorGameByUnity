@@ -6,12 +6,15 @@ public class MusicButton : MonoBehaviour
 {
     [SerializeField] private List<GameObject> showOrHideObjects;
     [SerializeField] private AudioSource musicSource;
-    [SerializeField] private float minMusicChangeStep = 0.05f;
+    [SerializeField] private Slider slider;
     [Header("Button images")]
-    [SerializeField] private Image mainButtomImage;
+    [SerializeField] private Image mainButtonImage;
     [SerializeField] private Sprite musicOff;
     [SerializeField] private Sprite musicOn;
 
+    private void Start() {
+        ChangeSliderValue(musicSource.volume);
+    }
 
     public void ShowOrHideObjects() {
         foreach(var gameObject in showOrHideObjects) {
@@ -19,20 +22,21 @@ public class MusicButton : MonoBehaviour
         }
     }
 
-    public void MakeMusicVolumeLouder() {
-        if (musicSource.volume <= 0f) {
-            mainButtomImage.sprite = musicOn;
-        }
-        musicSource.volume += minMusicChangeStep;
+    public void ChangeSliderValue(float value) {
+        slider.value = value;
+        UpdateMusicButtonSprite();
     }
 
-    public void MakeMusicVolumeQuieter() {
+    public void ChangeMusicVolume() {
+        musicSource.volume = slider.value;
+        UpdateMusicButtonSprite();
+    }
+
+    private void UpdateMusicButtonSprite() {
         if (musicSource.volume <= 0f) {
-            return;
-        }
-        musicSource.volume -= minMusicChangeStep;
-        if (musicSource.volume <= 0f) {
-            mainButtomImage.sprite = musicOff;
+            mainButtonImage.sprite = musicOff;
+        } else {
+            mainButtonImage.sprite = musicOn;
         }
     }
 }
