@@ -57,7 +57,6 @@ public class CookButton : MonoBehaviour
                     
             foreach(var component in components) {
                 tavern.ReduceFoodNumber(component.Key.name, component.Value);
-                tavern.UpdateStorageInfo(component.Key.name);
             }
             //Создаём таймер готовки блюда
             CanvasButtons.PlayOnClickSound(gameObject.GetComponent<AudioSource>());
@@ -70,8 +69,7 @@ public class CookButton : MonoBehaviour
             curTimer.GetTimerTextObject();
             curTimer.SetMultiplier((float)dishScript.dishCookingTime);
             
-            tavern.UpdateStorageInfo(dishScript.foodName, dishObj, 0);
-            tavern.MoveFoodToTheTop(dishScript.foodName);
+            tavern.UpdateDictionary(dishScript.foodName, tavern.dishContentParent, dishObj, 0);
             
             curCookingDishCounter--;
 
@@ -98,8 +96,7 @@ public class CookButton : MonoBehaviour
         while(curTimer.GetFillAmount() > 0) {
             yield return new WaitForSeconds(1f);
         }
-        tavern.UpdateDictionary(dishScript.foodName, dishObj);
-        tavern.UpdateStorageInfo(dishScript.foodName, dishObj);
+        tavern.UpdateDictionary(dishScript.foodName, tavern.dishContentParent, dishObj);
         
         curCookingDishCounter++;
         if ( SceneManager.GetActiveScene().name == "Training" ) {

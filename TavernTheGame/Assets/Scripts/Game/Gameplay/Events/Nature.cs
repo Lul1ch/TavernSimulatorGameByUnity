@@ -37,9 +37,7 @@ public class Nature : Event
                     GameObject productObject = shop.GetRandomNatureFood();
                     Food product = productObject.GetComponent<Food>();
 
-                    tavern.UpdateDictionary(product.foodName, productObject);
-                    tavern.UpdateStorageInfo(product.foodName, productObject);
-                    tavern.MoveFoodToTheTop(product.foodName);
+                    tavern.UpdateDictionary(product.foodName, tavern.foodContentParent, productObject);
                 }
             } else {
                 ChangeMessageText(doubtMessage);

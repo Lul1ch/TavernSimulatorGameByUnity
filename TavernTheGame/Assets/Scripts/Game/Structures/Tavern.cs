@@ -11,7 +11,11 @@ public class Tavern : MonoBehaviour
     [SerializeField] private Text moneyAmount, bonusNumber;
 
     [SerializeField] private GameObject contentSample;
-    [SerializeField] private Transform parent;
+    [Header("StorageWindow")]
+    [SerializeField] private Transform _foodContentParent;
+    [SerializeField] private Transform _dishContentParent;
+    [SerializeField] private GameObject foodHeader;
+    [SerializeField] private GameObject dishHeader;
 
     private float _tavernMoney = 100f;
     private int _moneyBonus = 0;
@@ -29,20 +33,32 @@ public class Tavern : MonoBehaviour
         set { _bonusesValueModifier = value; }
         get { return _bonusesValueModifier; }
     }
+    public Transform foodContentParent {
+        get { return _foodContentParent; }
+    }
+    public Transform dishContentParent {
+        get { return _dishContentParent; }
+    }
 
-
-    public void UpdateDictionary(string name, GameObject foodObject) {
-        //Если еда уже есть на складе, то просто увеличиваем её счётчик
+    public void UpdateDictionary(string name, Transform parent, GameObject foodObject, int foodNumber = 1) {
+        if (IsFoodStorageEmpty(parent)) {
+            if (parent == _dishContentParent) {
+                ChangeHeaderVisuability(dishHeader, true);
+            } else {
+                ChangeHeaderVisuability(foodHeader, true);
+            }
+        }
         if (foodStorage.ContainsKey(name) == true) {
             foodStorage[name]++;
         } else {
-        //В противном случае добавляем её на склад и образец в отдельный массив
-            foodStorage.Add(name, 1);
+            foodStorage.Add(name, foodNumber);
             foodSamples.Add(name, foodObject);
         }
+        UpdateStorageInfo(name, parent, foodObject, foodNumber);
+        MoveFoodToTheTop(name, parent);
     }
 
-    public void UpdateStorageInfo(string foodName, GameObject foodObject = null, int foodNumber = 1) {
+    public void UpdateStorageInfo(string foodName, Transform parent, GameObject foodObject = null, int foodNumber = 1) {
         //Пытаемся найти созданный элемент интерфейса
         Transform curFood = parent.Find(foodName);
         //Если не находим, то создаём новый и добавляем в скроллер
@@ -65,12 +81,12 @@ public class Tavern : MonoBehaviour
         }
         catch
         {
-            Debug.Log(curFood + " " + curFood.Find("Number") + " " + curFood.Find("Number").GetComponent<Text>() + " " + foodStorage[foodName].ToString());
+            Debug.Log(curFood + " " + curFood.Find("Number") + " " + curFood.Find("Number").GetComponent<Text>() + " " + foodStorage.ContainsKey(foodName).ToString());
         }
         }
     }
 
-    public void MoveFoodToTheTop(string foodName) {
+    public void MoveFoodToTheTop(string foodName, Transform parent) {
         Transform curFood = parent.Find(foodName);
         if (curFood != null) {
             curFood.SetSiblingIndex(0);
@@ -117,15 +133,26 @@ public class Tavern : MonoBehaviour
 
     public void ReduceFoodNumber(string foodName, int foodNumber = 1) {
         foodStorage[foodName] -= foodNumber;
+        Transform parent = (foodSamples[foodName].TryGetComponent<Food>(out Food temp)) ? foodContentParent : dishContentParent;
         if (foodStorage[foodName] <= 0) {
-            DestroyTavernContentElement(foodName);
+            DestroyTavernContentElement(foodName, parent);
+        } else {
+            UpdateStorageInfo(foodName, parent);
         }
     }
 
-    private void DestroyTavernContentElement(string foodName) {
+    private void DestroyTavernContentElement(string foodName, Transform parent) {
         Transform curFood = parent.Find(foodName);
         if (curFood.gameObject != null) {
             Destroy(curFood.gameObject);
+        }
+        Debug.Log(IsFoodStorageEmpty(parent));
+        if (IsFoodStorageEmpty(parent)) {
+            if (parent == _dishContentParent) {
+                ChangeHeaderVisuability(dishHeader, false);
+            } else {
+                ChangeHeaderVisuability(foodHeader, false);
+            }
         }
     }
 
@@ -133,12 +160,21 @@ public class Tavern : MonoBehaviour
         return (foodStorage.ContainsKey(foodName) && foodStorage[foodName] > 0);
     }
 
-    public bool IsFoodStorageEmpty() {
-        return (parent.GetComponentsInChildren<Transform>().Length == 1);
+    public bool IsFoodStoragesEmpty() {
+        return (foodContentParent.GetComponentsInChildren<Transform>().Length == 1 && dishContentParent.GetComponentsInChildren<Transform>().Length == 1);
+    }
+
+    public bool IsFoodStorageEmpty(Transform parent) {
+        Debug.Log(parent.GetComponentsInChildren<Transform>().Length);
+        return parent.GetComponentsInChildren<Transform>().Length == 1;
     }
 
     public void ChangeTavernBonusWithOutModifier(int value) {
         _moneyBonus += value;
         UpdateCounterInterface();
+    }
+
+    private void ChangeHeaderVisuability(GameObject header, bool activity) {
+        header.SetActive(activity);
     }
 }
