@@ -12,7 +12,7 @@ public class Tavern : MonoBehaviour
 
     [SerializeField] private GameObject contentSample;
     [Header("StorageWindow")]
-    [SerializeField] private Transform _foodContentParent;
+    [SerializeField] private Transform _productContentParent;
     [SerializeField] private Transform _dishContentParent;
     [SerializeField] private GameObject foodHeader;
     [SerializeField] private GameObject dishHeader;
@@ -33,8 +33,8 @@ public class Tavern : MonoBehaviour
         set { _bonusesValueModifier = value; }
         get { return _bonusesValueModifier; }
     }
-    public Transform foodContentParent {
-        get { return _foodContentParent; }
+    public Transform productContentParent {
+        get { return _productContentParent; }
     }
     public Transform dishContentParent {
         get { return _dishContentParent; }
@@ -55,14 +55,14 @@ public class Tavern : MonoBehaviour
             foodSamples.Add(name, foodObject);
         }
         UpdateStorageInfo(name, parent, foodObject, foodNumber);
-        MoveFoodToTheTop(name, parent);
     }
 
-    public void UpdateStorageInfo(string foodName, Transform parent, GameObject foodObject = null, int foodNumber = 1) {
-        //Пытаемся найти созданный элемент интерфейса
+    public void UpdateStorageInfo(string foodName, Transform parent, GameObject foodObject = null, int foodNumber = 1, bool force = false) {
         Transform curFood = parent.Find(foodName);
-        //Если не находим, то создаём новый и добавляем в скроллер
-        if (curFood == null) {
+        if (curFood == parent) {
+            Debug.Log("Tavern r63");
+        }
+        if (curFood == null || curFood == parent) {
             GameObject newContentElem = Instantiate(contentSample, contentSample.transform.position, contentSample.transform.rotation);
             GameObject curFoodObject = InstantiateFoodIcon(newContentElem, foodObject);
             newContentElem.transform.Find("Number").GetComponent<Text>().text = foodNumber.ToString();
@@ -73,17 +73,23 @@ public class Tavern : MonoBehaviour
 
             newContentElem.name = foodName;
             newContentElem.transform.SetParent(parent, false);
+            if (force) {
+                Destroy(newContentElem);
+            } else {
+                UpdateStorageInfo(foodName + "_temp", parent, foodObject, foodNumber, true);
+            }
         } else {
         //Если нашли, то просто обновляем счётчик
-        try
-        {
-            curFood.Find("Number").GetComponent<Text>().text = foodStorage[foodName].ToString();
+            try
+            {
+                curFood.Find("Number").GetComponent<Text>().text = foodStorage[foodName].ToString();
+            }
+            catch
+            {
+                Debug.Log(curFood + " " + foodStorage.ContainsKey(foodName).ToString());
+            }
         }
-        catch
-        {
-            Debug.Log(curFood + " " + curFood.Find("Number") + " " + curFood.Find("Number").GetComponent<Text>() + " " + foodStorage.ContainsKey(foodName).ToString());
-        }
-        }
+        MoveFoodToTheTop(foodName, parent);
     }
 
     public void MoveFoodToTheTop(string foodName, Transform parent) {
@@ -133,7 +139,7 @@ public class Tavern : MonoBehaviour
 
     public void ReduceFoodNumber(string foodName, int foodNumber = 1) {
         foodStorage[foodName] -= foodNumber;
-        Transform parent = (foodSamples[foodName].TryGetComponent<Food>(out Food temp)) ? foodContentParent : dishContentParent;
+        Transform parent = (foodSamples[foodName].TryGetComponent<Product>(out Product temp)) ? productContentParent : dishContentParent;
         if (foodStorage[foodName] <= 0) {
             DestroyTavernContentElement(foodName, parent);
         } else {
@@ -146,7 +152,9 @@ public class Tavern : MonoBehaviour
         if (curFood.gameObject != null) {
             Destroy(curFood.gameObject);
         }
-        Debug.Log(IsFoodStorageEmpty(parent));
+        foodStorage.Remove(foodName);
+        foodSamples.Remove(foodName);
+
         if (IsFoodStorageEmpty(parent)) {
             if (parent == _dishContentParent) {
                 ChangeHeaderVisuability(dishHeader, false);
@@ -161,7 +169,7 @@ public class Tavern : MonoBehaviour
     }
 
     public bool IsFoodStoragesEmpty() {
-        return (foodContentParent.GetComponentsInChildren<Transform>().Length == 1 && dishContentParent.GetComponentsInChildren<Transform>().Length == 1);
+        return (productContentParent.GetComponentsInChildren<Transform>().Length == 1 && dishContentParent.GetComponentsInChildren<Transform>().Length == 1);
     }
 
     public bool IsFoodStorageEmpty(Transform parent) {
@@ -175,6 +183,8 @@ public class Tavern : MonoBehaviour
     }
 
     private void ChangeHeaderVisuability(GameObject header, bool activity) {
-        header.SetActive(activity);
+        if (header != null) {
+            header.SetActive(activity);
+        }
     }
 }

@@ -27,7 +27,7 @@ public class BuyButton : MonoBehaviour
     private void BuySelectedProduct() {
         if (tavern.tavernMoney >= product.price) {
             tavern.tavernMoney -= product.price;
-            tavern.UpdateDictionary(product.foodName, tavern.foodContentParent, productObject);
+            tavern.UpdateDictionary(product.foodName, tavern.productContentParent, productObject);
 
             gameObject.GetComponent<AudioSource>().Play();
             if ( SceneManager.GetActiveScene().name == "Training" && isCreditDecreaseAvailable) {
