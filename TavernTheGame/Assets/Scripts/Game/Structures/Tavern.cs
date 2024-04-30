@@ -150,6 +150,7 @@ public class Tavern : MonoBehaviour
     private void DestroyTavernContentElement(string foodName, Transform parent) {
         Transform curFood = parent.Find(foodName);
         if (curFood.gameObject != null) {
+            curFood.SetParent(null);
             Destroy(curFood.gameObject);
         }
         foodStorage.Remove(foodName);
@@ -169,12 +170,11 @@ public class Tavern : MonoBehaviour
     }
 
     public bool IsFoodStoragesEmpty() {
-        return (productContentParent.GetComponentsInChildren<Transform>().Length == 1 && dishContentParent.GetComponentsInChildren<Transform>().Length == 1);
+        return IsFoodStorageEmpty(productContentParent) && IsFoodStorageEmpty(dishContentParent);
     }
 
     public bool IsFoodStorageEmpty(Transform parent) {
-        Debug.Log(parent.GetComponentsInChildren<Transform>().Length);
-        return parent.GetComponentsInChildren<Transform>().Length == 1;
+        return parent.childCount == 0;
     }
 
     public void ChangeTavernBonusWithOutModifier(int value) {
