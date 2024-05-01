@@ -89,10 +89,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a5e53fa06f5459b449ccb1f35473c661, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _foodName: 
+  _foodName: "\u0425\u043B\u0435\u0431"
   _foodQuality: 2
-  _price: 6
+  _price: 4
   _dishComponents:
   - {fileID: 7264275863283836993, guid: c812524b73d172145b37190d6f02ae97, type: 3}
   _dishCookingTime: 6
-  _dishSprite: {fileID: 0}
+  _dishSprite: {fileID: 21300052, guid: 142ff8784e552734f9d6a895491d0ae8, type: 3}

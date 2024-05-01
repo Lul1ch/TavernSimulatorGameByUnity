@@ -58,10 +58,11 @@ public class Tavern : MonoBehaviour
     }
 
     public void UpdateStorageInfo(string foodName, Transform parent, GameObject foodObject = null, int foodNumber = 1, bool force = false) {
-        Transform curFood = parent.Find(foodName);
-        if (curFood == parent) {
-            Debug.Log("Tavern r63");
+        if (foodName == "") {
+            Debug.Log("Tavern r63 (" + foodName + ")");
+            foodName = foodObject.GetComponent<Food>().foodName;
         }
+        Transform curFood = parent.Find(foodName);
         if (curFood == null || curFood == parent) {
             GameObject newContentElem = Instantiate(contentSample, contentSample.transform.position, contentSample.transform.rotation);
             GameObject curFoodObject = InstantiateFoodIcon(newContentElem, foodObject);

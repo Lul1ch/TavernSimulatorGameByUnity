@@ -32,8 +32,9 @@ public class Kitchen : MonoBehaviour
             elemTransform.Find("Time").GetComponent<Text>().text = curDishCookingTime.ToString();
             elemTransform.Find("Name").GetComponent<TMP_Text>().text = elem.name;
             elemTransform.Find("Cook").GetComponent<CookButton>().InitDishVariable(curDish);
-
-            elemDishScript.foodName = elem.name;
+            if (elemDishScript.foodName == "") {
+                elemDishScript.foodName = elem.name;
+            }
             elemDishScript.dishIndex = index;
             elemDishScript.dishSprite = curDishSprite;
 

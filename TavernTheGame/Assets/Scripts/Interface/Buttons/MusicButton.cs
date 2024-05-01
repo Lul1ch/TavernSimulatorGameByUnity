@@ -22,6 +22,12 @@ public class MusicButton : MonoBehaviour
         }
     }
 
+    public void ShowOrHideObjects(bool value) {
+        foreach(var gameObject in showOrHideObjects) {
+            gameObject.SetActive(value);
+        }
+    }
+
     public void ChangeSliderValue(float value) {
         slider.value = value;
         UpdateMusicButtonSprite();
