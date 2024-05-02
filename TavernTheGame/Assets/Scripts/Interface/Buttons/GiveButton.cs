@@ -28,7 +28,7 @@ public class GiveButton : MonoBehaviour
 
     private void GiveCustomerSelectedOrder() {
         string foodName = food.foodName;
-        if (tavern.IsNumberGreaterThanZero(foodName) && (foodOrdering.curOrder != null && foodOrdering.curIssue == null && foodOrdering.isOrderTold || queueCreating.IsItAFoodRequiredEvent())) {
+        if (tavern.IsNumberGreaterThanZero(foodName) && (foodOrdering.curIssue == null && foodOrdering.isOrderTold || queueCreating.IsItAFoodRequiredEvent())) {
             if ( SceneManager.GetActiveScene().name == "Training") {
                 string orderFoodName = foodOrdering.curOrder.GetComponent<Food>().foodName;
                 string issueFoodName = tavern.GetFoodObject(foodName).GetComponent<Food>().foodName; 

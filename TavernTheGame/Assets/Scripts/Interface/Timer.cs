@@ -25,7 +25,7 @@ public class Timer : MonoBehaviour
         textTimer = Mathf.Round(bar.fillAmount * cookingTime).ToString();
         //Если таймер кончился, то удаляем его
         if (fillAmount <= 0) {
-            textTimer = cookingTime.ToString();
+            textTimer = gameObject.transform.parent.Find("Icon").GetComponent<Dish>().dishCookingTime.ToString();
             Destroy(gameObject);
         }
     }

@@ -723,7 +723,7 @@ AudioSource:
   m_PlayOnAwake: 1
   m_Volume: 1
   m_Pitch: 1
-  Loop: 0
+  Loop: 1
   Mute: 0
   Spatialize: 0
   SpatializePostEffects: 0
@@ -959,7 +959,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: The end!
+  m_Text: "\u041A\u043E\u043D\u0435\u0446!"
 --- !u!222 &1593799490
 CanvasRenderer:
   m_ObjectHideFlags: 0

@@ -5003,7 +5003,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.05626406, y: 0.88984907}
   m_AnchorMax: {x: 0.102000006, y: 0.96887875}
-  m_AnchoredPosition: {x: 0.12817383, y: -0.00048828125}
+  m_AnchoredPosition: {x: 0.12841797, y: -0.00048828125}
   m_SizeDelta: {x: 0.27, y: -0.00056458}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1007604348
@@ -5330,7 +5330,7 @@ MonoBehaviour:
   - {fileID: 532176508905772173, guid: 1f9e067ecb6198f4ea330dad0ec4da29, type: 3}
   - {fileID: 8807613066196385588, guid: 135e7f7f51e5a0b4883526fc9ceeedff, type: 3}
   - {fileID: 3530387243363237722, guid: ac9d41d134861f846b6441e2719fa8e2, type: 3}
-  - {fileID: 1214601942928797431, guid: 6fb0ef2236824fd48a0f4d0da116cc05, type: 3}
+  - {fileID: 1328689138616405279, guid: 6fb0ef2236824fd48a0f4d0da116cc05, type: 3}
   - {fileID: 3647754014617163100, guid: a6f83eb848da55d458ba06d3f0b7e09f, type: 3}
   kitchenContentElementSample: {fileID: 2777668332133976790, guid: 1ed57a58f48a68646ac09eb67fa801df, type: 3}
   parent: {fileID: 1939250284}
@@ -9067,7 +9067,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.06263818, y: 0.065595634}
   m_AnchorMax: {x: 0.82400006, y: 0.9161496}
-  m_AnchoredPosition: {x: -0.43164062, y: -0.3402481}
+  m_AnchoredPosition: {x: -0.43164062, y: -0.340271}
   m_SizeDelta: {x: -0.87, y: -0.67949}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1533558498
@@ -10317,7 +10317,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0.85998535, y: -0.0018005371}
+  m_AnchoredPosition: {x: 0.85998535, y: -0.0018310547}
   m_SizeDelta: {x: -2.26, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1939250285

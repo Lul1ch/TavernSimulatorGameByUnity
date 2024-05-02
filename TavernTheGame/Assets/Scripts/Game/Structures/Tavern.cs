@@ -55,6 +55,7 @@ public class Tavern : MonoBehaviour
             foodSamples.Add(name, foodObject);
         }
         UpdateStorageInfo(name, parent, foodObject, foodNumber);
+        MoveFoodToTheTop(name, parent);
     }
 
     public void UpdateStorageInfo(string foodName, Transform parent, GameObject foodObject = null, int foodNumber = 1, bool force = false) {
@@ -90,7 +91,6 @@ public class Tavern : MonoBehaviour
                 Debug.Log(curFood + " " + foodStorage.ContainsKey(foodName).ToString());
             }
         }
-        MoveFoodToTheTop(foodName, parent);
     }
 
     public void MoveFoodToTheTop(string foodName, Transform parent) {
