@@ -1,4 +1,6 @@
-﻿
+﻿using UnityEngine;
+using System.Collections.Generic;
+
 namespace YG
 {
     [System.Serializable]
@@ -18,7 +20,10 @@ namespace YG
 
         // Ваши сохранения
 
-        // ...
+        public int tavernMoney = 100;
+        public int tavernBonus = 0;
+        public Dictionary<string, GameObject> foodSamples;
+        public Dictionary<string, bool> isBonusesBought;
 
         // Поля (сохранения) можно удалять и создавать новые. При обновлении игры сохранения ломаться не должны
 

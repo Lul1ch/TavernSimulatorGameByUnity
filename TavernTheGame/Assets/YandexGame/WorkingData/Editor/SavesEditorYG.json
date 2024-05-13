@@ -1,0 +1,15 @@
+{
+    "idSave": 65,
+    "isFirstSession": false,
+    "language": "en",
+    "promptDone": false,
+    "money": 1,
+    "newPlayerName": "Hello!",
+    "openLevels": [
+        false,
+        true,
+        false
+    ],
+    "tavernMoney": 83,
+    "tavernBonus": 0
+}

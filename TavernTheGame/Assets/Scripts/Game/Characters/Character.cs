@@ -90,7 +90,7 @@ public class Character : MonoBehaviour
         //Костыль
         if (foodOrdering.isDoublePayChanceBought && chanceToDoubleThePayment > rand) { Debug.Log("Price is doubled " + priceToPay.ToString()); }
         float payment = Mathf.Round(priceToPay) + tips; 
-        foodOrdering.tavern.tavernMoney += Mathf.Round((int)payment * paymentModifier);
+        foodOrdering.tavern.tavernMoney += (int)Math.Round((int)payment * paymentModifier);
     }
     protected void Say(string messageTextStr, Action onComplete = null) {
         foodOrdering.textWriter.CallMessageWriting(foodOrdering.message, foodOrdering.queueCreating.UpdateAllGenderRelatedWords(messageTextStr), 0.05f, onComplete);

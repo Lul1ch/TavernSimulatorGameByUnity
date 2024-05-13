@@ -9,24 +9,24 @@ public class Tavern : MonoBehaviour
     private Dictionary<string,int> foodStorage = new Dictionary<string,int>();
     private Dictionary<string, GameObject> foodSamples = new Dictionary<string, GameObject>();
     [SerializeField] private Text moneyAmount, bonusNumber;
-
     [SerializeField] private GameObject contentSample;
+    [SerializeField] private ProgressManager progressManager;
     [Header("StorageWindow")]
     [SerializeField] private Transform _productContentParent;
     [SerializeField] private Transform _dishContentParent;
     [SerializeField] private GameObject foodHeader;
     [SerializeField] private GameObject dishHeader;
 
-    private float _tavernMoney = 100f;
+    private int _tavernMoney = 100;
     private int _moneyBonus = 0;
     private int _bonusesValueModifier = 1;
 
-    public float tavernMoney {
-        set { _tavernMoney = value; UpdateCounterInterface();}
+    public int tavernMoney {
+        set { _tavernMoney = value; UpdateCounterInterface(); progressManager.SaveData(); }
         get { return _tavernMoney; }
     }
     public int tavernBonus {
-        set { int oldBonusValue = _moneyBonus; _moneyBonus += (value - oldBonusValue)*_bonusesValueModifier; UpdateCounterInterface();}
+        set { int oldBonusValue = _moneyBonus; _moneyBonus += (value - oldBonusValue)*_bonusesValueModifier; UpdateCounterInterface(); progressManager.SaveData(); }
         get { return _moneyBonus; }
     }
     public int bonusesValueModifier {
@@ -38,6 +38,10 @@ public class Tavern : MonoBehaviour
     }
     public Transform dishContentParent {
         get { return _dishContentParent; }
+    }
+
+    private void Start() {
+        //progressManager.ResetData();
     }
 
     public void UpdateDictionary(string name, Transform parent, GameObject foodObject, int foodNumber = 1) {
