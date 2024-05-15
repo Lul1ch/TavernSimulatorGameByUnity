@@ -1,5 +1,5 @@
 {
-    "idSave": 65,
+    "idSave": 194,
     "isFirstSession": false,
     "language": "en",
     "promptDone": false,
@@ -10,6 +10,12 @@
         true,
         false
     ],
-    "tavernMoney": 83,
-    "tavernBonus": 0
+    "tavernMoney": 217,
+    "tavernBonus": 11,
+    "isBonusesBoughtMas": [
+        true,
+        true,
+        true,
+        true
+    ]
 }

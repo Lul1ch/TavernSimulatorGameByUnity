@@ -15,6 +15,7 @@ public class BonusBuyButton : MonoBehaviour
     private bool isReadyForNextHint = true;
     private bool _isBonusAlreadyBought = false;
     private bool isCreditDecreaseAvailable = true;
+    private bool isProgressLoaded = false;
 
     public bool isBonusAlreadyBought {
         get { return _isBonusAlreadyBought; }
@@ -29,24 +30,30 @@ public class BonusBuyButton : MonoBehaviour
             trainingManager = FindObjectOfType<TrainingManager>().GetComponent<TrainingManager>();
         }
         bonusBuyButton.onClick.AddListener(() => BuySelectedBonus());
-        Debug.Log("Bonus (" + bonus + ")");
-        //if (YandexGame.savesData.isBonusesBought.ContainsKey(bonus.gameObject.name) && YandexGame.savesData.isBonusesBought[bonus.gameObject.name]) {
-        //    BuySelectedBonus();
-        //}
+        EventBus.onBonusesIntialized?.Invoke();
     }
 
     private void BuySelectedBonus() {
+        if (!isProgressLoaded) {
+            Debug.Log("Pogodi");
+            return;
+        }
         if (tavern.tavernBonus >= bonus.price && !isBonusAlreadyBought) {
-            bonus.Buy();
+            BuyBonus();
             tavern.ChangeTavernBonusWithOutModifier(-1*bonus.price);
-            isBonusAlreadyBought = true;
-            YandexGame.savesData.isBonusesBought[bonus.gameObject.name] = true;
+
+            
+            if (YandexGame.SDKEnabled == true) {
+                //YandexGame.savesData.isBonusesBought.Add(bonus.bonusName, true);
+                YandexGame.savesData.isBonusesBoughtMas[bonus.bonusIndex] = true;
+                YandexGame.SaveProgress();
+            }
+
             if ( SceneManager.GetActiveScene().name == "Training" && isCreditDecreaseAvailable) {
                 trainingManager.creditsForNextStep--;
                 isCreditDecreaseAvailable = false;
                 gameObject.SetActive(false);
             }
-            InvokeOnBonusBought();
         } else if (isReadyForNextHint) {
             if (!isBonusAlreadyBought) {
                 int priceDiff = bonus.price - tavern.tavernBonus;
@@ -59,8 +66,10 @@ public class BonusBuyButton : MonoBehaviour
         }
     }
 
-    private void BuyBonus() {
-
+    public void BuyBonus() {
+        bonus.Buy();
+        isBonusAlreadyBought = true;
+        InvokeOnBonusBought();
     }
 
     private void IsReadyForNextHint() {
@@ -70,6 +79,10 @@ public class BonusBuyButton : MonoBehaviour
     private void InvokeOnBonusBought() {
         gameObject.GetComponent<Image>().sprite = boughtSprite;
         gameObject.transform.parent.Find("Name").GetComponent<TMP_Text>().text = "<color=grey>" + gameObject.transform.parent.Find("Name").GetComponent<TMP_Text>().text + "</color>"; 
+    }
+
+    public void InvokeOnProgressLoaded() {
+        isProgressLoaded = true;
     }
 
 }

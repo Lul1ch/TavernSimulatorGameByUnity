@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
+using YG;
 
 public class Tavern : MonoBehaviour
 {
@@ -185,11 +186,18 @@ public class Tavern : MonoBehaviour
     public void ChangeTavernBonusWithOutModifier(int value) {
         _moneyBonus += value;
         UpdateCounterInterface();
+        progressManager.SaveData();
     }
 
     private void ChangeHeaderVisuability(GameObject header, bool activity) {
         if (header != null) {
             header.SetActive(activity);
         }
+    }
+
+    public void LoadSavedData() {
+        _tavernMoney = YandexGame.savesData.tavernMoney;
+        _moneyBonus = YandexGame.savesData.tavernBonus;
+        UpdateCounterInterface();
     }
 }

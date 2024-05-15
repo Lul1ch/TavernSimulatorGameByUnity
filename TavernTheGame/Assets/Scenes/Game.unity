@@ -7845,6 +7845,7 @@ MonoBehaviour:
   kitchen: {fileID: 1019864566}
   trainingManager: {fileID: 0}
   nextButton: {fileID: 920092484}
+  progressManager: {fileID: 1826862833}
 --- !u!114 &1391082697
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -9752,6 +9753,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   tavern: {fileID: 472954085}
+  bonusesComponentsParent: {fileID: 1954436172}
 --- !u!1 &1849583033
 GameObject:
   m_ObjectHideFlags: 0

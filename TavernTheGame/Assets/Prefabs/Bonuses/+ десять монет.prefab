@@ -93,5 +93,6 @@ MonoBehaviour:
     \u0434\u0435\u0441\u044F\u0442\u044C \u043C\u043E\u043D\u0435\u0442"
   _price: 1
   _bonusIndex: 0
+  _bonusName: "+ \u0434\u0435\u0441\u044F\u0442\u044C \u043C\u043E\u043D\u0435\u0442"
   tavern: {fileID: 0}
   bonusMoneyNumber: 10

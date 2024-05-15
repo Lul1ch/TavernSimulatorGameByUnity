@@ -19,11 +19,15 @@ namespace YG
         public bool[] openLevels = new bool[3];
 
         // Ваши сохранения
+        private const int BONUSES_NUMBER = 4; 
+        public int bonus_number {
+            get { return BONUSES_NUMBER; }
+        }
 
         public int tavernMoney = 100;
         public int tavernBonus = 0;
-        public Dictionary<string, GameObject> foodSamples;
-        public Dictionary<string, bool> isBonusesBought;
+        public List<string> testList = new List<string>{ "Azaza" };
+        public bool[] isBonusesBoughtMas = new bool[BONUSES_NUMBER];
 
         // Поля (сохранения) можно удалять и создавать новые. При обновлении игры сохранения ломаться не должны
 

@@ -19,6 +19,7 @@ public class Bonuses : MonoBehaviour
         foreach(var elem in bonusesList) {
             GameObject curElement = Instantiate(bonusesContentElementSample, bonusesContentElementSample.transform.position, bonusesContentElementSample.transform.rotation);
             GameObject bonus = InstantiateBonusIcon(curElement, elem);
+            curElement.name = bonus.GetComponent<Bonus>().bonusName; 
 
             Bonus curBonusScript = bonus.GetComponent<Bonus>();
 

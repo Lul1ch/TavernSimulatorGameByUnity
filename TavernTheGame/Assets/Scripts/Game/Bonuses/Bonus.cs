@@ -6,6 +6,7 @@ public class Bonus : MonoBehaviour
     [SerializeField] private string _description;
     [SerializeField] private int _price;
     [SerializeField] private int _bonusIndex;
+    [SerializeField] private string _bonusName;
 
     public string description {
         set { _description = value; }
@@ -18,6 +19,10 @@ public class Bonus : MonoBehaviour
     public int bonusIndex{
         set { _bonusIndex = value; }
         get { return _bonusIndex; }
+    }
+    public string bonusName {
+        set { bonusName = value; }
+        get { return _bonusName; }
     }
 
     virtual public void Buy() {}

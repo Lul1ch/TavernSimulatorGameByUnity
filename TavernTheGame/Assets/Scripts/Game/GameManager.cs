@@ -1,5 +1,6 @@
 using UnityEngine;
 using UnityEngine.UI;
+using YG;
 
 public class GameManager : MonoBehaviour
 {
@@ -8,6 +9,8 @@ public class GameManager : MonoBehaviour
     [SerializeField] private Kitchen kitchen;
     [SerializeField] private TrainingManager trainingManager;
     [SerializeField] private Button nextButton;
+    [SerializeField] private ProgressManager progressManager;
+    private int bonusCounter = YandexGame.savesData.bonus_number;
 
     private void OnEnable() {
         EventBus.onGuestSpawned += InvokeWhenANewGuestSpawned;
@@ -18,6 +21,7 @@ public class GameManager : MonoBehaviour
         EventBus.onGuestLeft += InvokeonGuestLeft;
         EventBus.onGuestReacted += InvokeOnGuestReacted;
         EventBus.onGameFinished += InvokeOnGameFinished;
+        EventBus.onBonusesIntialized += InvokeOnBonusesIntialized;
     }
 
     private void OnDisable() {
@@ -29,6 +33,7 @@ public class GameManager : MonoBehaviour
         EventBus.onGuestLeft -= InvokeonGuestLeft;
         EventBus.onGuestReacted -= InvokeOnGuestReacted;
         EventBus.onGameFinished -= InvokeOnGameFinished;
+        EventBus.onBonusesIntialized -= InvokeOnBonusesIntialized;
     }
 
     private void InvokeWhenANewGuestSpawned() {
@@ -67,4 +72,10 @@ public class GameManager : MonoBehaviour
         queueCreating.gameIsNotEnd = false;
     }
 
+    private void InvokeOnBonusesIntialized() {
+        bonusCounter--;
+        if (bonusCounter <= 0) {
+            progressManager.isBonusesInitialized = true;
+        }
+    }
 }
