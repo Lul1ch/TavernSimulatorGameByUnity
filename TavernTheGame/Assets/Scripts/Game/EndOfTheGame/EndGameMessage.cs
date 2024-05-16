@@ -37,5 +37,6 @@ public class EndGameMessage : MonoBehaviour
             messageText.text = tempLossMessage;
             sceneBG.sprite = lossBG;
         }
+        ProgressManager.ResetData();
     }
 }

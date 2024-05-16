@@ -3,6 +3,14 @@ using System.Collections.Generic;
 
 namespace YG
 {
+    public class Pair {
+        public string key;
+        public int value;
+        public Pair(string key, int value = 0) {
+            this.key = key;
+            this.value = value;
+        }
+    }
     [System.Serializable]
     public class SavesYG
     {
@@ -26,7 +34,9 @@ namespace YG
 
         public int tavernMoney = 100;
         public int tavernBonus = 0;
-        public List<string> testList = new List<string>{ "Azaza" };
+        public Dictionary<string, int> foodIndexes = new Dictionary<string, int>();
+        public List<string> foodNames = new List<string>();
+        public List<int> foodNumbers = new List<int>();
         public bool[] isBonusesBoughtMas = new bool[BONUSES_NUMBER];
 
         // Поля (сохранения) можно удалять и создавать новые. При обновлении игры сохранения ломаться не должны

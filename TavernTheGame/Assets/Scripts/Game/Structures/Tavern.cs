@@ -12,6 +12,7 @@ public class Tavern : MonoBehaviour
     [SerializeField] private Text moneyAmount, bonusNumber;
     [SerializeField] private GameObject contentSample;
     [SerializeField] private ProgressManager progressManager;
+    [SerializeField] private FoodHolder foodHolder;
     [Header("StorageWindow")]
     [SerializeField] private Transform _productContentParent;
     [SerializeField] private Transform _dishContentParent;
@@ -21,7 +22,14 @@ public class Tavern : MonoBehaviour
     private int _tavernMoney = 100;
     private int _moneyBonus = 0;
     private int _bonusesValueModifier = 1;
+    private bool _isFoodHolderReady = false;
 
+    public Transform productContentParent {
+        get { return _productContentParent; }
+    }
+    public Transform dishContentParent {
+        get { return _dishContentParent; }
+    }
     public int tavernMoney {
         set { _tavernMoney = value; UpdateCounterInterface(); progressManager.SaveData(); }
         get { return _tavernMoney; }
@@ -34,18 +42,16 @@ public class Tavern : MonoBehaviour
         set { _bonusesValueModifier = value; }
         get { return _bonusesValueModifier; }
     }
-    public Transform productContentParent {
-        get { return _productContentParent; }
+    public bool isFoodHolderReady {
+        get { return _isFoodHolderReady; }
+        set { _isFoodHolderReady = value; }
     }
-    public Transform dishContentParent {
-        get { return _dishContentParent; }
-    }
-
     private void Start() {
         //progressManager.ResetData();
+        //progressManager.SaveFood();
     }
 
-    public void UpdateDictionary(string name, Transform parent, GameObject foodObject, int foodNumber = 1) {
+    public void UpdateDictionary(string foodName, Transform parent, GameObject foodObject, int foodNumber = 1, bool isNeedToSaveProgress = true) {
         if (IsFoodStorageEmpty(parent)) {
             if (parent == _dishContentParent) {
                 ChangeHeaderVisuability(dishHeader, true);
@@ -53,14 +59,21 @@ public class Tavern : MonoBehaviour
                 ChangeHeaderVisuability(foodHeader, true);
             }
         }
-        if (foodStorage.ContainsKey(name) == true) {
-            foodStorage[name]++;
+        if (foodStorage.ContainsKey(foodName) == true) {
+            foodStorage[foodName]++;
         } else {
-            foodStorage.Add(name, foodNumber);
-            foodSamples.Add(name, foodObject);
+            foodStorage.Add(foodName, foodNumber);
+            foodSamples.Add(foodName, foodObject);
+            Debug.Log("Added");
         }
-        UpdateStorageInfo(name, parent, foodObject, foodNumber);
-        MoveFoodToTheTop(name, parent);
+        UpdateStorageInfo(foodName, parent, foodObject, foodNumber);
+        MoveFoodToTheTop(foodName, parent);
+        foodNumber = foodStorage[foodName];
+        if (foodNumber != 0) {
+            progressManager.SaveFood(foodName, foodNumber, isNeedToSaveProgress);
+        } else {
+            progressManager.RemoveApsentFood(foodName);
+        }
     }
 
     public void UpdateStorageInfo(string foodName, Transform parent, GameObject foodObject = null, int foodNumber = 1, bool force = false) {
@@ -146,6 +159,7 @@ public class Tavern : MonoBehaviour
     public void ReduceFoodNumber(string foodName, int foodNumber = 1) {
         foodStorage[foodName] -= foodNumber;
         Transform parent = (foodSamples[foodName].TryGetComponent<Product>(out Product temp)) ? productContentParent : dishContentParent;
+        progressManager.SaveFood(foodName, foodStorage[foodName]);
         if (foodStorage[foodName] <= 0) {
             DestroyTavernContentElement(foodName, parent);
         } else {
@@ -199,5 +213,21 @@ public class Tavern : MonoBehaviour
         _tavernMoney = YandexGame.savesData.tavernMoney;
         _moneyBonus = YandexGame.savesData.tavernBonus;
         UpdateCounterInterface();
+        StartCoroutine("LoadSavedFood");
+    }
+
+    private IEnumerator LoadSavedFood() {
+        while (!isFoodHolderReady) {
+            yield return new WaitForSeconds(1f);
+        }
+        for (int i = 0; i < YandexGame.savesData.foodNames.Count; i++) {
+            string foodName = YandexGame.savesData.foodNames[i];
+            int foodNumber = YandexGame.savesData.foodNumbers[i];
+            Debug.Log("(" + foodName + ") (" + foodNumber + ")");
+            GameObject foodSample = foodHolder.GetFoodSample(foodName);
+            Transform parent = (foodSample.TryGetComponent<Product>(out Product temp)) ? productContentParent : dishContentParent;
+            UpdateDictionary(foodName, parent, foodSample, foodNumber, false);
+        }
+        foodHolder.ClearStorages();
     }
 }

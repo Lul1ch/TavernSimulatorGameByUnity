@@ -1,7 +1,7 @@
 {
-    "idSave": 194,
+    "idSave": 347,
     "isFirstSession": false,
-    "language": "en",
+    "language": "ru",
     "promptDone": false,
     "money": 1,
     "newPlayerName": "Hello!",
@@ -10,12 +10,14 @@
         true,
         false
     ],
-    "tavernMoney": 217,
-    "tavernBonus": 11,
+    "tavernMoney": 100,
+    "tavernBonus": 0,
+    "foodNames": [],
+    "foodNumbers": [],
     "isBonusesBoughtMas": [
-        true,
-        true,
-        true,
-        true
+        false,
+        false,
+        false,
+        false
     ]
 }

@@ -10,6 +10,7 @@ public class GameManager : MonoBehaviour
     [SerializeField] private TrainingManager trainingManager;
     [SerializeField] private Button nextButton;
     [SerializeField] private ProgressManager progressManager;
+    [SerializeField] private Tavern tavern;
     private int bonusCounter = YandexGame.savesData.bonus_number;
 
     private void OnEnable() {
@@ -22,6 +23,7 @@ public class GameManager : MonoBehaviour
         EventBus.onGuestReacted += InvokeOnGuestReacted;
         EventBus.onGameFinished += InvokeOnGameFinished;
         EventBus.onBonusesIntialized += InvokeOnBonusesIntialized;
+        EventBus.onFoodHolderReady += InvokeOnFoodHolderReady;
     }
 
     private void OnDisable() {
@@ -34,6 +36,7 @@ public class GameManager : MonoBehaviour
         EventBus.onGuestReacted -= InvokeOnGuestReacted;
         EventBus.onGameFinished -= InvokeOnGameFinished;
         EventBus.onBonusesIntialized -= InvokeOnBonusesIntialized;
+        EventBus.onFoodHolderReady -= InvokeOnFoodHolderReady;
     }
 
     private void InvokeWhenANewGuestSpawned() {
@@ -77,5 +80,9 @@ public class GameManager : MonoBehaviour
         if (bonusCounter <= 0) {
             progressManager.isBonusesInitialized = true;
         }
+    }
+
+    private void InvokeOnFoodHolderReady() {
+        tavern.isFoodHolderReady = true;
     }
 }
