@@ -864,7 +864,6 @@ MonoBehaviour:
   - {fileID: 4580522146714174745, guid: c7b2bf9ee20e79649a1f60999b824b25, type: 3}
   - {fileID: 2375947227772490418, guid: 4f2f4508caecf5a4b920883cfadcfbc7, type: 3}
   - {fileID: 7663888217010165910, guid: 67f971371c703bc4ca6888356d7a879b, type: 3}
-  - {fileID: 1214601942928797431, guid: 6fb0ef2236824fd48a0f4d0da116cc05, type: 3}
   - {fileID: 9094816943121590810, guid: d3d179a55242c044289c2a00b2ad0d17, type: 3}
   parent: {fileID: 673268037}
   shopContentElement: {fileID: 661778315839437868, guid: 9dce99db67b400d4fa9bcaec7e389c97, type: 3}
@@ -2322,6 +2321,11 @@ MonoBehaviour:
   - {fileID: 7663888217010165910, guid: 67f971371c703bc4ca6888356d7a879b, type: 3}
   - {fileID: 7959656565180557776, guid: a20aa6b2d66736f489b65fec4b59654c, type: 3}
   - {fileID: 9094816943121590810, guid: d3d179a55242c044289c2a00b2ad0d17, type: 3}
+  - {fileID: 5572207454818117774, guid: 27222f3c2d6159545b95dd9c7b7d1863, type: 3}
+  - {fileID: 3710435119483003327, guid: d946f6f88c4953a40b28da687cac9e49, type: 3}
+  - {fileID: 4671588902404071097, guid: 3e930b29009c9fb42984ee33732e3bf4, type: 3}
+  - {fileID: 5911070213177444555, guid: 64becb6e09f70324fa163d0d2e2c01ec, type: 3}
+  - {fileID: 3395281967099591015, guid: 91a955f79e0763448aa355a1dce9a675, type: 3}
 --- !u!1 &476217010
 GameObject:
   m_ObjectHideFlags: 0

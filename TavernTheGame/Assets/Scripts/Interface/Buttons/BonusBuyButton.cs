@@ -41,9 +41,8 @@ public class BonusBuyButton : MonoBehaviour
         if (tavern.tavernBonus >= bonus.price && !isBonusAlreadyBought) {
             BuyBonus();
             tavern.ChangeTavernBonusWithOutModifier(-1*bonus.price);
-
-            SavePurchase();
-
+            
+            ProgressManager.SaveBoughtBonus(bonus.bonusName);
             if ( SceneManager.GetActiveScene().name == "Training" && isCreditDecreaseAvailable) {
                 trainingManager.creditsForNextStep--;
                 isCreditDecreaseAvailable = false;
@@ -78,13 +77,6 @@ public class BonusBuyButton : MonoBehaviour
 
     public void InvokeOnProgressLoaded() {
         isProgressLoaded = true;
-    }
-
-    private void SavePurchase() {
-        if (YandexGame.SDKEnabled == true) {
-            YandexGame.savesData.isBonusesBoughtMas[bonus.bonusIndex] = true;
-            YandexGame.SaveProgress();
-        }
     }
 
 }

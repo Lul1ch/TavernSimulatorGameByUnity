@@ -1,5 +1,5 @@
 {
-    "idSave": 347,
+    "idSave": 1126,
     "isFirstSession": false,
     "language": "ru",
     "promptDone": false,
@@ -12,12 +12,7 @@
     ],
     "tavernMoney": 100,
     "tavernBonus": 0,
-    "foodNames": [],
-    "foodNumbers": [],
-    "isBonusesBoughtMas": [
-        false,
-        false,
-        false,
-        false
-    ]
+    "foodList": [],
+    "jsonDictionary": "{}",
+    "jsonBonuses": "{}"
 }

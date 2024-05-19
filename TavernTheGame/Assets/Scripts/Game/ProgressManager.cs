@@ -1,14 +1,16 @@
 using UnityEngine;
 using System.Collections;
+using System.Collections.Generic;
 using YG;
+using Newtonsoft.Json;
 
 public class ProgressManager : MonoBehaviour
 {
     [SerializeField] private Tavern tavern;
     [SerializeField] private Transform bonusesComponentsParent;
     
-    private bool _isBonusesInitialized = false;
     private bool isProgressLoaded = false;
+    private bool _isBonusesInitialized = false;
     public bool isBonusesInitialized {
         get { return _isBonusesInitialized; }
         set { _isBonusesInitialized = value; }
@@ -26,9 +28,11 @@ public class ProgressManager : MonoBehaviour
         if (isProgressLoaded) {
             return;
         }
+        Debug.Log("jsonDictionary = " +  YandexGame.savesData.jsonDictionary);
+        Debug.Log("jsonBonuses = " +  YandexGame.savesData.jsonBonuses);
+        YandexGame.savesData.foodMap = JsonConvert.DeserializeObject<Dictionary<string, int>>(YandexGame.savesData.jsonDictionary);
         tavern.LoadSavedData();
         StartCoroutine("LoadBoughtBonuses");
-        FillFoodIndexes();
         isProgressLoaded = true;
     }
     public void SaveData() {
@@ -43,50 +47,51 @@ public class ProgressManager : MonoBehaviour
         YandexGame.SaveProgress();
     }
 
+    public static void SaveBoughtBonus(string bonusName) {
+        if (YandexGame.SDKEnabled == false) {
+            return;
+        }
+        if (!YandexGame.savesData.boughtBonusesMap.ContainsKey(bonusName)) {
+            YandexGame.savesData.boughtBonusesMap.Add(bonusName, true);
+        }
+        YandexGame.savesData.jsonBonuses = JsonConvert.SerializeObject(YandexGame.savesData.boughtBonusesMap);
+        YandexGame.SaveProgress();
+    }
+
     private IEnumerator LoadBoughtBonuses() {
         while (!isBonusesInitialized) {
             yield return new WaitForSeconds(1f);
         }
+        YandexGame.savesData.boughtBonusesMap = JsonConvert.DeserializeObject<Dictionary<string, bool>>(YandexGame.savesData.jsonBonuses);
         foreach(Transform elem in bonusesComponentsParent) {
-            int indexOfBonus = elem.Find("Icon").gameObject.GetComponent<Bonus>().bonusIndex;
+            string bonusName = elem.Find("Icon").gameObject.GetComponent<Bonus>().bonusName;
             BonusBuyButton button = elem.Find("BonusBuy").gameObject.GetComponent<BonusBuyButton>();
-            if (indexOfBonus < YandexGame.savesData.bonus_number && YandexGame.savesData.isBonusesBoughtMas[indexOfBonus]) { //Костыль
+            if (YandexGame.savesData.boughtBonusesMap.ContainsKey(bonusName) && YandexGame.savesData.boughtBonusesMap[bonusName]) {
                 button.BuyBonus();
             }
             button.InvokeOnProgressLoaded();
         }
     }
 
-    public void SaveFood(string foodName, int foodNumber, bool isNeedToSave = true) {
-        if (!isNeedToSave) {
-            return;
-        }
-        int foodIndex = YandexGame.savesData.foodNames.Count;
-        if (YandexGame.savesData.foodIndexes.ContainsKey(foodName)) {
-            foodIndex = YandexGame.savesData.foodIndexes[foodName];
-            YandexGame.savesData.foodNumbers[foodIndex] = foodNumber;
-        } else {
-            YandexGame.savesData.foodNames.Add(foodName);
-            YandexGame.savesData.foodNumbers.Add(foodNumber);
-            YandexGame.savesData.foodIndexes.Add(foodName, foodIndex);
-        }
+    public void SaveFoodData() {
+        YandexGame.savesData.jsonDictionary = JsonConvert.SerializeObject(YandexGame.savesData.foodMap);
         YandexGame.SaveProgress();
     }
-
-    public void FillFoodIndexes() {
-        for(int i = 0; i < YandexGame.savesData.foodNames.Count; i++) {
-            string foodName = YandexGame.savesData.foodNames[i];
-            YandexGame.savesData.foodIndexes.Add(foodName, i);
+    public void AddFood(string foodName, int foodNumber = 1) {
+        if (YandexGame.savesData.foodMap.ContainsKey(foodName)) {
+            YandexGame.savesData.foodMap[foodName] = foodNumber;
+        } else {
+            YandexGame.savesData.foodMap.Add(foodName, foodNumber);
         }
+        SaveFoodData();
     }
 
-    public void RemoveApsentFood(string foodName) {
-        if (!YandexGame.savesData.foodIndexes.ContainsKey(foodName)) {
-            return;
+    public void RemoveFood(string foodName, int foodNumber) {
+        if (foodNumber > 0) {
+            YandexGame.savesData.foodMap[foodName] = foodNumber;
+        } else {
+            YandexGame.savesData.foodMap.Remove(foodName);
         }
-        int foodIndex = YandexGame.savesData.foodIndexes[foodName];
-        YandexGame.savesData.foodNames.RemoveAt(foodIndex);
-        YandexGame.savesData.foodNumbers.RemoveAt(foodIndex);
-        YandexGame.savesData.foodIndexes.Remove(foodName);
+        SaveFoodData();
     }
 }
