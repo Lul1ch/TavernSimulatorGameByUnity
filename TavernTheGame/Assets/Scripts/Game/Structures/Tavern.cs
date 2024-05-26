@@ -30,11 +30,18 @@ public class Tavern : MonoBehaviour
         get { return _dishContentParent; }
     }
     public int tavernMoney {
-        set { _tavernMoney = value; UpdateCounterInterface(); progressManager.SaveData(); }
+        set { _tavernMoney = value; 
+              UpdateCounterInterface(); 
+              if(progressManager != null) { progressManager.SaveData(); }
+            }
         get { return _tavernMoney; }
     }
     public int tavernBonus {
-        set { int oldBonusValue = _moneyBonus; _moneyBonus += (value - oldBonusValue)*_bonusesValueModifier; UpdateCounterInterface(); progressManager.SaveData(); }
+        set { int oldBonusValue = _moneyBonus; 
+              _moneyBonus += (value - oldBonusValue)*_bonusesValueModifier; 
+              UpdateCounterInterface(); 
+              if(progressManager != null) { progressManager.SaveData(); } 
+            }
         get { return _moneyBonus; }
     }
     public int bonusesValueModifier {
@@ -59,7 +66,7 @@ public class Tavern : MonoBehaviour
         UpdateStorageInfo(foodName, parent, foodObject, foodNumber);
         MoveFoodToTheTop(foodName, parent);
         foodNumber = foodStorage[foodName];
-        if (isNeedToSaveProgress && foodNumber > 0) {
+        if (isNeedToSaveProgress && foodNumber > 0 ) {
             progressManager.AddFood(foodName, foodNumber);
         }
     }

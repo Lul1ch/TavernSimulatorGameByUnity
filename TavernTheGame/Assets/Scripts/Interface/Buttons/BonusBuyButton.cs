@@ -34,7 +34,7 @@ public class BonusBuyButton : MonoBehaviour
     }
 
     private void BuySelectedBonus() {
-        if (!isProgressLoaded) {
+        if (!isProgressLoaded && SceneManager.GetActiveScene().name != "Training") {
             Debug.Log("Pogodi");
             return;
         }

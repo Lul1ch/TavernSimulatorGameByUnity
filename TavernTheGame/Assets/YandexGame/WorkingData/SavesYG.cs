@@ -34,6 +34,7 @@ namespace YG
 
         public int tavernMoney = 100;
         public int tavernBonus = 0;
+        public bool isSomeProgressSaved = false;
         public List<string> foodList = new List<string>();
         public Dictionary<string, int> foodMap = new Dictionary<string, int>();
         public Dictionary<string, bool> boughtBonusesMap = new Dictionary<string, bool>();

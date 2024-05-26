@@ -1,6 +1,7 @@
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
+using YG;
 
 public class CanvasButtons : MonoBehaviour
 {
@@ -42,7 +43,21 @@ public class CanvasButtons : MonoBehaviour
         windowRT.offsetMin = new Vector2(0f, yCoord);
         windowRT.offsetMax = new Vector2(0f, yCoord);
     }
+    public void ShowWindowIfSomeProgressSaved(GameObject window) {
+        if (YandexGame.SDKEnabled != true) {
+            return;
+        }
 
+        if (YandexGame.savesData.isSomeProgressSaved) {
+            window.SetActive(true);
+        } else {
+            StartTheGame();
+        }
+    }
+    public void ResetDataAndStartTheGame() {
+        ProgressManager.ResetData();
+        SceneManager.LoadScene("Game");
+    }
     public void StartTheGame() {
         SceneManager.LoadScene("Game");
     }

@@ -3,13 +3,14 @@ using System.Collections;
 using System.Collections.Generic;
 using YG;
 using Newtonsoft.Json;
+using UnityEngine.SceneManagement;
 
 public class ProgressManager : MonoBehaviour
 {
     [SerializeField] private Tavern tavern;
     [SerializeField] private Transform bonusesComponentsParent;
     
-    private bool isProgressLoaded = false;
+    private static bool isTrainingScene = false;
     private bool _isBonusesInitialized = false;
     public bool isBonusesInitialized {
         get { return _isBonusesInitialized; }
@@ -19,13 +20,18 @@ public class ProgressManager : MonoBehaviour
     private void OnDisable() => YandexGame.GetDataEvent -= LoadData;
 
     private void Start() {
+        if ( SceneManager.GetActiveScene().name == "Training" ) {
+            isTrainingScene = true;
+        } else {
+            isTrainingScene = false;
+        }
         if (YandexGame.SDKEnabled == true) {
 		    LoadData();
         }
     }
 
     public void LoadData() {
-        if (isProgressLoaded) {
+        if (isTrainingScene || SceneManager.GetActiveScene().name == "Training") {
             return;
         }
         Debug.Log("jsonDictionary = " +  YandexGame.savesData.jsonDictionary);
@@ -33,13 +39,14 @@ public class ProgressManager : MonoBehaviour
         YandexGame.savesData.foodMap = JsonConvert.DeserializeObject<Dictionary<string, int>>(YandexGame.savesData.jsonDictionary);
         tavern.LoadSavedData();
         StartCoroutine("LoadBoughtBonuses");
-        isProgressLoaded = true;
     }
     public void SaveData() {
+        if ( isTrainingScene ) {
+            return;
+        }
         YandexGame.savesData.tavernMoney = tavern.tavernMoney;
         YandexGame.savesData.tavernBonus = tavern.tavernBonus;
-
-        YandexGame.SaveProgress();
+        SaveProgressToYG();
     }
 
     public static void ResetData() {
@@ -48,14 +55,14 @@ public class ProgressManager : MonoBehaviour
     }
 
     public static void SaveBoughtBonus(string bonusName) {
-        if (YandexGame.SDKEnabled == false) {
+        if (YandexGame.SDKEnabled == false || isTrainingScene) {
             return;
         }
         if (!YandexGame.savesData.boughtBonusesMap.ContainsKey(bonusName)) {
             YandexGame.savesData.boughtBonusesMap.Add(bonusName, true);
         }
         YandexGame.savesData.jsonBonuses = JsonConvert.SerializeObject(YandexGame.savesData.boughtBonusesMap);
-        YandexGame.SaveProgress();
+        SaveProgressToYG();
     }
 
     private IEnumerator LoadBoughtBonuses() {
@@ -75,9 +82,13 @@ public class ProgressManager : MonoBehaviour
 
     public void SaveFoodData() {
         YandexGame.savesData.jsonDictionary = JsonConvert.SerializeObject(YandexGame.savesData.foodMap);
-        YandexGame.SaveProgress();
+        SaveProgressToYG();
     }
     public void AddFood(string foodName, int foodNumber = 1) {
+        if ( isTrainingScene ) {
+            return;
+        }
+
         if (YandexGame.savesData.foodMap.ContainsKey(foodName)) {
             YandexGame.savesData.foodMap[foodName] = foodNumber;
         } else {
@@ -87,11 +98,20 @@ public class ProgressManager : MonoBehaviour
     }
 
     public void RemoveFood(string foodName, int foodNumber) {
+        if ( isTrainingScene ) {
+            return;
+        }
+
         if (foodNumber > 0) {
             YandexGame.savesData.foodMap[foodName] = foodNumber;
         } else {
             YandexGame.savesData.foodMap.Remove(foodName);
         }
         SaveFoodData();
+    }
+
+    private static void SaveProgressToYG() {
+        YandexGame.savesData.isSomeProgressSaved = true;
+        YandexGame.SaveProgress();
     }
 }
