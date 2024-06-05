@@ -1,5 +1,6 @@
 using UnityEngine;
 using UnityEngine.UI;
+using System.Collections;
 using UnityEngine.SceneManagement;
 using YG;
 
@@ -51,15 +52,24 @@ public class CanvasButtons : MonoBehaviour
         if (YandexGame.savesData.isSomeProgressSaved) {
             window.SetActive(true);
         } else {
-            StartTheGame();
+            StartCoroutine("StartTheGameCoroutine");
+            //StartTheGame();
         }
     }
     public void ResetDataAndStartTheGame() {
         ProgressManager.ResetData();
-        SceneManager.LoadScene("Game");
+        StartCoroutine("StartTheGameCoroutine");
+        //SceneManager.LoadScene("Game");
     }
     public void StartTheGame() {
         SceneManager.LoadScene("Game");
+    }
+    public IEnumerator StartTheGameCoroutine() {
+        AsyncOperation sceneLoading;
+        sceneLoading = SceneManager.LoadSceneAsync("Game");
+        while(!sceneLoading.isDone) {
+            yield return new WaitForSeconds(0.05f);
+        }
     }
     public void LoadTrainingScene() {
         SceneManager.LoadScene("Training");

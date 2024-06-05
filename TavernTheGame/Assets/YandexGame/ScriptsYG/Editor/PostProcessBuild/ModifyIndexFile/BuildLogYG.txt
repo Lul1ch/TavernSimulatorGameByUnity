@@ -1,2 +1,2 @@
-Build path: C:/Users/Ilya/OneDrive/Рабочий стол/ВШЭ/4 курс/Диплом/Build/YandexGames2
-Build number: 7
+Build path: C:/Users/Ilya/OneDrive/Рабочий стол/ВШЭ/4 курс/Диплом/Build/WebGL
+Build number: 10

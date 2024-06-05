@@ -962,7 +962,7 @@ GameObject:
   - component: {fileID: 1098978421}
   - component: {fileID: 1098978420}
   m_Layer: 5
-  m_Name: MainMenuWindow
+  m_Name: LoadProgressWndow
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
